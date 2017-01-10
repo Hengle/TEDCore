@@ -41,7 +41,7 @@ namespace TEDCore.StateManagement
 		#endregion
 
 
-		#region IUpdatable
+		#region IUpdate
 		public virtual void Update (float deltaTime)
 		{
 			TaskManager.Update(deltaTime);

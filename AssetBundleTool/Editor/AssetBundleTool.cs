@@ -106,6 +106,8 @@ public class AssetBundleTool
 
     private static void BuildAssetBundles (bool forceRebuild = false)
     {
+		AssetBundleDataTool.GenerateAssetBundleData ();
+
         if (!SetupAssetBundleNames())
         {
             Debug.Log("Don't have AssetBundleResources folder.");

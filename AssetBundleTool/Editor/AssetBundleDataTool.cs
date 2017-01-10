@@ -7,33 +7,27 @@ public class AssetBundleDataTool
 {
 	private static string GENERATE_SCRIPT_PATH = Application.dataPath + "/AssetBundleTool/GenerateScripts/";
 	private static string ASSET_BUNDLE_RESOURCE_FOLDER = Application.dataPath + "/AssetBundleResources/";
-	private static string TEMPLATE_PATH = "Assets/AssetBundleTool/Editor/Template_AssetBundleData.txt";
+	private static string TEMPLATE_PATH = "Assets/TEDCore/AssetBundleTool/Editor/Template_AssetBundleData.txt";
 
 	public static void GenerateAssetBundleData()
 	{
 		DirectoryInfo directoryInfo = new DirectoryInfo (ASSET_BUNDLE_RESOURCE_FOLDER);
-		if (!directoryInfo.Exists)
-		{
-			return;
-		}
-
-		List<string> folderList = new List<string> ();
-		GetAllFolders (folderList, directoryInfo);
-
 		string assetBundleFolders = "";
 
-		if (folderList.Count > 0)
+		if (directoryInfo.Exists)
 		{
-			assetBundleFolders = string.Format ("\"{0}/\"", folderList [0]);
+			List<string> folderList = new List<string> ();
+			GetAllFolders (folderList, directoryInfo);
 
-			for (int cnt = 1; cnt < folderList.Count; cnt++)
+			if (folderList.Count > 0)
 			{
-				assetBundleFolders += string.Format (",\n\t\t\"{0}/\"", folderList [cnt]);
+				assetBundleFolders = string.Format ("\"{0}/\"", folderList [0]);
+
+				for (int cnt = 1; cnt < folderList.Count; cnt++)
+				{
+					assetBundleFolders += string.Format (",\n\t\t\"{0}/\"", folderList [cnt]);
+				}
 			}
-		}
-		else
-		{
-			assetBundleFolders = "\"\"";
 		}
 
 		string template = GetTemplate (TEMPLATE_PATH);

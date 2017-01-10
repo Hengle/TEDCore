@@ -112,7 +112,7 @@ namespace TEDCore.StateManagement
 			return null;
 		}
 
-		#region IUpdatable
+		#region IUpdate
 		public void Update (float deltaTime)
 		{
 			for(int cnt = 0; cnt < m_tasks.Count; cnt++)
