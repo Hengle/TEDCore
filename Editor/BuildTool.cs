@@ -71,7 +71,19 @@ public class BuildTool : ScriptableObject
 	
     private static string GetBuildPathAndroid()
 	{
-        return string.Format(_buildPath + "/{0}_{1}.apk", PlayerSettings.productName, DateTime.Now.ToString("yyyyMMddhhmm"));
+        string version = "";
+
+        string[] split = new string[]{"."};
+        string[] bundleIdentifier = PlayerSettings.bundleVersion.Split(split, StringSplitOptions.RemoveEmptyEntries);
+
+        for (int cnt = 0; cnt < bundleIdentifier.Length; cnt++)
+        {
+            version += bundleIdentifier [cnt] + ".";
+        }
+
+        version += PlayerSettings.Android.bundleVersionCode;
+
+        return string.Format(_buildPath + "/{0}_v{1}_{2}.apk", PlayerSettings.productName, version, DateTime.Now.ToString("yyyyMMddhhmm"));
 	}
 
 
