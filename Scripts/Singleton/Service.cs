@@ -31,7 +31,7 @@ namespace TEDCore
 		
         public static T Set<T>(T singleton) where T : class
 		{			
-            if(Instance._services.ContainsKey(typeof(T)))
+			if(Has<T>())
 			{
 				Debugger.LogException(new Exception(string.Format("[Services] - Services of {0} is already exist!", typeof(T).Name)));
                 return (T)Instance._services[typeof(T)];
@@ -45,7 +45,7 @@ namespace TEDCore
 		
 		public static T Get<T>() where T : class
 		{			
-			if(Exists<T>())
+			if(Has<T>())
 			{
                 return (T)Instance._services[typeof(T)];
 			}
@@ -56,7 +56,7 @@ namespace TEDCore
 		}
 		
 		
-		public static bool Exists<T>() where T : class
+		public static bool Has<T>() where T : class
 		{
             return Instance._services.ContainsKey(typeof(T));
 		}

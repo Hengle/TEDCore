@@ -21,13 +21,13 @@ namespace TEDCore.Pool
 
 			for(int cnt = 0; cnt < initialSize; cnt++)
 			{
-				temp = Services.Get<ResourceManager>().CheckOutAndInstantiate(m_path, true);
+				temp = MonoBehaviourManager.Get<ResourceManager>().CheckOutAndInstantiate(m_path, true);
 				ResetObject(temp);
 
 				m_pool.Enqueue(temp);
 			}
 
-			Services.Get<ResourceManager>().CheckIn(m_path);
+			MonoBehaviourManager.Get<ResourceManager>().CheckIn(m_path);
 		}
 
 
@@ -42,8 +42,8 @@ namespace TEDCore.Pool
 			}
 			else
 			{
-				temp = Services.Get<ResourceManager>().CheckOutAndInstantiate(m_path, true);
-				Services.Get<ResourceManager>().CheckIn(m_path);
+				temp = MonoBehaviourManager.Get<ResourceManager>().CheckOutAndInstantiate(m_path, true);
+				MonoBehaviourManager.Get<ResourceManager>().CheckIn(m_path);
 			}
 
 			return temp;

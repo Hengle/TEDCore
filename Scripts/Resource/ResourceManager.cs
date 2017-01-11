@@ -5,7 +5,7 @@ using TEDCore.Utils;
 
 namespace TEDCore.Resource
 {
-	public class ResourceManager
+	public class ResourceManager : MonoBehaviour
 	{
 		private class Resource
 		{
@@ -16,7 +16,7 @@ namespace TEDCore.Resource
 		
 		private Dictionary<string, Resource> m_resources;
 		
-		public ResourceManager()
+		private void Awake()
 		{
 			m_resources = new Dictionary<string, Resource>();
 		}
@@ -130,7 +130,7 @@ namespace TEDCore.Resource
 			foreach(string key in itemsToRemove)
 			{
 				m_resources.Remove(key);
-				Services.Get<AssetBundleManager>().UnloadAssetBundle(key);
+				MonoBehaviourManager.Get<AssetBundleManager>().UnloadAssetBundle(key);
 			}
 			
 			Resources.UnloadUnusedAssets();
@@ -152,7 +152,7 @@ namespace TEDCore.Resource
 		{
 			if(AssetBundleData.IsAssetBundle(name))
 			{
-				yield return Engine.Instance.StartCoroutine(LoadAssetBundleAsync(name));
+				yield return StartCoroutine(LoadAssetBundleAsync(name));
 			}
 
 			if(m_resources.ContainsKey(name))
@@ -184,10 +184,10 @@ namespace TEDCore.Resource
 		{
 			if(AssetBundleData.IsAssetBundle(name))
 			{
-				yield return Engine.Instance.StartCoroutine(LoadAssetBundleAsync(name, callback));
+				yield return StartCoroutine(LoadAssetBundleAsync(name, callback));
 			}
 
-			yield return Engine.Instance.StartCoroutine(LoadResourceAsync(name));
+			yield return StartCoroutine(LoadResourceAsync(name));
 
 			Resource res = null;
 			
@@ -208,12 +208,12 @@ namespace TEDCore.Resource
 		{
 			if(AssetBundleData.IsAssetBundle(name))
 			{
-				yield return Engine.Instance.StartCoroutine(CheckOutAssetBundleAsync<T>(name, callback, forceLoad));
+				yield return StartCoroutine(CheckOutAssetBundleAsync<T>(name, callback, forceLoad));
 			}
 
 			if(forceLoad)
 			{
-				yield return Engine.Instance.StartCoroutine(LoadResourceAsync(name));
+				yield return StartCoroutine(LoadResourceAsync(name));
 			}
 
 			Resource res = null;
@@ -244,10 +244,10 @@ namespace TEDCore.Resource
 			Debugger.LogWarning(string.Format("Start to load asset \"{0}\" at frame {1}", assetName, Time.frameCount));
 			
 			// Load asset from assetBundle.
-			AssetBundleLoadAssetOperation request = Services.Get<AssetBundleManager>().LoadAssetAsync(assetPath.ToLower() + ".assetbundle", assetName, typeof(Object) );
+			AssetBundleLoadAssetOperation request = MonoBehaviourManager.Get<AssetBundleManager>().LoadAssetAsync(assetPath.ToLower() + ".assetbundle", assetName, typeof(Object) );
 			if (request == null)
 				yield break;
-			yield return Engine.Instance.StartCoroutine(request);
+			yield return StartCoroutine(request);
 			
 			// Get the asset.
 			Object asset = request.GetAsset<Object> ();
@@ -268,7 +268,7 @@ namespace TEDCore.Resource
 		
 		public IEnumerator LoadAssetBundleAsync(string assetPath, System.Action<string> callback)
 		{
-			yield return Engine.Instance.StartCoroutine(LoadAssetBundleAsync(assetPath));
+			yield return StartCoroutine(LoadAssetBundleAsync(assetPath));
 			
 			Resource res = null;
 			
@@ -289,7 +289,7 @@ namespace TEDCore.Resource
 		{
 			if(forceLoad)
 			{
-				yield return Engine.Instance.StartCoroutine(LoadAssetBundleAsync(assetPath));
+				yield return StartCoroutine(LoadAssetBundleAsync(assetPath));
 			}
 			
 			Resource res = null;

@@ -33,7 +33,7 @@ public class LoadedAssetBundle
 }
 
 // Class takes care of loading assetBundle and its dependencies automatically, loading variants automatically.
-public class AssetBundleManager
+public class AssetBundleManager : MonoBehaviour
 {
 	const string kAssetBundlesPath = "/AssetBundles/";
 
@@ -68,9 +68,9 @@ public class AssetBundleManager
 	}
 
 
-	public AssetBundleManager()
+	private void Awake()
 	{
-		Engine.Instance.StartCoroutine (PreInitialize());
+		StartCoroutine (PreInitialize());
 	}
 
 
@@ -90,7 +90,7 @@ public class AssetBundleManager
 		// Initialize AssetBundleManifest which loads the AssetBundleManifest object.
 		var request = Initialize(platformFolderForAssetBundles);
 		if (request != null)
-			yield return Engine.Instance.StartCoroutine(request);
+			yield return StartCoroutine(request);
 	}
 
 
@@ -346,7 +346,7 @@ public class AssetBundleManager
 //		Debug.Log (assetBundleName + " referenced count = " + bundle.m_ReferencedCount);
 	}
 
-	public void Update(float deltaTime)
+	private void Update()
 	{
 		// Collect all the finished WWWs.
 		var keysToRemove = new List<string>();

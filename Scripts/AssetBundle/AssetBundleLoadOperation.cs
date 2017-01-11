@@ -62,7 +62,7 @@ public class AssetBundleLoadLevelOperation : AssetBundleLoadOperation
 		if (m_Request != null)
 			return false;
 		
-		LoadedAssetBundle bundle = Services.Get<AssetBundleManager>().GetLoadedAssetBundle (m_AssetBundleName, out m_DownloadingError);
+		LoadedAssetBundle bundle = MonoBehaviourManager.Get<AssetBundleManager>().GetLoadedAssetBundle (m_AssetBundleName, out m_DownloadingError);
 		if (bundle != null)
 		{
 			if (m_IsAdditive)
@@ -148,7 +148,7 @@ public class AssetBundleLoadAssetOperationFull : AssetBundleLoadAssetOperation
 		if (m_Request != null)
 			return false;
 
-		LoadedAssetBundle bundle = Services.Get<AssetBundleManager>().GetLoadedAssetBundle (m_AssetBundleName, out m_DownloadingError);
+		LoadedAssetBundle bundle = MonoBehaviourManager.Get<AssetBundleManager>().GetLoadedAssetBundle (m_AssetBundleName, out m_DownloadingError);
 		if (bundle != null)
 		{
 			m_Request = bundle.m_AssetBundle.LoadAssetAsync (m_AssetName, m_Type);
@@ -187,7 +187,7 @@ public class AssetBundleLoadManifestOperation : AssetBundleLoadAssetOperationFul
 		
 		if (m_Request != null && m_Request.isDone)
 		{
-			Services.Get<AssetBundleManager>().AssetBundleManifestObject = GetAsset<AssetBundleManifest>();
+			MonoBehaviourManager.Get<AssetBundleManager>().AssetBundleManifestObject = GetAsset<AssetBundleManifest>();
 			return false;
 		}
 		else
