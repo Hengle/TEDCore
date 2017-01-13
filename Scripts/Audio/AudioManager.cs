@@ -25,13 +25,13 @@ namespace TEDCore.Audio
 		
 		public void PreloadSfx(string sfxName)
 		{
-			MonoBehaviourManager.Get<ResourceManager>().CheckOut<AudioClip>(sfxName, true);
+			GameSystemManager.Get<ResourceManager>().CheckOut<AudioClip>(sfxName, true);
 		}
 
 
 		public void UnloadSfx(string sfxName)
 		{
-			MonoBehaviourManager.Get<ResourceManager>().CheckIn(sfxName);
+			GameSystemManager.Get<ResourceManager>().CheckIn(sfxName);
 		}
 		
 		
@@ -49,7 +49,7 @@ namespace TEDCore.Audio
 			audioGO.name = sfxName;
 			
 			AudioSource audioSource = audioGO.AddComponent<AudioSource>();
-			audioSource.clip = MonoBehaviourManager.Get<ResourceManager>().CheckOut<AudioClip>(sfxName);
+			audioSource.clip = GameSystemManager.Get<ResourceManager>().CheckOut<AudioClip>(sfxName);
 			audioSource.Play();
 			GameObject.Destroy(audioGO, audioSource.clip.length);
 			
@@ -69,8 +69,8 @@ namespace TEDCore.Audio
 			_BGM.name = string.Format("BGM_{0}", musicName);
 			AudioSource source = _BGM.AddComponent<AudioSource>();
 			
-			source.clip = MonoBehaviourManager.Get<ResourceManager>().CheckOut<AudioClip>(musicName, true);
-			MonoBehaviourManager.Get<ResourceManager> ().CheckIn (musicName);
+			source.clip = GameSystemManager.Get<ResourceManager>().CheckOut<AudioClip>(musicName, true);
+			GameSystemManager.Get<ResourceManager> ().CheckIn (musicName);
 			source.volume = volume;
 			source.loop = true;
 			source.Play();
@@ -85,7 +85,7 @@ namespace TEDCore.Audio
 			}
 			
 			_BGM.GetComponent<AudioSource>().Stop();
-			MonoBehaviourManager.Get<ResourceManager>().CheckInAndDestroy(_BGM);
+			GameSystemManager.Get<ResourceManager>().CheckInAndDestroy(_BGM);
 		}
 	}
 }

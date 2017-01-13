@@ -130,7 +130,7 @@ namespace TEDCore.Resource
 			foreach(string key in itemsToRemove)
 			{
 				m_resources.Remove(key);
-				MonoBehaviourManager.Get<AssetBundleManager>().UnloadAssetBundle(key);
+				GameSystemManager.Get<AssetBundleManager>().UnloadAssetBundle(key);
 			}
 			
 			Resources.UnloadUnusedAssets();
@@ -244,7 +244,7 @@ namespace TEDCore.Resource
 			Debugger.LogWarning(string.Format("Start to load asset \"{0}\" at frame {1}", assetName, Time.frameCount));
 			
 			// Load asset from assetBundle.
-			AssetBundleLoadAssetOperation request = MonoBehaviourManager.Get<AssetBundleManager>().LoadAssetAsync(assetPath.ToLower() + ".assetbundle", assetName, typeof(Object) );
+			AssetBundleLoadAssetOperation request = GameSystemManager.Get<AssetBundleManager>().LoadAssetAsync(assetPath.ToLower() + ".assetbundle", assetName, typeof(Object) );
 			if (request == null)
 				yield break;
 			yield return StartCoroutine(request);

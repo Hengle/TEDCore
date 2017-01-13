@@ -60,7 +60,7 @@ namespace TEDCore.Input
 
 		public void SendEvent()
 		{
-			Services.Get<EventManager>().SendEvent(InputManager.MOUSE_INPUT, new InputData(Status, PressPosition, ReleasePosition, HeldTime));
+			GameSystemManager.Get<EventManager>().SendEvent(InputManager.MOUSE_INPUT, new InputData(Status, PressPosition, ReleasePosition, HeldTime));
 
 			if(Status == InputStatus.Pressed)
 			{
@@ -72,12 +72,12 @@ namespace TEDCore.Input
 				m_pressed = false;
 				if(ReleasePosition.x - m_pressPosition.x > Screen.width * 0.1f)
 				{
-					Services.Get<EventManager>().SendEvent(InputManager.SWAP_LEFT);
+					GameSystemManager.Get<EventManager>().SendEvent(InputManager.SWAP_LEFT);
 				}
 				
 				if(ReleasePosition.x - m_pressPosition.x < Screen.width * -0.1f)
 				{
-					Services.Get<EventManager>().SendEvent(InputManager.SWAP_RIGHT);
+					GameSystemManager.Get<EventManager>().SendEvent(InputManager.SWAP_RIGHT);
 				}
 				
 				m_pressPosition = Vector2.zero;

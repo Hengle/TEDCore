@@ -49,7 +49,7 @@ namespace TEDCore.Event
 
 			m_eventListeners[eventName] = teld;
 
-			Services.Get<EventManager>().RegisterListener(eventName, this, priority);
+			GameSystemManager.Get<EventManager>().RegisterListener(eventName, this, priority);
 		}
 
 
@@ -59,7 +59,7 @@ namespace TEDCore.Event
 			{
 				m_eventListeners.Remove(eventName);
 
-				Services.Get<EventManager>().UnregisterListener(eventName, this);
+				GameSystemManager.Get<EventManager>().UnregisterListener(eventName, this);
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace TEDCore.Event
 		{
 			foreach(string eventName in m_eventListeners.Keys)
 			{
-				Services.Get<EventManager>().UnregisterListener(eventName, this);
+				GameSystemManager.Get<EventManager>().UnregisterListener(eventName, this);
 			}
 
 			m_eventListeners.Clear();

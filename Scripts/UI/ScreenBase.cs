@@ -53,8 +53,8 @@ namespace TEDCore.UI
 
 		private bool LoadScreenObject(string name, string parentName)
 		{
-			m_root = MonoBehaviourManager.Get<ResourceManager>().CheckOutAndInstantiate(name, true);
-			MonoBehaviourManager.Get<ResourceManager>().CheckIn(name);
+			m_root = GameSystemManager.Get<ResourceManager>().CheckOutAndInstantiate(name, true);
+			GameSystemManager.Get<ResourceManager>().CheckIn(name);
 
 			GameObject uiRoot = GameObject.Find(parentName);
 			GameObjectUtils.AddChild(uiRoot, m_root);
@@ -94,7 +94,7 @@ namespace TEDCore.UI
 			if (m_destroyCallback != null)
 				m_destroyCallback ();
 
-			MonoBehaviourManager.Get<ResourceManager>().CheckInAndDestroy(m_root);
+			GameSystemManager.Get<ResourceManager>().CheckInAndDestroy(m_root);
 			m_root = null;
 		}
 		#endregion

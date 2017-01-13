@@ -32,7 +32,7 @@ namespace TEDCore.StateManagement
 		{
 			foreach(string eventName in m_eventListeners.Keys)
 			{
-				Services.Get<EventManager>().UnregisterListener(eventName, this);
+				GameSystemManager.Get<EventManager>().UnregisterListener(eventName, this);
 			}
 
 			m_eventListeners.Clear();
@@ -71,7 +71,7 @@ namespace TEDCore.StateManagement
 		{
 			m_eventListeners[eventName] = callback;
 
-			Services.Get<EventManager>().RegisterListener(eventName, this, priority);
+			GameSystemManager.Get<EventManager>().RegisterListener(eventName, this, priority);
 		}
 	}
 }
