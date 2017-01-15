@@ -18,7 +18,7 @@ namespace TEDCore.Pool
 		{
 			if(m_pools.ContainsKey(poolName))
 			{
-				Debugger.LogWarning(string.Format("[PoolManager] - Pool \"{0}\" already exists.", poolName));
+				Debug.LogWarning(string.Format("[PoolManager] - Pool \"{0}\" already exists.", poolName));
 				return;
 			}
 
@@ -34,7 +34,7 @@ namespace TEDCore.Pool
 			}
 			else
 			{
-				Debugger.LogWarning(string.Format("[PoolManager] - Pool \"{0}\" doesn't exist. Register a new \"{1}\" pool with initial size 1.", poolName, poolName));
+				Debug.LogWarning(string.Format("[PoolManager] - Pool \"{0}\" doesn't exist. Register a new \"{1}\" pool with initial size 1.", poolName, poolName));
 				RegisterPool(poolName, 1);
 				return m_pools[poolName];
 			}

@@ -37,7 +37,7 @@ namespace TEDCore.Resource
 			
 			if(res.Res == null)
 			{
-				Debugger.LogError("[ResourceManager] - Failed to find resource '" + name + "'");
+				Debug.LogError("[ResourceManager] - Failed to find resource '" + name + "'");
 			}
 			
 			m_resources[name] = res;
@@ -173,7 +173,7 @@ namespace TEDCore.Resource
 			
 			if(res.Res == null)
 			{
-				Debugger.LogError("[ResourceManager] - Failed to find resource '" + name + "'");
+				Debug.LogError("[ResourceManager] - Failed to find resource '" + name + "'");
 			}
 
 			m_resources[name] = res;
@@ -241,7 +241,7 @@ namespace TEDCore.Resource
 			}
 
 			string assetName = assetPath.Split ('/') [assetPath.Split ('/').Length - 1];
-			Debugger.LogWarning(string.Format("Start to load asset \"{0}\" at frame {1}", assetName, Time.frameCount));
+			Debug.LogWarning(string.Format("Start to load asset \"{0}\" at frame {1}", assetName, Time.frameCount));
 			
 			// Load asset from assetBundle.
 			AssetBundleLoadAssetOperation request = GameSystemManager.Get<AssetBundleManager>().LoadAssetAsync(assetPath.ToLower() + ".assetbundle", assetName, typeof(Object) );
@@ -251,7 +251,7 @@ namespace TEDCore.Resource
 			
 			// Get the asset.
 			Object asset = request.GetAsset<Object> ();
-			Debugger.LogWarning(string.Format("{0} to load asset \"{1}\" at frame {2}", asset == null ? "Failed" : "Succeeded", assetName, Time.frameCount));
+			Debug.LogWarning(string.Format("{0} to load asset \"{1}\" at frame {2}", asset == null ? "Failed" : "Succeeded", assetName, Time.frameCount));
 			
 			Resource res = new Resource();
 			res.Res = (object)asset;
@@ -259,7 +259,7 @@ namespace TEDCore.Resource
 			
 			if(res.Res == null)
 			{
-				Debugger.LogError("[ResourceManager] - Failed to find resource '" + assetName + "'");
+				Debug.LogError("[ResourceManager] - Failed to find resource '" + assetName + "'");
 			}
 			
 			m_resources[assetPath] = res;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TEDCore.Utils;
+using UnityEngine;
 
 namespace TEDCore.Event
 {
@@ -41,7 +42,7 @@ namespace TEDCore.Event
 			{
 				if(lc.Listener == listener)
 				{
-					Debugger.LogException(new Exception("[EventManager] - Listener is already registered for this object."));
+					Debug.LogException(new Exception("[EventManager] - Listener is already registered for this object."));
 					return;
 				}
 			}

@@ -67,7 +67,7 @@ namespace TEDCore.UI
 		{
 			if(m_root == null)
 			{
-				Debugger.LogWarning("[ScreenBase] - Root is NULL.");
+				Debug.LogWarning("[ScreenBase] - Root is NULL.");
 				return;
 			}
 			
@@ -77,7 +77,7 @@ namespace TEDCore.UI
 			}
 			catch(Exception e)
 			{
-				Debugger.LogError(string.Format("[ScreenBase] - Root name:{0}. Child name:{1}. ExceptionMsg:{2}.", root.name, name, e.Message));
+				Debug.LogError(string.Format("[ScreenBase] - Root name:{0}. Child name:{1}. ExceptionMsg:{2}.", root.name, name, e.Message));
 			}
 		}
 
