@@ -28,6 +28,7 @@ namespace TEDCore
         public GameSystemManager()
         {
             _root = new GameObject ("[GameSystemManager]");
+			_root.hideFlags = HideFlags.HideInHierarchy;
 			GameObject.DontDestroyOnLoad (_root);
 
             _monoBehaviours = new Dictionary<Type, MonoBehaviour>();
