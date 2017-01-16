@@ -8,9 +8,6 @@ namespace TEDCore.UI
 {
 	public class ScreenBase : IDestroyable
 	{
-		public delegate void DestroyCallback ();
-		private DestroyCallback m_destroyCallback;
-
 		public GameObject Root { get { return m_root; } }
 		public bool Visible
 		{
@@ -82,18 +79,9 @@ namespace TEDCore.UI
 		}
 
 
-		public void SetDestroyCallback(DestroyCallback callback)
-		{
-			m_destroyCallback = callback;
-		}
-
-
 		#region IDestroyable implementation
-		public void Destroy ()
+		public virtual void Destroy ()
 		{
-			if (m_destroyCallback != null)
-				m_destroyCallback ();
-
 			GameSystemManager.Get<ResourceManager>().CheckInAndDestroy(m_root);
 			m_root = null;
 		}
