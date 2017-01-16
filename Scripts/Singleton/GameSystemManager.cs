@@ -28,6 +28,8 @@ namespace TEDCore
         public GameSystemManager()
         {
             _root = new GameObject ("[GameSystemManager]");
+			GameObject.DontDestroyOnLoad (_root);
+
             _monoBehaviours = new Dictionary<Type, MonoBehaviour>();
 			_objects = new Dictionary<Type, System.Object>();
         }
