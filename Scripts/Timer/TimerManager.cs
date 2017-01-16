@@ -46,7 +46,7 @@ namespace TEDCore.Timer
 				for (int cnt = 0; cnt < _timers.Count; cnt++)
 				{
 					_timerCache = _timers [cnt];
-					_timerCache.Update ();
+					_timerCache.Update (_lastRealTime);
 
 					if(_timerCache.HaveFinished)
 					{
