@@ -193,7 +193,7 @@ public class AssetBundleTool
         FileInfo[] fileInfos = directoryInfo.GetFiles();
         for(int cnt = 0; cnt < fileInfos.Length; cnt++)
         {
-            if(AssetBundleData.IsLegalExtension(fileInfos[cnt].Extension))
+			if(AssetBundleExtension.IsLegal(fileInfos[cnt].Extension))
             {
                 string assetbundleName = directoryInfo.FullName;
 

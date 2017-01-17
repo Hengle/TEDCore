@@ -150,7 +150,7 @@ namespace TEDCore.Resource
 		#region Async
 		public IEnumerator LoadResourceAsync(string name)
 		{
-			if(AssetBundleData.IsAssetBundle(name))
+			if(GameSystemManager.Get<AssetBundleManager>().IsAssetBundle(name))
 			{
 				yield return StartCoroutine(LoadAssetBundleAsync(name));
 			}
@@ -182,7 +182,7 @@ namespace TEDCore.Resource
 
 		public IEnumerator LoadResourceAsync(string name, System.Action<string> callback)
 		{
-			if(AssetBundleData.IsAssetBundle(name))
+			if(GameSystemManager.Get<AssetBundleManager>().IsAssetBundle(name))
 			{
 				yield return StartCoroutine(LoadAssetBundleAsync(name, callback));
 			}
@@ -206,7 +206,7 @@ namespace TEDCore.Resource
 
 		public IEnumerator CheckOutAsync<T>(string name, System.Action<T> callback, bool forceLoad = false) where T : class
 		{
-			if(AssetBundleData.IsAssetBundle(name))
+			if(GameSystemManager.Get<AssetBundleManager>().IsAssetBundle(name))
 			{
 				yield return StartCoroutine(CheckOutAssetBundleAsync<T>(name, callback, forceLoad));
 			}

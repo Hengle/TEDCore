@@ -46,6 +46,8 @@ public class AssetBundleManager : MonoBehaviour
 	private Dictionary<string, string> m_DownloadingErrors = new Dictionary<string, string> ();
 	private List<AssetBundleLoadOperation> m_InProgressOperations = new List<AssetBundleLoadOperation> ();
 	private Dictionary<string, string[]> m_Dependencies = new Dictionary<string, string[]> ();
+	private string[] _assetBundleData;
+	private bool _haveLoadedAssetBundleData = false;
 
 	// The base downloading url which is used to generate the full downloading url with the assetBundle names.
 	public string BaseDownloadingURL
@@ -415,5 +417,40 @@ public class AssetBundleManager : MonoBehaviour
 		m_InProgressOperations.Add (operation);
 
 		return operation;
+	}
+
+	public bool IsAssetBundle(string path)
+	{
+		#if ASSET_BUNDLE
+		if (null == _assetBundleData)
+		{
+			if(_haveLoadedAssetBundleData)
+			{
+				return false;
+			}
+
+			_haveLoadedAssetBundleData = true;
+
+			TextAsset textAsset = Resources.Load<TextAsset> ("AssetBundleData");
+
+			if (null == textAsset)
+			{
+				return false;
+			}
+
+			_assetBundleData = textAsset.text.Split (new char[]{ '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+			Resources.UnloadAsset (textAsset);
+		}
+
+		for (int cnt = 0; cnt < _assetBundleData.Length; cnt++)
+		{
+			if (path == _assetBundleData [cnt])
+			{
+				return true;
+			}
+		}
+		#endif
+
+		return false;
 	}
 } // End of AssetBundleManager.
