@@ -30,9 +30,7 @@ public class AssetBundleDataTool
 			}
 		}
 
-		GenerateResources (ASSET_BUNDLE_DATA, assetBundleFolders);
-
-		AssetDatabase.Refresh ();
+		FileHandler.GenerateTxt(GENERATE_SCRIPT_PATH, ASSET_BUNDLE_DATA, assetBundleFolders);
 	}
 
 
@@ -55,25 +53,5 @@ public class AssetBundleDataTool
 				GetAllAssetBundlePath (allFiles, directoryInfos[cnt]);
 			}
 		}
-	}
-
-
-	private static void GenerateResources(string fileName, string content)
-	{
-		fileName = GENERATE_SCRIPT_PATH + fileName + ".txt";
-
-		if (!Directory.Exists (GENERATE_SCRIPT_PATH))
-		{
-			Directory.CreateDirectory (GENERATE_SCRIPT_PATH);
-		}
-
-		if (File.Exists(fileName))
-		{
-			File.Delete(fileName);
-		}
-
-		StreamWriter sr = File.CreateText(fileName);
-		sr.WriteLine (content);
-		sr.Close();
 	}
 }
