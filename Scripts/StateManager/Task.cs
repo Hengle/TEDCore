@@ -2,7 +2,7 @@
 
 namespace TEDCore.StateManagement
 {
-    public abstract class Task : TaskEventListener, IUpdate
+    public abstract class Task : EventListener, IUpdate
 	{
 		public TaskManager TaskManager;
 		public StateManager StateManager { get { return TaskManager.StateManager; } }

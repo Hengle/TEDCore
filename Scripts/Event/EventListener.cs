@@ -2,19 +2,19 @@
 
 namespace TEDCore.Event
 {
-	public class TaskEventListener : IEventListener, IDestroyable
+	public class EventListener : IEventListener, IDestroyable
 	{
 		public delegate EventResult EventCallback(string eventName, object eventData);
 
 
-		protected class TaskEventListenerData
+		protected class EventListenerData
 		{
 			public EventCallback Callback;
 			public bool CallWhenInactive;
 		}
 
 
-		protected Dictionary<string, TaskEventListenerData> m_eventListeners;
+		protected Dictionary<string, EventListenerData> m_eventListeners;
 
 
 		private bool m_active;
@@ -35,19 +35,19 @@ namespace TEDCore.Event
 		}
 
 
-		public TaskEventListener()
+		public EventListener()
 		{
-			m_eventListeners = new Dictionary<string, TaskEventListenerData>();
+			m_eventListeners = new Dictionary<string, EventListenerData>();
 		}
 
 
 		public void ListenForEvent(string eventName, EventCallback callback, bool callWhenInactive = false, int priority = 0)
 		{
-			TaskEventListenerData teld = new TaskEventListenerData();
-			teld.Callback = callback;
-			teld.CallWhenInactive = callWhenInactive;
+			EventListenerData eventListenerData = new EventListenerData();
+			eventListenerData.Callback = callback;
+			eventListenerData.CallWhenInactive = callWhenInactive;
 
-			m_eventListeners[eventName] = teld;
+			m_eventListeners[eventName] = eventListenerData;
 
 			GameSystemManager.Get<EventManager>().RegisterListener(eventName, this, priority);
 		}
@@ -69,16 +69,16 @@ namespace TEDCore.Event
 		{
 			if(m_eventListeners.ContainsKey(eventName))
 			{
-				TaskEventListenerData teld = m_eventListeners[eventName];
+				EventListenerData eventListenerData = m_eventListeners[eventName];
 				
-				if(!Active && !teld.CallWhenInactive)
+				if(!Active && !eventListenerData.CallWhenInactive)
 				{
 					return null;
 				}
 				
-				if(teld.Callback != null)
+				if(eventListenerData.Callback != null)
 				{
-					return teld.Callback(eventName, eventData);
+					return eventListenerData.Callback(eventName, eventData);
 				}
 			}
 			

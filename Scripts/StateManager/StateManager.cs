@@ -29,12 +29,6 @@ namespace TEDCore.StateManagement
 		{
 			if(CurrentState != null && !IsPause)
 			{
-				if(!CurrentState.AlreadyInit)
-				{
-					CurrentState.Init();
-					CurrentState.AlreadyInit = true;
-				}
-
 				CurrentState.Update(deltaTime);
 			}
 		}
