@@ -14,14 +14,7 @@ namespace TEDCore.StateManagement
 
 		protected override void OnActiveChanged ()
 		{
-			if(Active)
-			{
-				Resume();
-			}
-			else
-			{
-				Pause();
-			}
+			Show (Active);
 		}
 
 		public bool Visible
@@ -36,8 +29,6 @@ namespace TEDCore.StateManagement
 
 		private bool m_visible;
 
-		public abstract void Pause();
-		public abstract void Resume();
 		public abstract void Show(bool show);
 		public abstract void Update(float deltaTime);
 	}
