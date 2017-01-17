@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace TEDCore.UI
 {
-	public class EventListener : EventTrigger
+	public class UIEventTrigger : EventTrigger
 	{
 		public delegate void VoidDelegate (GameObject go);
 		public delegate void PositionDelegate (GameObject go, Vector2 position);
@@ -16,12 +16,12 @@ namespace TEDCore.UI
 		public VoidDelegate onSelect;
 		public VoidDelegate onUpdateSelect;
 		
-		static public EventListener Get (GameObject go)
+		static public UIEventTrigger Get (GameObject go)
 		{
-			EventListener listener = go.GetComponent<EventListener>();
+			UIEventTrigger listener = go.GetComponent<UIEventTrigger>();
 
 			if (listener == null)
-				listener = go.AddComponent<EventListener>();
+				listener = go.AddComponent<UIEventTrigger>();
 
 			return listener;
 		}

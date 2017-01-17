@@ -33,13 +33,6 @@ namespace TEDCore.UI
 		private GameObject m_root;
 
 
-		public enum ScreenType
-		{
-			uGUI,
-			NGUI
-		}
-
-
 		public bool LoadScreen(string name)
 		{
 			Destroy();
@@ -57,25 +50,6 @@ namespace TEDCore.UI
 			GameObjectUtils.AddChild(uiRoot, m_root);
 
 			return m_root != null;
-		}
-
-
-		public void SetEventListenerOnClick(GameObject root, string name, EventListener.VoidDelegate callback)
-		{
-			if(m_root == null)
-			{
-				Debug.LogWarning("[ScreenBase] - Root is NULL.");
-				return;
-			}
-			
-			try
-			{
-				EventListener.Get(root.FindChild(name)).onClick = callback;
-			}
-			catch(Exception e)
-			{
-				Debug.LogError(string.Format("[ScreenBase] - Root name:{0}. Child name:{1}. ExceptionMsg:{2}.", root.name, name, e.Message));
-			}
 		}
 
 
