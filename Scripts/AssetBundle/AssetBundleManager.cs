@@ -438,7 +438,7 @@ public class AssetBundleManager : MonoBehaviour
 				return false;
 			}
 
-			_assetBundleData = textAsset.text.Split (new char[]{ '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+			_assetBundleData = textAsset.text.Split (new string[]{ ",\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 			Resources.UnloadAsset (textAsset);
 		}
 

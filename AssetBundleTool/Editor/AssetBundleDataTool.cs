@@ -25,7 +25,7 @@ public class AssetBundleDataTool
 
 				for (int cnt = 1; cnt < fileList.Count; cnt++)
 				{
-					assetBundleFolders += string.Format ("\n{0}", fileList [cnt]);
+					assetBundleFolders += string.Format (",\n{0}", fileList [cnt]);
 				}
 			}
 		}
