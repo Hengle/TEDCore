@@ -17,23 +17,15 @@ namespace TEDCore.Timer
 		}
 
 
-		public void AddTimer(Timer timer)
+		public void Add(Timer timer)
 		{
 			_timers.Add (timer);
 		}
 
 
-		public void RemoveTimer(Timer timer)
+		public void Remove(Timer timer)
 		{
 			_timers.Remove (timer);
-		}
-
-
-		public Timer Schedule(float duration, Action<object> onTimerFinished = null, object data = null)
-		{
-			Timer newTimer = new Timer (duration, onTimerFinished, data);
-			AddTimer (newTimer);
-			return newTimer;
 		}
 
 
@@ -50,7 +42,7 @@ namespace TEDCore.Timer
 
 					if(_timerCache.HaveFinished)
 					{
-						RemoveTimer (_timerCache);
+						Remove (_timerCache);
 					}
 				}
 			}
