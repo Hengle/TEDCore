@@ -130,7 +130,9 @@ namespace TEDCore.Resource
 			foreach(string key in itemsToRemove)
 			{
 				m_resources.Remove(key);
+				#if ASSET_BUNDLE
 				GameSystemManager.Get<AssetBundleManager>().UnloadAssetBundle(key);
+				#endif
 			}
 			
 			Resources.UnloadUnusedAssets();
@@ -150,10 +152,12 @@ namespace TEDCore.Resource
 		#region Async
 		public IEnumerator LoadResourceAsync(string name)
 		{
+			#if ASSET_BUNDLE
 			if(GameSystemManager.Get<AssetBundleManager>().IsAssetBundle(name))
 			{
 				yield return StartCoroutine(LoadAssetBundleAsync(name));
 			}
+			#endif
 
 			if(m_resources.ContainsKey(name))
 			{
@@ -182,10 +186,12 @@ namespace TEDCore.Resource
 
 		public IEnumerator LoadResourceAsync(string name, System.Action<string> callback)
 		{
+			#if ASSET_BUNDLE
 			if(GameSystemManager.Get<AssetBundleManager>().IsAssetBundle(name))
 			{
 				yield return StartCoroutine(LoadAssetBundleAsync(name, callback));
 			}
+			#endif
 
 			yield return StartCoroutine(LoadResourceAsync(name));
 
@@ -206,10 +212,12 @@ namespace TEDCore.Resource
 
 		public IEnumerator CheckOutAsync<T>(string name, System.Action<T> callback, bool forceLoad = false) where T : class
 		{
+			#if ASSET_BUNDLE
 			if(GameSystemManager.Get<AssetBundleManager>().IsAssetBundle(name))
 			{
 				yield return StartCoroutine(CheckOutAssetBundleAsync<T>(name, callback, forceLoad));
 			}
+			#endif
 
 			if(forceLoad)
 			{
