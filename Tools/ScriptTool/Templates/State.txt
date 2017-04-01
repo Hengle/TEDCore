@@ -1,0 +1,9 @@
+using TEDCore.StateManagement;
+
+public class $SCRIPTNAME : State
+{
+	public $SCRIPTNAME(StateManager stateManager) : base(stateManager)
+	{
+		
+	}
+}

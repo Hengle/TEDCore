@@ -1,8 +1,8 @@
 using TEDCore.StateManagement;
 
-public class $TaskName : Task
+public class $SCRIPTNAME : Task
 {
-	public $TaskName()
+	public $SCRIPTNAME()
 	{
 		
 	}

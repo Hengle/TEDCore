@@ -4,13 +4,13 @@ using System.IO;
 
 public class StateTool : EditorWindow
 {
-	private static string TEMPLATE_PATH = "Assets/TEDCore/Tools/StateTool/Templates/State.txt";
+	private static string TEMPLATE_PATH = "Assets/TEDCore/Tools/ScriptTool/Templates/State.txt";
 	private static string GENERATE_SCRIPT_PATH = Application.dataPath + "/Scripts/States/";
-	private static string STATE = "State";
+	private static string FILE_CLASS = "State";
 
-	private string _stateName;
+	private string _fileName;
 
-	[MenuItem("TEDTools/State/Generate")]
+	[MenuItem("TEDTools/Scripts/Generate Empty State")]
 	public static void ShowWindow()
 	{
 		EditorWindow.GetWindow(typeof(StateTool));
@@ -19,20 +19,22 @@ public class StateTool : EditorWindow
 	private void OnGUI()
 	{
 		GUILayout.BeginVertical ();
-		_stateName = EditorGUILayout.TextField ("State Name", _stateName);
+		_fileName = EditorGUILayout.TextField ("File Name", _fileName);
 
-		if (!string.IsNullOrEmpty (_stateName))
+		if (!string.IsNullOrEmpty (_fileName))
 		{
-			string fileName = _stateName + STATE;
+			string fileName = _fileName + FILE_CLASS;
+
+			GUILayout.TextField ("Generate script name will be " + _fileName + FILE_CLASS + FileHandler.CS_EXTENSION);
 
 			if (File.Exists (GENERATE_SCRIPT_PATH + fileName + FileHandler.CS_EXTENSION))
 			{
-				GUILayout.TextField (_stateName + STATE + FileHandler.CS_EXTENSION + " have already exist.");
+				GUILayout.TextField (_fileName + FILE_CLASS + FileHandler.CS_EXTENSION + " have already exist.");
 			}
 			else if (GUILayout.Button ("Generate"))
 			{
 				string template = GetTemplate (TEMPLATE_PATH);
-				template = template.Replace ("$StateName", fileName);
+				template = template.Replace ("$SCRIPTNAME", fileName);
 
 				FileHandler.GenerateScript (GENERATE_SCRIPT_PATH, fileName, template);
 			}

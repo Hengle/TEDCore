@@ -4,13 +4,13 @@ using System.IO;
 
 public class TaskTool : EditorWindow
 {
-	private static string TEMPLATE_PATH = "Assets/TEDCore/Tools/TaskTool/Templates/Task.txt";
+	private static string TEMPLATE_PATH = "Assets/TEDCore/Tools/ScriptTool/Templates/Task.txt";
 	private static string GENERATE_SCRIPT_PATH = Application.dataPath + "/Scripts/Tasks/";
-	private static string TASK = "Task";
+	private static string FILE_CLASS = "Task";
 
-	private string _taskName;
+	private string _fileName;
 
-	[MenuItem("TEDTools/Task/Generate")]
+	[MenuItem("TEDTools/Scripts/Generate Empty Task")]
 	public static void ShowWindow()
 	{
 		EditorWindow.GetWindow(typeof(TaskTool));
@@ -19,11 +19,13 @@ public class TaskTool : EditorWindow
 	private void OnGUI()
 	{
 		GUILayout.BeginVertical ();
-		_taskName = EditorGUILayout.TextField ("Task Name", _taskName);
+		_fileName = EditorGUILayout.TextField ("File Name", _fileName);
 
-		if (!string.IsNullOrEmpty (_taskName))
+		if (!string.IsNullOrEmpty (_fileName))
 		{
-			string fileName = _taskName + TASK;
+			string fileName = _fileName + FILE_CLASS;
+
+			GUILayout.TextField ("Generate script name will be " + _fileName + FILE_CLASS + FileHandler.CS_EXTENSION);
 
 			if (File.Exists (GENERATE_SCRIPT_PATH + fileName + FileHandler.CS_EXTENSION))
 			{
@@ -32,7 +34,7 @@ public class TaskTool : EditorWindow
 			else if (GUILayout.Button ("Generate"))
 			{
 				string template = GetTemplate (TEMPLATE_PATH);
-				template = template.Replace ("$TaskName", fileName);
+				template = template.Replace ("$SCRIPTNAME", fileName);
 
 				FileHandler.GenerateScript (GENERATE_SCRIPT_PATH, fileName, template);
 			}
