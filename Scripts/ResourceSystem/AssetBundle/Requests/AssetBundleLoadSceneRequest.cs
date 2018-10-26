@@ -52,7 +52,7 @@ namespace TEDCore.AssetBundle
         {
             if (null == m_request && null != m_downloadingError)
             {
-                Debug.LogError(m_downloadingError);
+                TEDDebug.LogError(m_downloadingError);
                 return true;
             }
 

@@ -15,11 +15,11 @@ namespace TEDCore.AssetBundle
         {
             if (Caching.ClearCache())
             {
-                Debug.Log("Cleaned all caches successfully.");
+                TEDDebug.Log("Cleaned all caches successfully.");
             }
             else
             {
-                Debug.LogWarning("Failed to clean caches.");
+                TEDDebug.LogWarning("Failed to clean caches.");
             }
         }
 

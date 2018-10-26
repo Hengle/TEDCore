@@ -54,7 +54,7 @@ namespace TEDCore.AssetBundle
 
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
-            Debug.Log("Build AssetBundles successfully.");
+            TEDDebug.Log("Build AssetBundles successfully.");
         }
 
 

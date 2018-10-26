@@ -27,7 +27,7 @@ namespace TEDCore.Audio
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                Debug.LogError("[SFXManager] - The asset name is null or empty.");
+                TEDDebug.LogError("[SFXManager] - The asset name is null or empty.");
                 return;
             }
 
@@ -38,7 +38,7 @@ namespace TEDCore.Audio
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                Debug.LogError("[SFXManager] - The asset name is null or empty.");
+                TEDDebug.LogError("[SFXManager] - The asset name is null or empty.");
                 return;
             }
 
@@ -49,7 +49,7 @@ namespace TEDCore.Audio
         {
             if(audioClip == null)
             {
-                Debug.LogError("[SFXManager] - The AudioClip is null.");
+                TEDDebug.LogError("[SFXManager] - The AudioClip is null.");
                 return;
             }
 

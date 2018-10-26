@@ -21,7 +21,7 @@ namespace TEDCore.AssetBundle
                 var assetPaths = AssetDatabase.GetAssetPathsFromAssetBundle(allAssetBundleNames[i]);
                 if (assetPaths.Length == 0)
                 {
-                    Debug.LogErrorFormat("[AssetBundleCatalogBuilder] - The AssetBundle '{0}' is empty. It might be a folder, need to check it again!", allAssetBundleNames[i]);
+                    TEDDebug.LogErrorFormat("[AssetBundleCatalogBuilder] - The AssetBundle '{0}' is empty. It might be a folder, need to check it again!", allAssetBundleNames[i]);
                     continue;
                 }
 
@@ -29,20 +29,20 @@ namespace TEDCore.AssetBundle
 
                 if (!BuildPipeline.GetCRCForAssetBundle(fullPath, out crc))
                 {
-                    Debug.LogErrorFormat("[AssetBundleCatalogBuilder] - Failed to get CRC from {0}", fullPath);
+                    TEDDebug.LogErrorFormat("[AssetBundleCatalogBuilder] - Failed to get CRC from {0}", fullPath);
                     continue;
                 }
 
                 if (!BuildPipeline.GetHashForAssetBundle(fullPath, out hash128))
                 {
-                    Debug.LogErrorFormat("[AssetBundleCatalogBuilder] - Failed to get Hash128 from {0}", fullPath);
+                    TEDDebug.LogErrorFormat("[AssetBundleCatalogBuilder] - Failed to get Hash128 from {0}", fullPath);
                     continue;
                 }
 
                 fileInfo = new FileInfo(fullPath);
                 if (!fileInfo.Exists)
                 {
-                    Debug.LogErrorFormat("[AssetBundleCatalogBuilder] - Failed to get file size from {0}", fullPath);
+                    TEDDebug.LogErrorFormat("[AssetBundleCatalogBuilder] - Failed to get file size from {0}", fullPath);
                     continue;
                 }
 
@@ -64,7 +64,7 @@ namespace TEDCore.AssetBundle
 
             File.WriteAllText(catalogPath, catalogContents);
 
-            Debug.LogFormat("[AssetBundleCatalogBuilder] - Build catalog.txt success in {0}", catalogPath);
+            TEDDebug.LogFormat("[AssetBundleCatalogBuilder] - Build catalog.txt success in {0}", catalogPath);
         }
 
 

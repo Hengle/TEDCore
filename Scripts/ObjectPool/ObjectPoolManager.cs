@@ -34,13 +34,13 @@ namespace TEDCore.ObjectPool
 
             if (string.IsNullOrEmpty(key))
             {
-                Debug.LogError("[ObjectPoolManager] - The key is null or empty, register fail.");
+                TEDDebug.LogError("[ObjectPoolManager] - The key is null or empty, register fail.");
                 return;
             }
 
             if (referenceAsset == null)
             {
-                Debug.LogError("[ObjectPoolManager] - The reference asset is null, register fail.");
+                TEDDebug.LogError("[ObjectPoolManager] - The reference asset is null, register fail.");
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace TEDCore.ObjectPool
 		{
             if(!HasPool(key))
             {
-                Debug.LogErrorFormat(string.Format("[ObjectPoolManager] - ObjectPool \"{0}\" doesn't exist. Please register it first.", key));
+                TEDDebug.LogErrorFormat(string.Format("[ObjectPoolManager] - ObjectPool \"{0}\" doesn't exist. Please register it first.", key));
                 return null;
             }
 
@@ -64,7 +64,7 @@ namespace TEDCore.ObjectPool
         {
             if (!HasPool(key))
             {
-                Debug.LogErrorFormat(string.Format("[ObjectPoolManager] - ObjectPool \"{0}\" doesn't exist. Destroy the GameObject directly", key));
+                TEDDebug.LogErrorFormat(string.Format("[ObjectPoolManager] - ObjectPool \"{0}\" doesn't exist. Destroy the GameObject directly", key));
                 GameObject.Destroy(instance);
             }
 

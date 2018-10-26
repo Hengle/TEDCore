@@ -13,13 +13,13 @@ namespace TEDCore.ObjectPool
         {
             if(string.IsNullOrEmpty(key))
             {
-                Debug.LogError("[ObjectPool] - The key is null or empty.");
+                TEDDebug.LogError("[ObjectPool] - The key is null or empty.");
                 return;
             }
 
             if (referenceAsset == null)
             {
-                Debug.LogError("[ObjectPool] - The reference asset is null.");
+                TEDDebug.LogError("[ObjectPool] - The reference asset is null.");
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace TEDCore.ObjectPool
         {
             if(m_pool.Count >= spawnSize)
             {
-                Debug.Log("[ObjectPool] - The pool size is bigger than the spawn size, don't need to create new object.");
+                TEDDebug.Log("[ObjectPool] - The pool size is bigger than the spawn size, don't need to create new object.");
                 return;
             }
 

@@ -61,7 +61,7 @@ namespace TEDCore.AssetBundle
             string filePath = fileInfo.FullName;
             filePath = filePath.Replace(Application.dataPath.Replace("/", "\\"), "");
             filePath = "Assets" + filePath;
-            Debug.Log(filePath);
+            TEDDebug.Log(filePath);
 
             AssetImporter.GetAtPath(filePath).assetBundleName = assetbundleName;
         }

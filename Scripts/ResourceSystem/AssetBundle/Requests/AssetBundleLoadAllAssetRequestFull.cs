@@ -52,7 +52,7 @@ namespace TEDCore.AssetBundle
         {
             if (null == m_request && null != m_downloadingError)
             {
-                Debug.LogErrorFormat("[AssetBundleLoadAssetRequestFull] - Load AssetBundle '{0}' failed with reason {1}", m_assetBundleName, m_downloadingError);
+                TEDDebug.LogErrorFormat("[AssetBundleLoadAssetRequestFull] - Load AssetBundle '{0}' failed with reason {1}", m_assetBundleName, m_downloadingError);
                 return true;
             }
 

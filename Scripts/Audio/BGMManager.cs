@@ -52,7 +52,7 @@ namespace TEDCore.Audio
         {
             if(string.IsNullOrEmpty(assetName))
             {
-                Debug.LogError("[BGMManager] - The asset name is null or empty.");
+                TEDDebug.LogError("[BGMManager] - The asset name is null or empty.");
                 return;
             }
 
@@ -69,7 +69,7 @@ namespace TEDCore.Audio
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                Debug.LogError("[BGMManager] - The asset name is null or empty.");
+                TEDDebug.LogError("[BGMManager] - The asset name is null or empty.");
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace TEDCore.Audio
         {
             if(audioClip == null)
             {
-                Debug.LogError("[BGMManager] - The AudioClip is null.");
+                TEDDebug.LogError("[BGMManager] - The AudioClip is null.");
                 return;
             }
 

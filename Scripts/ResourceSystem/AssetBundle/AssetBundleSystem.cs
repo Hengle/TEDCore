@@ -111,7 +111,7 @@ namespace TEDCore.AssetBundle
                 }
                 else
                 {
-                    Debug.LogFormat("[AssetBundleSystem] - Start downloading asset bundle '{0}' at frame {1}", waitingDownloadRequest.AssetBundleName, Time.frameCount);
+                    TEDDebug.LogFormat("[AssetBundleSystem] - Start downloading asset bundle '{0}' at frame {1}", waitingDownloadRequest.AssetBundleName, Time.frameCount);
                     request = UnityWebRequestAssetBundle.GetAssetBundle(url, m_assetBundleManifest.GetAssetBundleHash(waitingDownloadRequest.AssetBundleName), 0);
                 }
 
@@ -196,7 +196,7 @@ namespace TEDCore.AssetBundle
         {
             foreach (string key in m_completeDownloadAssetBundles)
             {
-                Debug.LogFormat("[AssetBundleSystem] - Download asset bundle '{0}' successfully at frame {1}", key, Time.frameCount);
+                TEDDebug.LogFormat("[AssetBundleSystem] - Download asset bundle '{0}' successfully at frame {1}", key, Time.frameCount);
 
                 m_cacheRequest = m_downloadingRequests[key];
                 m_cacheRequest.Dispose();
@@ -209,7 +209,7 @@ namespace TEDCore.AssetBundle
 
                 if (m_totalAssetBundleDownloadInfo.Progress == 1)
                 {
-                    Debug.LogFormat("[AssetBundleSystem] - Download AssetBundle complete at frame {0}", Time.frameCount);
+                    TEDDebug.LogFormat("[AssetBundleSystem] - Download AssetBundle complete at frame {0}", Time.frameCount);
                     ResourceSystem.Instance.Clear();
                 }
 
@@ -258,7 +258,7 @@ namespace TEDCore.AssetBundle
             m_onAssetBundleManifestLoaded = initializeData.OnManifestLoaded;
             m_assetBundleLoadType = initializeData.LoadType;
 
-            Debug.LogFormat("[AssetBundleSystem] - Initialize with load type '{0}'", m_assetBundleLoadType);
+            TEDDebug.LogFormat("[AssetBundleSystem] - Initialize with load type '{0}'", m_assetBundleLoadType);
 
             if (m_assetBundleLoadType == AssetBundleLoadType.Streaming)
             {
@@ -285,7 +285,7 @@ namespace TEDCore.AssetBundle
             var platformName = AssetBundleDef.GetPlatformName();
 
             m_downloadingURL = string.Format("{0}/{1}/", relativePath, platformName);
-            Debug.LogFormat("[AssetBundleSystem] - The AssetBundle download url is {0}", m_downloadingURL);
+            TEDDebug.LogFormat("[AssetBundleSystem] - The AssetBundle download url is {0}", m_downloadingURL);
 
             yield return StartCoroutine(InitializeCatalog());
 
@@ -309,7 +309,7 @@ namespace TEDCore.AssetBundle
 
         private IEnumerator<float> InitializeCatalog()
         {
-            Debug.LogFormat("[AssetBundleSystem] - Start download AssetBundleCatalog at frame {0}", Time.frameCount);
+            TEDDebug.LogFormat("[AssetBundleSystem] - Start download AssetBundleCatalog at frame {0}", Time.frameCount);
 
             UnityWebRequest request = UnityWebRequest.Get(m_downloadingURL + AssetBundleDef.CATALOG_FILE_NAME);
             request.SendWebRequest();
@@ -322,12 +322,12 @@ namespace TEDCore.AssetBundle
             if (!string.IsNullOrEmpty(request.error))
             {
                 m_assetBundleCatalogs = null;
-                Debug.LogErrorFormat("[AssetBundleSystem] - Download AssetBundleCatalog failed. Error log \"{0}\"", request.error);
+                TEDDebug.LogErrorFormat("[AssetBundleSystem] - Download AssetBundleCatalog failed. Error log \"{0}\"", request.error);
             }
             else
             {
                 m_assetBundleCatalogs = new AssetBundleCatalogs(request.downloadHandler.text);
-                Debug.LogFormat("[AssetBundleSystem] - Download AssetBundleCatalog complete at frame {0}", Time.frameCount);
+                TEDDebug.LogFormat("[AssetBundleSystem] - Download AssetBundleCatalog complete at frame {0}", Time.frameCount);
             }
 
             request.Dispose();
@@ -338,7 +338,7 @@ namespace TEDCore.AssetBundle
         {
             UnloadAssetBundles(new List<string> { AssetBundleDef.GetPlatformName() });
 
-            Debug.LogFormat("[AssetBundleSystem] - Start download AssetBundleManifest at frame {0}", Time.frameCount);
+            TEDDebug.LogFormat("[AssetBundleSystem] - Start download AssetBundleManifest at frame {0}", Time.frameCount);
 
             DownloadAssetBundle(path, true);
 
@@ -367,17 +367,17 @@ namespace TEDCore.AssetBundle
 
             if (m_assetBundleLoadType == AssetBundleLoadType.Simulate)
             {
-                Debug.LogFormat("[AssetBundleSystem] - The AssetBundle load type is on Simulate, don't need to download.");
+                TEDDebug.LogFormat("[AssetBundleSystem] - The AssetBundle load type is on Simulate, don't need to download.");
                 return;
             }
 
             if (null == m_assetBundleManifest)
             {
-                Debug.LogError("[AssetBundleSystem] - Please download AssetBundleManifest by calling ResourceSystem.InstancenitAssetBundle() first");
+                TEDDebug.LogError("[AssetBundleSystem] - Please download AssetBundleManifest by calling ResourceSystem.InstancenitAssetBundle() first");
                 return;
             }
 
-            Debug.LogFormat("[AssetBundleSystem] - Start download AssetBundle at frame {0}", Time.frameCount);
+            TEDDebug.LogFormat("[AssetBundleSystem] - Start download AssetBundle at frame {0}", Time.frameCount);
 
             var allAssetBundles = m_assetBundleManifest.GetAllAssetBundles();
             var downloadAssetBundleNames = new List<string>();

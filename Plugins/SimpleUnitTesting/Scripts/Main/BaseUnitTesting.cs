@@ -44,7 +44,7 @@ namespace TEDCore.UnitTesting
 
             if(null == method)
             {
-                Debug.LogError("[TestMethod] : no such test method " + testMethodName);
+                TEDDebug.LogError("[TestMethod] : no such test method " + testMethodName);
                 return;
             }
 

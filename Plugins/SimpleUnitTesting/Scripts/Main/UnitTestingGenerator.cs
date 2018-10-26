@@ -48,7 +48,7 @@ namespace TEDCore.UnitTesting
 
             if (null == m_unitTestingObject)
             {
-                Debug.LogError("[UnitTestingGenerator] m_unitTestingObject is null.");
+                TEDDebug.LogError("[UnitTestingGenerator] m_unitTestingObject is null.");
                 yield break;
             }
 
@@ -56,7 +56,7 @@ namespace TEDCore.UnitTesting
             if (null == m_unitTestings ||
                 m_unitTestings.Length < 1)
             {
-                Debug.LogError("[UnitTestingGenerator] No unit testing scripts in \"" + m_unitTestingObject.name + "\"");
+                TEDDebug.LogError("[UnitTestingGenerator] No unit testing scripts in \"" + m_unitTestingObject.name + "\"");
                 yield break;
             }
 

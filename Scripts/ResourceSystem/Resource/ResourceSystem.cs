@@ -134,7 +134,7 @@ namespace TEDCore.Resource
 
             if (!InCache<T>(assetBundleName, assetName))
             {
-                Debug.LogErrorFormat("[ResourceSystem] - Failed to load asset '{0}' from bundle '{1}' async, the asset didn't exist in the project.", assetName, assetBundleName);
+                TEDDebug.LogErrorFormat("[ResourceSystem] - Failed to load asset '{0}' from bundle '{1}' async, the asset didn't exist in the project.", assetName, assetBundleName);
 
                 if (null != callback)
                 {
@@ -235,7 +235,7 @@ namespace TEDCore.Resource
 
             m_loadedResources[GetCacheKey<T>(string.Empty, assetName)] = res;
 
-            Debug.LogFormat("[ResourceSystem] - Loading Asset '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
+            TEDDebug.LogFormat("[ResourceSystem] - Loading Asset '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
         }
 
 
@@ -267,7 +267,7 @@ namespace TEDCore.Resource
 
             m_loadedResources[GetCacheKey<T>(assetBundleName, assetName)] = res;
 
-            Debug.LogFormat("[ResourceSystem] - Loading AssetBundle '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
+            TEDDebug.LogFormat("[ResourceSystem] - Loading AssetBundle '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
         }
         #endregion
 
@@ -291,7 +291,7 @@ namespace TEDCore.Resource
 
             if (!InCache<T>(assetBundleName, assetName))
             {
-                Debug.LogErrorFormat("[ResourceSystem] - Failed to load asset '{0}' from bundle '{1}' async, the asset didn't exist in the project.", assetName, assetBundleName);
+                TEDDebug.LogErrorFormat("[ResourceSystem] - Failed to load asset '{0}' from bundle '{1}' async, the asset didn't exist in the project.", assetName, assetBundleName);
 
                 if (null != callback)
                 {
@@ -377,7 +377,7 @@ namespace TEDCore.Resource
 
             m_loadedResources[GetCacheKey<T>(assetBundleName, assetName)] = res;
 
-            Debug.LogFormat("[ResourceSystem] - Loading AssetBundle '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
+            TEDDebug.LogFormat("[ResourceSystem] - Loading AssetBundle '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
         }
         #endregion
     }
