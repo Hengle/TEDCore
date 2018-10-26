@@ -25,5 +25,14 @@ namespace TEDCore
 				m_stateManager.Update (Time.deltaTime);
 			}
 		}
-	}
+
+
+        public virtual void FixedUpdate()
+        {
+            if (null != m_stateManager.CurrentState)
+            {
+                m_stateManager.FixedUpdate(Time.fixedDeltaTime);
+            }
+        }
+    }
 }

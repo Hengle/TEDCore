@@ -1,7 +1,7 @@
 ﻿
 namespace TEDCore.StateManagement
 {
-    public class StateManager : IUpdate
+    public class StateManager : IUpdate, IFixedUpdate
 	{
 		public bool IsPause { get; set; }
 		public State CurrentState { get; private set; }
@@ -32,5 +32,14 @@ namespace TEDCore.StateManagement
 				CurrentState.Update(deltaTime);
 			}
 		}
-	}
+
+
+        public void FixedUpdate(float fixedDeltaTime)
+        {
+            if (CurrentState != null && !IsPause)
+            {
+                CurrentState.FixedUpdate(fixedDeltaTime);
+            }
+        }
+    }
 }

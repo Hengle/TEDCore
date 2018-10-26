@@ -2,7 +2,7 @@
 
 namespace TEDCore.StateManagement
 {
-    public class TaskManager : IUpdate, IDestroyable
+    public class TaskManager : IUpdate, IFixedUpdate, IDestroyable
 	{
 		public StateManager StateManager { get; private set; }
 		public long CurrentState { get; private set; }
@@ -98,10 +98,25 @@ namespace TEDCore.StateManagement
 				}
 			}
 		}
-		#endregion
+        #endregion
 
-		#region IDestroyable
-		public void Destroy ()
+
+        #region IFixedUpdate
+        public void FixedUpdate(float fixedDeltaTime)
+        {
+            for (int cnt = 0; cnt < m_tasks.Count; cnt++)
+            {
+                if (m_tasks[cnt].Task.Active)
+                {
+                    m_tasks[cnt].Task.FixedUpdate(fixedDeltaTime);
+                }
+            }
+        }
+        #endregion
+
+
+        #region IDestroyable
+        public void Destroy ()
 		{
 			for(int cnt = 0; cnt < m_tasks.Count; cnt++)
 			{

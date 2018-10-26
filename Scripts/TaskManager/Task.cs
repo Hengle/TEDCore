@@ -2,7 +2,7 @@
 
 namespace TEDCore.StateManagement
 {
-    public abstract class Task : EventListener, IUpdate
+    public abstract class Task : EventListener, IUpdate, IFixedUpdate
 	{
 		public TaskManager TaskManager;
 		public StateManager StateManager { get { return TaskManager.StateManager; } }
@@ -21,5 +21,6 @@ namespace TEDCore.StateManagement
 
         public abstract void Show(bool show);
         public abstract void Update(float deltaTime);
-	}
+        public abstract void FixedUpdate(float fixedDeltaTime);
+    }
 }

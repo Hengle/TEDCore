@@ -1,9 +1,8 @@
 ﻿using TEDCore.Event;
-using System.Collections.Generic;
 
 namespace TEDCore.StateManagement
 {
-	public abstract class State : EventListener, IUpdate
+    public abstract class State : EventListener, IUpdate, IFixedUpdate
 	{
 		public StateManager StateManager { get; private set; }
 		public TaskManager TaskManager { get; private set; }
@@ -27,6 +26,14 @@ namespace TEDCore.StateManagement
 		{
 			TaskManager.Update(deltaTime);
 		}
-		#endregion
-	}
+        #endregion
+
+
+        #region IFixedUpdate
+        public virtual void FixedUpdate(float fixedDeltaTime)
+        {
+            TaskManager.FixedUpdate(fixedDeltaTime);
+        }
+        #endregion
+    }
 }
