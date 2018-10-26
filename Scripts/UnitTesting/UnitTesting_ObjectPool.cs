@@ -24,7 +24,7 @@ public class UnitTesting_ObjectPool : BaseUnitTesting
     [TestButton]
     public void GetObject()
     {
-        m_objects.Enqueue(ObjectPoolManager.Instance.GetObject(m_poolKey));
+        m_objects.Enqueue(ObjectPoolManager.Instance.Get(m_poolKey));
     }
 
     [TestButton]
@@ -35,7 +35,7 @@ public class UnitTesting_ObjectPool : BaseUnitTesting
             return;
         }
 
-        ObjectPoolManager.Instance.RecoveryObject(m_poolKey, m_objects.Dequeue());
+        ObjectPoolManager.Instance.Recycle(m_poolKey, m_objects.Dequeue());
     }
 
     [TestButton]

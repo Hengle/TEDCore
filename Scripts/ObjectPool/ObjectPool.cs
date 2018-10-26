@@ -3,71 +3,60 @@ using System.Collections.Generic;
 
 namespace TEDCore.ObjectPool
 {
-    public class ObjectPool : IDestroyable
+    public abstract class ObjectPool<T> : IDestroyable where T : Object
     {
-        private GameObject m_root;
-        private GameObject m_reference;
-        private Queue<GameObject> m_pool;
+        protected GameObject m_root;
+        private T m_referenceAsset;
+        protected Queue<T> m_pool;
 
-        public ObjectPool(string key, GameObject reference, int initialSize)
+        public ObjectPool(string key, T referenceAsset, int initialSize)
         {
-            m_root = new GameObject(string.Format("[ObjectPool] - {0}", key));
-            m_root.transform.parent = ObjectPoolManager.Instance.transform;
-            m_reference = reference;
-            m_pool = new Queue<GameObject>();
-
-            GameObject temp;
-
-            for (int i = 0; i < initialSize; i++)
+            if(string.IsNullOrEmpty(key))
             {
-                temp = CreateNewObject();
-                RecoveryObject(temp);
+                Debug.LogError("[ObjectPool] - The key is null or empty.");
+                return;
+            }
+
+            if (referenceAsset == null)
+            {
+                Debug.LogError("[ObjectPool] - The reference asset is null.");
+                return;
+            }
+
+            m_root = new GameObject(string.Format("[ObjectPool ({0})] - {1}", typeof(T).Name, key));
+            m_root.transform.SetParent(ObjectPoolManager.Instance.transform, false);
+            m_referenceAsset = referenceAsset;
+            m_pool = new Queue<T>();
+
+            Spawn(initialSize);
+        }
+
+        protected void Spawn(int spawnSize)
+        {
+            if(m_pool.Count >= spawnSize)
+            {
+                Debug.Log("[ObjectPool] - The pool size is bigger than the spawn size, don't need to create new object.");
+                return;
+            }
+
+            for (int i = 0; i < spawnSize; i++)
+            {
+                Create();
             }
         }
 
-        private GameObject CreateNewObject()
+        private void Create()
         {
-            return GameObject.Instantiate(m_reference);
+            Recycle(Object.Instantiate(m_referenceAsset));
         }
 
 
-        public GameObject GetObject()
-		{
-			GameObject temp;
-
-			if(m_pool.Count > 0)
-			{
-				temp = m_pool.Dequeue();
-				temp.SetActive(true);
-			}
-			else
-			{
-                temp = CreateNewObject();
-			}
-
-            temp.transform.parent = null;
-
-			return temp;
-		}
-
-
-        public void RecoveryObject(GameObject recovery)
-		{
-			ResetObject(recovery);
-			m_pool.Enqueue(recovery);
-		}
-
-
-		private void ResetObject(GameObject resetObject)
-		{
-			resetObject.transform.parent = m_root.transform;
-			resetObject.transform.localPosition = Vector3.zero;
-			resetObject.SetActive(false);
-		}
+        public abstract T Get();
+        public abstract void Recycle(T recovery);
 
         public void Destroy()
         {
-            GameObject.Destroy(m_root);
+            Object.Destroy(m_root);
         }
     }
 }

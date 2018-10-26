@@ -5,38 +5,50 @@ namespace TEDCore.ObjectPool
 {
     public class ObjectPoolManager : Singleton<ObjectPoolManager>
 	{
-        private Dictionary<string, ObjectPool> m_objectPools;
+        public int DEFAULT_SPAWN_SIZE = 5;
+        private Dictionary<string, GameObjectPool> m_gameObjectPools;
 
         private void Awake()
 		{
-			m_objectPools = new Dictionary<string, ObjectPool>();
+			m_gameObjectPools = new Dictionary<string, GameObjectPool>();
 		}
 
 
         public void Clear()
         {
-            foreach (KeyValuePair<string, ObjectPool> kvp in m_objectPools)
+            foreach (KeyValuePair<string, GameObjectPool> kvp in m_gameObjectPools)
             {
                 kvp.Value.Destroy();
             }
 
-            m_objectPools = new Dictionary<string, ObjectPool>();
+            m_gameObjectPools.Clear();
         }
 
 
-        public void RegisterPool(string key, GameObject reference, int initialSize)
+        public void RegisterPool(string key, GameObject referenceAsset, int initialSize)
 		{
-			if(m_objectPools.ContainsKey(key))
+			if(m_gameObjectPools.ContainsKey(key))
 			{
-				Debug.LogWarning(string.Format("[ObjectPoolManager] - ObjectPool \"{0}\" already exists.", key));
 				return;
 			}
 
-			m_objectPools[key] = new ObjectPool(key, reference, initialSize);
+            if (string.IsNullOrEmpty(key))
+            {
+                Debug.LogError("[ObjectPoolManager] - The key is null or empty, register fail.");
+                return;
+            }
+
+            if (referenceAsset == null)
+            {
+                Debug.LogError("[ObjectPoolManager] - The reference asset is null, register fail.");
+                return;
+            }
+
+            m_gameObjectPools[key] = new GameObjectPool(key, referenceAsset, initialSize);
 		}
 
 
-        public GameObject GetObject(string key)
+        public GameObject Get(string key)
 		{
             if(!HasPool(key))
             {
@@ -44,11 +56,11 @@ namespace TEDCore.ObjectPool
                 return null;
             }
 
-            return m_objectPools[key].GetObject();
+            return m_gameObjectPools[key].Get();
         }
 
 
-        public void RecoveryObject(string key, GameObject instance)
+        public void Recycle(string key, GameObject instance)
         {
             if (!HasPool(key))
             {
@@ -56,13 +68,13 @@ namespace TEDCore.ObjectPool
                 GameObject.Destroy(instance);
             }
 
-            m_objectPools[key].RecoveryObject(instance);
+            m_gameObjectPools[key].Recycle(instance);
         }
 
 
         private bool HasPool(string key)
 		{
-			return m_objectPools.ContainsKey(key);
+			return m_gameObjectPools.ContainsKey(key);
 		}
 	}
 }
