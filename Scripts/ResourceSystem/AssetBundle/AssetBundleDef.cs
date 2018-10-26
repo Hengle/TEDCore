@@ -1,11 +1,28 @@
 ﻿using UnityEngine;
+using System.IO;
 
 namespace TEDCore.AssetBundle
 {
     public class AssetBundleDef
     {
+        public const string ASSET_BUNDLE_OUTPUT_FOLDER = "AssetBundles";
         public const string CATALOG_FILE_NAME = "catalog.txt";
         private const string ASSETBUNDLE_LOAD_TYPE_KEY = "AssetBundleLoadType";
+
+        public static string GetDefaultOutputPath()
+        {
+            return GetOutputPath(GetPlatformName());
+        }
+
+
+        public static string GetOutputPath(string buildTarget)
+        {
+            var outputPath = Path.Combine(Application.dataPath.Replace("Assets", ""), ASSET_BUNDLE_OUTPUT_FOLDER);
+            outputPath = Path.Combine(outputPath, buildTarget);
+
+            return outputPath;
+        }
+
 
         public static AssetBundleLoadType GetAssetBundleLoadType()
         {

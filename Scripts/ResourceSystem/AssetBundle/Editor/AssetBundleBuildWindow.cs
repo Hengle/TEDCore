@@ -60,7 +60,7 @@ namespace TEDCore.AssetBundle
             EditorGUILayout.LabelField(m_buildTarget.ToString());
             EditorGUILayout.EndHorizontal();
 
-            m_outputPath = AssetBundleBuildTool.GetDefaultOutputPath();
+            m_outputPath = AssetBundleDef.GetDefaultOutputPath();
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Output Path");
             EditorGUILayout.LabelField(m_outputPath);
@@ -75,7 +75,6 @@ namespace TEDCore.AssetBundle
         private bool m_showOutputOptions = true;
         protected bool m_clearFolders;
         protected bool m_copyToStreamingAssets;
-        protected bool m_optimizedInitialPackageSize;
 
         private void OnDrawOutputOptions()
         {
@@ -90,7 +89,6 @@ namespace TEDCore.AssetBundle
 
             m_clearFolders = EditorGUILayout.ToggleLeft("Clear Folders", m_clearFolders);
             m_copyToStreamingAssets = EditorGUILayout.ToggleLeft("Copy to StreamingAssets", m_copyToStreamingAssets);
-            m_optimizedInitialPackageSize = EditorGUILayout.ToggleLeft("Optimized Initial Packega Size", m_optimizedInitialPackageSize);
 
             EditorGUI.indentLevel = indent;
 
@@ -196,11 +194,11 @@ namespace TEDCore.AssetBundle
             var buildInfo = new AssetBundleBuildInfo();
             buildInfo.OutputPath = m_outputPath;
             buildInfo.Target = m_buildTarget;
-            buildInfo.ForceRebuild = m_clearFolders;
+            buildInfo.CleanFolders = m_clearFolders;
             buildInfo.CopyToStreamingAssets = m_copyToStreamingAssets;
             buildInfo.BuildOptions = m_buildAssetBundleOptions;
 
-            AssetBundleBuildTool.BuildAssetBundles(buildInfo);
+            AssetBundleBuilder.Build(buildInfo);
         }
     }
 }
