@@ -2,7 +2,7 @@
 
 public class $SCRIPTNAME : Task
 {
-	public $SCRIPTNAME()
+	public $SCRIPTNAME() : base()
 	{
 		
 	}
@@ -18,6 +18,12 @@ public class $SCRIPTNAME : Task
 	{
 		
 	}
+    
+    
+    public override void FixedUpdate (float fixedDeltaTime)
+    {
+        
+    }
 
 
 	public override void Destroy()
