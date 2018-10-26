@@ -3,6 +3,6 @@ namespace TEDCore
 {
 	public interface IFixedUpdate
 	{
-		void FixedUpdate(float fixedDeltaTime);
+        void FixedUpdate(float deltaTime);
 	}
 }

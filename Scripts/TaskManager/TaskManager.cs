@@ -3,7 +3,7 @@ using System;
 
 namespace TEDCore.StateManagement
 {
-    public class TaskManager : IUpdate, IFixedUpdate, IDestroyable
+    public class TaskManager : IUpdate, IFixedUpdate, ILateUpdate, IDestroyable
 	{
 		public StateManager StateManager { get; private set; }
 		public long CurrentState { get; private set; }
@@ -92,13 +92,27 @@ namespace TEDCore.StateManagement
 
 
         #region IFixedUpdate
-        public void FixedUpdate(float fixedDeltaTime)
+        public void FixedUpdate(float deltaTime)
         {
             for (int cnt = 0; cnt < m_tasks.Count; cnt++)
             {
                 if (m_tasks[cnt].Task.Active)
                 {
-                    m_tasks[cnt].Task.FixedUpdate(fixedDeltaTime);
+                    m_tasks[cnt].Task.FixedUpdate(deltaTime);
+                }
+            }
+        }
+        #endregion
+
+
+        #region ILateUpdate
+        public void LateUpdate(float deltaTime)
+        {
+            for (int cnt = 0; cnt < m_tasks.Count; cnt++)
+            {
+                if (m_tasks[cnt].Task.Active)
+                {
+                    m_tasks[cnt].Task.LateUpdate(deltaTime);
                 }
             }
         }
