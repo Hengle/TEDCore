@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TEDCore.Timer
 {
-    public class TimerManager : Singleton<TimerManager>
+    public class TimerManager : MonoSingleton<TimerManager>
 	{
         private List<BaseTimer> m_timers;
         private Queue<BaseTimer> m_removingTimers;

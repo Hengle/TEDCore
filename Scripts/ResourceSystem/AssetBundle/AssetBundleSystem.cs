@@ -8,7 +8,7 @@ using TEDCore.Resource;
 
 namespace TEDCore.AssetBundle
 {
-    public class AssetBundleSystem : Singleton<AssetBundleSystem>
+    public class AssetBundleSystem : MonoSingleton<AssetBundleSystem>
     {
         public class LoadedAssetBundle
         {
@@ -69,8 +69,10 @@ namespace TEDCore.AssetBundle
         }
         private Queue<WaitingDownloadRequest> m_waitingDownloadRequests = new Queue<WaitingDownloadRequest>();
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             foreach (var downloadingRequest in m_downloadingRequests)
             {
                 downloadingRequest.Value.Dispose();

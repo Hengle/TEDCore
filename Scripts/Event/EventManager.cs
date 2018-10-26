@@ -33,7 +33,7 @@ namespace TEDCore.Event
         private Dictionary<int, List<ListenerContainer>> m_eventListeners;
         private Dictionary<int, ListenerContainer[]> m_eventListenerArrays;
 
-        private void Awake()
+        public EventManager()
 		{
             m_eventListeners = new Dictionary<int, List<ListenerContainer>>();
             m_eventListenerArrays = new Dictionary<int, ListenerContainer[]>();

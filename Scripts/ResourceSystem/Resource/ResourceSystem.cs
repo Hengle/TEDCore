@@ -6,7 +6,7 @@ using TEDCore.AssetBundle;
 
 namespace TEDCore.Resource
 {
-    public class ResourceSystem : Singleton<ResourceSystem>
+    public class ResourceSystem : MonoSingleton<ResourceSystem>
     {
         public class LoadedResource
         {

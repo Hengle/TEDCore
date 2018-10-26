@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TEDCore.ObjectPool
 {
-    public class ObjectPoolManager : Singleton<ObjectPoolManager>
+    public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
 	{
         public int DEFAULT_SPAWN_SIZE = 5;
         private Dictionary<string, GameObjectPool> m_gameObjectPools;

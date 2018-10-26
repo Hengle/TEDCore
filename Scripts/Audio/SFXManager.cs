@@ -10,7 +10,7 @@ namespace TEDCore.Audio
         private const string OBJECT_POOL_KEY = "SFXManager";
         private float m_volume = 1f;
 
-        private void Awake()
+        public SFXManager()
         {
             GameObject referenceAsset = new GameObject();
             referenceAsset.AddComponent<AudioSource>();

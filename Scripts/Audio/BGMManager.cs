@@ -3,7 +3,7 @@ using TEDCore.Resource;
 
 namespace TEDCore.Audio
 {
-    public class BGMManager : Singleton<BGMManager>
+    public class BGMManager : MonoSingleton<BGMManager>
     {
         private float m_volume = 1f;
         private AudioSource m_audioSource;
