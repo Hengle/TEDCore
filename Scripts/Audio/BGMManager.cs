@@ -7,8 +7,6 @@ namespace TEDCore.Audio
     {
         private float m_volume = 1f;
         private AudioSource m_audioSource;
-        private string m_previousBundleName;
-        private string m_bundleName;
 
         public void SetVolume(float volume)
         {
@@ -50,52 +48,47 @@ namespace TEDCore.Audio
         }
 
 
-        public void PlayBGM(string bgmName)
+        public void Play(string bgmName)
         {
             if (null != m_audioSource && m_audioSource.name.Contains(bgmName))
             {
                 return;
             }
 
-            m_bundleName = string.Empty;
-            ResourceSystem.Instance.LoadAsync<AudioClip>(bgmName, OnBGMLoaded);
+            ResourceSystem.Instance.LoadAsync<AudioClip>(bgmName, OnAssetLoaded);
         }
 
 
-        public void PlayBGM(string bundleName, string bgmName)
+        public void Play(string bundleName, string bgmName)
         {
             if (null != m_audioSource && m_audioSource.name.Contains(bgmName))
             {
                 return;
             }
 
-            m_bundleName = bundleName;
-            ResourceSystem.Instance.LoadAsync<AudioClip>(bundleName, bgmName, OnBGMLoaded);
+            ResourceSystem.Instance.LoadAsync<AudioClip>(bundleName, bgmName, OnAssetLoaded);
         }
 
 
-        private void OnBGMLoaded(AudioClip audioClip)
+        private void OnAssetLoaded(AudioClip audioClip)
         {
             if(audioClip == null)
             {
                 return;
             }
 
-            StopBGM();
-            CreateBGM();
+            Stop();
+            Create();
 
             m_audioSource.name = string.Format("[BGM] - {0}", audioClip.name);
             m_audioSource.clip = audioClip;
-            ResourceSystem.Instance.Unload<AudioClip>(m_bundleName, audioClip.name);
             m_audioSource.volume = m_volume;
             m_audioSource.loop = true;
             m_audioSource.Play();
-
-            m_previousBundleName = m_bundleName;
         }
 
 
-        public void StopBGM()
+        public void Stop()
         {
             if (null == m_audioSource)
             {
@@ -103,11 +96,13 @@ namespace TEDCore.Audio
             }
 
             m_audioSource.Stop();
-            ResourceSystem.Instance.Unload<AudioClip>(m_previousBundleName, m_audioSource.clip.name);
+            m_audioSource.clip = null;
+
+            ResourceSystem.Instance.Release();
         }
 
 
-        private void CreateBGM()
+        private void Create()
         {
             if(m_audioSource != null)
             {

@@ -6,13 +6,13 @@ public class UnitTesting_BGM : BaseUnitTesting
     [TestInputField]
     public void OnPlayResourceBGM(string value)
     {
-        BGMManager.Instance.PlayBGM(value);
+        BGMManager.Instance.Play(value);
     }
 
     [TestInputField]
     public void OnPlayAssetBundleBGM(string value)
     {
-        BGMManager.Instance.PlayBGM("main", value);
+        BGMManager.Instance.Play("main", value);
     }
 
     [TestInputField]
@@ -30,12 +30,6 @@ public class UnitTesting_BGM : BaseUnitTesting
     [TestButton]
     public void StopBGM()
     {
-        BGMManager.Instance.StopBGM();
-    }
-
-    [TestButton]
-    public void TestStopBGMManager()
-    {
-        BGMManager.Instance.StopBGM();
+        BGMManager.Instance.Stop();
     }
 }

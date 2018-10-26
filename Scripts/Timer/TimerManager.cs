@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace TEDCore.Timer
 {
-    public class TimerManager : MonoBehaviour
+    public class TimerManager : Singleton<TimerManager>
 	{
         private List<BaseTimer> m_timers;
         private Queue<BaseTimer> m_removingTimers;

@@ -56,13 +56,7 @@ namespace TEDCore.Resource
 
         public void Unload<T>(string assetName) where T : UnityEngine.Object
         {
-            if (InCache<T>(string.Empty, assetName))
-            {
-                var res = m_loadedResources[GetCacheKey<T>(string.Empty, assetName)];
-                res.m_referencedCount--;
-
-                Release();
-            }
+            Unload<T>(string.Empty, assetName);
         }
 
 
@@ -78,7 +72,7 @@ namespace TEDCore.Resource
         }
 
 
-        private void Release()
+        public void Release()
         {
             var removeResources = new List<string>();
 
@@ -115,19 +109,19 @@ namespace TEDCore.Resource
 
 
         #region LoadAsync
-        public void LoadAsync<T>(string assetName, Action<T> callback) where T : UnityEngine.Object
+        public void LoadAsync<T>(string assetName, Action<T> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
-            LoadAsync<T>(string.Empty, assetName, callback);
+            LoadAsync<T>(string.Empty, assetName, callback, unloadAutomatically);
         }
 
 
-        public void LoadAsync<T>(string assetBundleName, string assetName, Action<T> callback) where T : UnityEngine.Object
+        public void LoadAsync<T>(string assetBundleName, string assetName, Action<T> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
-            StartCoroutine(StartLoadAsync<T>(assetBundleName, assetName, callback));
+            StartCoroutine(StartLoadAsync<T>(assetBundleName, assetName, callback, unloadAutomatically));
         }
 
 
-        private IEnumerator StartLoadAsync<T>(string assetBundleName, string assetName, Action<T> callback) where T : UnityEngine.Object
+        private IEnumerator StartLoadAsync<T>(string assetBundleName, string assetName, Action<T> callback, bool unloadAutomatically) where T : UnityEngine.Object
         {
             if (IsPrefab<T>())
             {
@@ -161,6 +155,11 @@ namespace TEDCore.Resource
             if (null != callback)
             {
                 callback(asset);
+            }
+
+            if(unloadAutomatically)
+            {
+                Unload<T>(assetBundleName, assetName);
             }
         }
 
@@ -274,19 +273,19 @@ namespace TEDCore.Resource
 
 
         #region LoadAllAsync
-        public void LoadAllAsync<T>(string assetName, Action<List<T>> callback) where T : UnityEngine.Object
+        public void LoadAllAsync<T>(string assetName, Action<List<T>> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
-            LoadAllAsync<T>(string.Empty, assetName, callback);
+            LoadAllAsync<T>(string.Empty, assetName, callback, unloadAutomatically);
         }
 
 
-        public void LoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback) where T : UnityEngine.Object
+        public void LoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
-            StartCoroutine(StartLoadAllAsync<T>(assetBundleName, assetName, callback));
+            StartCoroutine(StartLoadAllAsync<T>(assetBundleName, assetName, callback, unloadAutomatically));
         }
 
 
-        private IEnumerator StartLoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback) where T : UnityEngine.Object
+        private IEnumerator StartLoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback, bool unloadAutomatically) where T : UnityEngine.Object
         {
             yield return StartCoroutine(PreloadAllAsync<T>(assetBundleName, assetName));
 
@@ -319,6 +318,11 @@ namespace TEDCore.Resource
             if (null != callback)
             {
                 callback(assets);
+            }
+
+            if(unloadAutomatically)
+            {
+                Unload<T>(assetBundleName, assetName);
             }
         }
 
