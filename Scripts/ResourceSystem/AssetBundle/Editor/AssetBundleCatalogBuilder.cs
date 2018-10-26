@@ -64,7 +64,7 @@ namespace TEDCore.AssetBundle
 
             File.WriteAllText(catalogPath, catalogContents);
 
-            Debug.LogFormat("[AssetBundleBuildTool] - Refresh the catalog success in {0}", catalogPath);
+            Debug.LogFormat("[AssetBundleCatalogBuilder] - Build catalog.txt success in {0}", catalogPath);
         }
 
 

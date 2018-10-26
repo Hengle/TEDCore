@@ -48,25 +48,37 @@ namespace TEDCore.Audio
         }
 
 
-        public void Play(string bgmName)
+        public void Play(string assetName)
         {
-            if (null != m_audioSource && m_audioSource.name.Contains(bgmName))
+            if(string.IsNullOrEmpty(assetName))
+            {
+                Debug.LogError("[BGMManager] - The asset name is null or empty.");
+                return;
+            }
+
+            if (null != m_audioSource && m_audioSource.name.Contains(assetName))
             {
                 return;
             }
 
-            ResourceSystem.Instance.LoadAsync<AudioClip>(bgmName, OnAssetLoaded);
+            ResourceSystem.Instance.LoadAsync<AudioClip>(assetName, OnAssetLoaded);
         }
 
 
-        public void Play(string bundleName, string bgmName)
+        public void Play(string bundleName, string assetName)
         {
-            if (null != m_audioSource && m_audioSource.name.Contains(bgmName))
+            if (string.IsNullOrEmpty(assetName))
+            {
+                Debug.LogError("[BGMManager] - The asset name is null or empty.");
+                return;
+            }
+
+            if (null != m_audioSource && m_audioSource.name.Contains(assetName))
             {
                 return;
             }
 
-            ResourceSystem.Instance.LoadAsync<AudioClip>(bundleName, bgmName, OnAssetLoaded);
+            ResourceSystem.Instance.LoadAsync<AudioClip>(bundleName, assetName, OnAssetLoaded);
         }
 
 
@@ -74,6 +86,7 @@ namespace TEDCore.Audio
         {
             if(audioClip == null)
             {
+                Debug.LogError("[BGMManager] - The AudioClip is null.");
                 return;
             }
 
