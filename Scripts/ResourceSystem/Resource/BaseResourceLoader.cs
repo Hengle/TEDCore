@@ -7,7 +7,6 @@ namespace TEDCore.Resource
     {
         public abstract string AssetBundleName { get; }
 
-
         public void LoadAsync<T>(string assetName, Action<T> callback) where T : UnityEngine.Object
         {
             ResourceSystem.Instance.LoadAsync<T>(AssetBundleName, assetName, callback);

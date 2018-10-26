@@ -2,7 +2,7 @@
 
 namespace TEDCore.Event
 {
-	public class EventListener : IEventListener, IDestroyable
+	public class EventListener : IEventListener, IDestroy
 	{
         public delegate EventResult EventCallback(object eventData);
 

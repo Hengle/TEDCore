@@ -3,7 +3,7 @@ using System;
 
 namespace TEDCore.StateManagement
 {
-    public class TaskManager : IUpdate, IFixedUpdate, ILateUpdate, IDestroyable
+    public class TaskManager : IUpdate, IFixedUpdate, ILateUpdate, IDestroy
 	{
 		public StateManager StateManager { get; private set; }
 		public long CurrentState { get; private set; }

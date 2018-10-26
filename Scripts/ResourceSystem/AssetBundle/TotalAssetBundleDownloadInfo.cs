@@ -1,5 +1,4 @@
-﻿using TEDCore.Resource;
-
+﻿
 namespace TEDCore.AssetBundle
 {
     public class TotalAssetBundleDownloadInfo

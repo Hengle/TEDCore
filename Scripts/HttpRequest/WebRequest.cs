@@ -2,7 +2,6 @@
 using UnityEngine.Networking;
 using System.Text;
 using System.Collections.Generic;
-using TEDCore;
 
 namespace TEDCore.Http
 {

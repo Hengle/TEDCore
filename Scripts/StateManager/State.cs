@@ -7,7 +7,7 @@ namespace TEDCore.StateManagement
 		public StateManager StateManager { get; private set; }
 		public TaskManager TaskManager { get; private set; }
 
-		public State(StateManager stateManager) : base()
+        protected State(StateManager stateManager) : base()
 		{
 			StateManager = stateManager;
 			TaskManager = new TaskManager(stateManager);

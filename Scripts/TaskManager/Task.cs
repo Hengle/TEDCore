@@ -7,7 +7,7 @@ namespace TEDCore.StateManagement
 		public TaskManager TaskManager;
 		public StateManager StateManager { get { return TaskManager.StateManager; } }
 
-		public Task() : base()
+        protected Task() : base()
 		{
 
 		}

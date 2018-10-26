@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using TEDCore;
 using TEDCore.Resource;
-using TEDCore.Utils;
 
 namespace TEDCore.UI
 {

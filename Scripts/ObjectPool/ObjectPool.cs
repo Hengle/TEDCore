@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace TEDCore.ObjectPool
 {
-    public abstract class ObjectPool<T> : IDestroyable where T : Object
+    public abstract class ObjectPool<T> : IDestroy where T : Object
     {
         protected GameObject m_root;
         private T m_referenceAsset;
         protected Queue<T> m_pool;
 
-        public ObjectPool(string key, T referenceAsset, int initialSize)
+        protected ObjectPool(string key, T referenceAsset, int initialSize)
         {
             if(string.IsNullOrEmpty(key))
             {
