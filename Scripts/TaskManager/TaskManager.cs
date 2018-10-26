@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace TEDCore.StateManagement
 {
@@ -14,7 +15,6 @@ namespace TEDCore.StateManagement
 		}
 
 		private List<TaskData> m_tasks;
-		private int m_lastStateId = 0;
 
 		public TaskManager(StateManager stateManager)
 		{
@@ -23,36 +23,38 @@ namespace TEDCore.StateManagement
 		}
 
 
-		public long CreateState()
+        public void AddTask(Task task, params Enum[] activeStates)
+        {
+            task.TaskManager = this;
+
+            TaskData td = new TaskData();
+            td.Task = task;
+            td.ActiveStates = TaskUtils.GetStateId(activeStates);
+
+            m_tasks.Add(td);
+        }
+
+
+        public void AddTask(Task task, long activeStates)
+        {
+            task.TaskManager = this;
+
+            TaskData td = new TaskData();
+            td.Task = task;
+            td.ActiveStates = activeStates;
+
+            m_tasks.Add(td);
+        }
+
+
+        public void ChangeState(Enum state)
 		{
-			long result = 1 << m_lastStateId;
-			m_lastStateId++;
-
-			return result;
-		}
-
-
-		public long AllStates()
-		{
-			long result = 0;
-
-			for(int cnt = 0; cnt <= m_lastStateId; cnt++)
-			{
-				result |= 1L << cnt;
-			}
-
-			return result;
-		}
-
-
-		public void ChangeState(long stateId)
-		{
-			CurrentState = stateId;
+            CurrentState = TaskUtils.GetStateId(state);
 
 			// Deactive
 			for(int cnt = 0; cnt < m_tasks.Count; cnt++)
 			{
-				if(!ContainState(m_tasks[cnt].ActiveStates, stateId))
+				if(!ContainState(m_tasks[cnt].ActiveStates, CurrentState))
 				{
 					m_tasks[cnt].Task.Active = false;
 				}
@@ -61,7 +63,7 @@ namespace TEDCore.StateManagement
 			// Active
 			for(int cnt = 0; cnt < m_tasks.Count; cnt++)
 			{
-                if(ContainState(m_tasks[cnt].ActiveStates, stateId))
+                if(ContainState(m_tasks[cnt].ActiveStates, CurrentState))
 				{
 					m_tasks[cnt].Task.Active = true;
 				}
@@ -73,18 +75,6 @@ namespace TEDCore.StateManagement
         {
             return (stateFlags & stateId) == stateId;
         }
-
-
-		public void AddTask(Task task, long activeStates)
-		{
-			task.TaskManager = this;
-
-			TaskData td = new TaskData();
-			td.Task = task;
-			td.ActiveStates = activeStates;
-
-			m_tasks.Add(td);
-		}
 
 
 		#region IUpdate
@@ -125,8 +115,7 @@ namespace TEDCore.StateManagement
 			}
 
 			m_tasks.Clear();
-			m_lastStateId = 0;
 		}
-		#endregion
-	}
+        #endregion
+    }
 }
