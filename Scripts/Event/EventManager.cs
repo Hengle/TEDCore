@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using TEDCore.Utils;
-using UnityEngine;
 
 namespace TEDCore.Event
 {
-	public class EventManager
+    public class EventManager : Singleton<EventManager>
 	{
-		private class ListenerContainer
+        private class ListenerContainer : IComparable<ListenerContainer>
 		{
 			public IEventListener Listener { get; private set; }
 			public int Priority { get; private set; }
@@ -17,19 +15,32 @@ namespace TEDCore.Event
 				Listener = listener;
 				Priority = priority;
 			}
+
+
+            public int CompareTo(ListenerContainer listener)
+            {
+                if (null == listener)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return listener.Priority.CompareTo(this.Priority);
+                }
+            }
 		}
 
+        private Dictionary<int, List<ListenerContainer>> m_eventListeners;
+        private Dictionary<int, ListenerContainer[]> m_eventListenerArrays;
 
-		private Dictionary<string, List<ListenerContainer>> m_eventListeners;
-
-
-		public EventManager()
+        private void Awake()
 		{
-			m_eventListeners = new Dictionary<string, List<ListenerContainer>>();
+            m_eventListeners = new Dictionary<int, List<ListenerContainer>>();
+            m_eventListenerArrays = new Dictionary<int, ListenerContainer[]>();
 		}
 
 
-		public void RegisterListener(string eventName, IEventListener listener, int priority = 0)
+        public void RegisterListener(int eventName, IEventListener listener, int priority = 0)
 		{
 			if(!m_eventListeners.ContainsKey(eventName))
 			{
@@ -37,59 +48,87 @@ namespace TEDCore.Event
 			}
 
 			List<ListenerContainer> listeners = m_eventListeners[eventName];
-
-			foreach(ListenerContainer lc in listeners)
-			{
-				if(lc.Listener == listener)
-				{
-					Debug.LogException(new Exception("[EventManager] - Listener is already registered for this object."));
-					return;
-				}
-			}
+            int listenerCount = listeners.Count;
+            for (int i = 0; i < listenerCount; i++)
+            {
+                if (listeners[i].Listener == listener)
+                {
+                    TEDDebug.LogException(new Exception("[EventManager] - Listener is already registered for this object."));
+                    return;
+                }
+            }
 
 			listeners.Add(new ListenerContainer(listener, priority));
-			Comparison<ListenerContainer> comparison = delegate(ListenerContainer x, ListenerContainer y) {
-				return y.Priority.CompareTo(x.Priority);
-			};
-			listeners.Sort(comparison);
+            listeners.Sort();
+
+            m_eventListeners[eventName] = listeners;
+
+            if (m_eventListenerArrays.ContainsKey(eventName))
+            {
+                m_eventListenerArrays[eventName] = listeners.ToArray();
+            }
+            else
+            {
+                m_eventListenerArrays.Add(eventName, listeners.ToArray());
+            }
 		}
 
 
-		public void UnregisterListener(string eventName, IEventListener listener)
+        public void RemoveListener(int eventName, IEventListener listener)
 		{
 			if(m_eventListeners.ContainsKey(eventName))
 			{
 				ListenerContainer tempListener;
+                int listenerCount = m_eventListeners[eventName].Count;
 
-				for(int cnt = 0; cnt < m_eventListeners[eventName].Count; cnt++)
+                List<ListenerContainer> removeListeners = new List<ListenerContainer>();
+
+                for(int i = 0; i < listenerCount; i++)
 				{
-					tempListener = m_eventListeners[eventName][cnt];
+                    tempListener = m_eventListeners[eventName][i];
 
 					if(tempListener.Listener == listener)
 					{
-						m_eventListeners[eventName].Remove(tempListener);
-
+                        removeListeners.Add(tempListener);
 					}
 				}
+
+                listenerCount = removeListeners.Count;
+                for (int i = 0; i < listenerCount; i++)
+                {
+                    m_eventListeners[eventName].Remove(removeListeners[i]);
+                }
+
+                if (m_eventListenerArrays.ContainsKey(eventName))
+                {
+                    m_eventListenerArrays[eventName] = m_eventListeners[eventName].ToArray();
+                }
+                else
+                {
+                    m_eventListenerArrays.Add(eventName, m_eventListeners[eventName].ToArray());
+                }
 			}
 		}
 
 
-		public EventResult SendEvent(string eventName, object data = null)
+        public EventResult SendEvent(int eventName, object eventData = null)
 		{
-			if(m_eventListeners.ContainsKey(eventName))
+            if(m_eventListenerArrays.ContainsKey(eventName))
 			{
 				EventResult result;
 
-				for(int cnt = 0; cnt < m_eventListeners[eventName].Count; cnt++)
+                int listenerCount = m_eventListenerArrays[eventName].Length;
+
+                for(int i = 0; i < listenerCount; i++)
 				{
-					result = m_eventListeners[eventName][cnt].Listener.OnEvent(eventName, data);
+                    result = m_eventListenerArrays[eventName][i].Listener.OnEvent(eventName, eventData);
 
-					if(result == null)
-						continue;
+                    if (null == result)
+                    {
+                        continue;
+                    }
 
-					if(result.WasEaten)
-						return result;
+                    return result;
 				}
 			}
 

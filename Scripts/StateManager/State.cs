@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TEDCore.StateManagement
 {
-	public abstract class State : EventListener, IInitialize, IUpdate
+	public abstract class State : EventListener, IUpdate
 	{
 		public StateManager StateManager { get; private set; }
 		public TaskManager TaskManager { get; private set; }
@@ -12,15 +12,6 @@ namespace TEDCore.StateManagement
 		{
 			StateManager = stateManager;
 			TaskManager = new TaskManager(stateManager);
-			Active = true;
-
-			Initialize ();
-		}
-
-
-		public virtual void Initialize()
-		{
-			
 		}
 
 

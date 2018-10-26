@@ -76,20 +76,6 @@ namespace TEDCore.Utils
 		}
 
 
-		public static void AddChild(this GameObject parent, GameObject child)
-		{
-			Vector3 position = child.transform.localPosition;
-			Vector3 rotation = child.transform.localEulerAngles;
-			Vector3 scale = child.transform.localScale;
-
-			child.transform.SetParent(parent.transform);
-
-			child.transform.localPosition = position;
-			child.transform.localEulerAngles = rotation;
-			child.transform.localScale = scale;
-		}
-
-
 		public static void FitScreen(this GameObject screen)
 		{
 			float ratio = 1280f / Screen.width;

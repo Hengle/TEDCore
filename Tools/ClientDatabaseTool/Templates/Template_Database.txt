@@ -1,0 +1,66 @@
+﻿// WARNING: Do not modify! Generated file.
+using UnityEngine;
+using TEDCore;
+using TEDCore.Resource;
+
+namespace TEDCore.Database
+{
+	[System.Serializable]
+	public class $DataClassName
+	{
+		$DataAttributes
+	}
+
+
+	public class $DataTypeName : IDatabase
+	{
+		public const uint TYPE_ID = $DataID;
+		private const string DATA_PATH = $DataPath;
+
+		private $DataScriptableName m_scriptableObject;
+		private $DataClassName m_tempData = new $DataClassName();
+
+		public $DataTypeName(){}
+
+		public uint TypeID ()
+		{
+			return TYPE_ID;
+		}
+
+
+		public void Load ()
+		{
+            ResourceSystem.Instance.LoadAsync<$DataScriptableName>(DATA_PATH, OnDataLoaded);
+		}
+
+
+        private void OnDataLoaded($DataScriptableName scriptableObject)
+        {
+            m_scriptableObject = GameObject.Instantiate<$DataScriptableName>(scriptableObject);
+            ResourceSystem.Instance.Unload<$DataScriptableName>(DATA_PATH);
+        }
+
+
+		public $DataClassName GetData(int id)
+		{
+			m_tempData = null;
+
+            for (int i = 0; i < m_scriptableObject.data.Length; i++)
+            {
+                if (m_scriptableObject.data[i].Key == id.ToString())
+                {
+                    m_tempData = m_scriptableObject.data[i];
+                    break;
+                }
+            }
+
+            return m_tempData;
+		}
+
+
+		public int GetCount()
+		{
+			return m_scriptableObject.data.Length;
+		}
+	}
+}

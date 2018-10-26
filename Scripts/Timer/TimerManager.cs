@@ -4,62 +4,58 @@ using UnityEngine;
 
 namespace TEDCore.Timer
 {
-	public class TimerManager
+    public class TimerManager : MonoBehaviour
 	{
-		private List<Timer> _timers;
-		private bool _pause = false;
-		private Timer _timerCache;
-		private float _lastRealTime = 0;
+        private List<BaseTimer> m_timers;
+        private Queue<BaseTimer> m_removingTimers;
+        private BaseTimer m_cacheTimer;
 
-		public TimerManager()
+        private void Awake()
 		{
-			_timers = new List<Timer> ();
+            m_timers = new List<BaseTimer>();
+            m_removingTimers = new Queue<BaseTimer>();
 		}
 
 
-		public void Add(Timer timer)
+        public void Add(BaseTimer timer)
 		{
-			_timers.Add (timer);
+			m_timers.Add(timer);
 		}
 
 
-		public void Remove(Timer timer)
+        public void Remove(BaseTimer timer)
 		{
-			_timers.Remove (timer);
+			m_timers.Remove(timer);
 		}
 
 
-		public void Update()
-		{
-			_lastRealTime = Time.realtimeSinceStartup - _lastRealTime;
+        private void Update()
+        {
+            if (null == m_timers)
+            {
+                return;
+            }
 
-			if (_timers.Count != 0 && !_pause)
-			{
-				for (int cnt = 0; cnt < _timers.Count; cnt++)
-				{
-					_timerCache = _timers [cnt];
-					_timerCache.Update (_lastRealTime);
+            if (m_timers.Count == 0)
+            {
+                return;
+            }
 
-					if(_timerCache.HaveFinished)
-					{
-						Remove (_timerCache);
-					}
-				}
-			}
+            for (int cnt = 0; cnt < m_timers.Count; cnt++)
+            {
+                m_cacheTimer = m_timers [cnt];
+                m_cacheTimer.Update (Time.deltaTime);
 
-			_lastRealTime = Time.realtimeSinceStartup;
-		}
+                if(m_cacheTimer.IsDone)
+                {
+                    m_removingTimers.Enqueue(m_cacheTimer);
+                }
+            }
 
-
-		public void Pause()
-		{
-			_pause = true;
-		}
-
-
-		public void Resume()
-		{
-			_pause = false;
-		}
+            while (m_removingTimers.Count > 0)
+            {
+                m_timers.Remove(m_removingTimers.Dequeue());
+            }
+        }
 	}
 }

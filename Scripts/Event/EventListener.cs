@@ -4,7 +4,7 @@ namespace TEDCore.Event
 {
 	public class EventListener : IEventListener, IDestroyable
 	{
-		public delegate EventResult EventCallback(string eventName, object eventData);
+        public delegate EventResult EventCallback(object eventData);
 
 
 		protected class EventListenerData
@@ -14,7 +14,7 @@ namespace TEDCore.Event
 		}
 
 
-		protected Dictionary<string, EventListenerData> m_eventListeners;
+        protected Dictionary<int, EventListenerData> m_eventListeners;
 
 
 		private bool m_active;
@@ -37,11 +37,12 @@ namespace TEDCore.Event
 
 		public EventListener()
 		{
-			m_eventListeners = new Dictionary<string, EventListenerData>();
+            Active = true;
+            m_eventListeners = new Dictionary<int, EventListenerData>();
 		}
 
 
-		public void ListenForEvent(string eventName, EventCallback callback, bool callWhenInactive = false, int priority = 0)
+        public void ListenForEvent(int eventName, EventCallback callback, bool callWhenInactive = false, int priority = 0)
 		{
 			EventListenerData eventListenerData = new EventListenerData();
 			eventListenerData.Callback = callback;
@@ -49,23 +50,23 @@ namespace TEDCore.Event
 
 			m_eventListeners[eventName] = eventListenerData;
 
-			GameSystemManager.Get<EventManager>().RegisterListener(eventName, this, priority);
+			EventManager.Instance.RegisterListener(eventName, this, priority);
 		}
 
 
-		public void StopListenForEvent(string eventName)
+        public void StopListenForEvent(int eventName)
 		{
 			if(m_eventListeners.ContainsKey(eventName))
 			{
 				m_eventListeners.Remove(eventName);
 
-				GameSystemManager.Get<EventManager>().UnregisterListener(eventName, this);
+                EventManager.Instance.RemoveListener(eventName, this);
 			}
 		}
 
 
 		#region IEventListener
-		public EventResult OnEvent (string eventName, object eventData)
+        public EventResult OnEvent(int eventName, object eventData)
 		{
 			if(m_eventListeners.ContainsKey(eventName))
 			{
@@ -78,7 +79,7 @@ namespace TEDCore.Event
 				
 				if(eventListenerData.Callback != null)
 				{
-					return eventListenerData.Callback(eventName, eventData);
+					return eventListenerData.Callback(eventData);
 				}
 			}
 			
@@ -88,11 +89,11 @@ namespace TEDCore.Event
 
 
 		#region IDestroyable
-		public virtual void Destroy ()
+		public virtual void Destroy()
 		{
-			foreach(string eventName in m_eventListeners.Keys)
+            foreach(int eventName in m_eventListeners.Keys)
 			{
-				GameSystemManager.Get<EventManager>().UnregisterListener(eventName, this);
+                EventManager.Instance.RemoveListener(eventName, this);
 			}
 
 			m_eventListeners.Clear();

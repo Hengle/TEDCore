@@ -1,4 +1,4 @@
-using TEDCore.StateManagement;
+﻿using TEDCore.StateManagement;
 
 public class $SCRIPTNAME : State
 {

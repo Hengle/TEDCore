@@ -1,28 +1,21 @@
 ﻿using UnityEngine;
 using TEDCore.StateManagement;
-using TEDCore.Input;
 
 namespace TEDCore
 {
-	public class BaseEngine : MonoBehaviour, IInitialize
+    public abstract class BaseEngine : MonoBehaviour, IInitialize
 	{
 		protected StateManager m_stateManager;
 
-		private static BaseEngine m_instance;
-		public static BaseEngine Instance { get { return m_instance; } }
-
 		private void Awake()
 		{
-			m_instance = this;
+            m_stateManager = new StateManager();
 
-			Initialize ();
+            Initialize();
 		}
 
 
-		public virtual void Initialize()
-		{
-			m_stateManager = new StateManager();
-		}
+        public abstract void Initialize();
 
 
 		public virtual void Update()

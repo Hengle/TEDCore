@@ -1,4 +1,4 @@
-using TEDCore.StateManagement;
+﻿using TEDCore.StateManagement;
 
 public class $SCRIPTNAME : Task
 {
@@ -7,13 +7,21 @@ public class $SCRIPTNAME : Task
 		
 	}
 
+
 	public override void Show (bool show)
 	{
 		
 	}
 
+
 	public override void Update (float deltaTime)
 	{
 		
 	}
+
+
+	public override void Destroy()
+    {
+        base.Destroy();
+    }
 }
