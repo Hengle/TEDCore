@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+using TEDCore.PlayerData;
 
 namespace TEDCore.Log
 {
@@ -17,7 +18,7 @@ namespace TEDCore.Log
 
         private void CreateFile()
         {
-            string logPath = GetLogPath();
+            string logPath = GetFilePath();
 
             if (File.Exists(logPath))
             {
@@ -35,21 +36,15 @@ namespace TEDCore.Log
         }
 
 
-        private string GetLogPath()
+        private string GetFilePath()
         {
-            System.DateTime now = System.DateTime.Now;
-            string logName = System.DateTime.Now.ToString("yyyyMMddHHmmss");
-            return string.Format("{0}/Logs/{1}.txt", GetLogFolderPath(), logName);
+            return string.Format("{0}Log_{1}.txt", GetLogPath(), System.DateTime.Now.ToString("yyyyMMddHHmmss"));
         }
 
 
-        private string GetLogFolderPath()
+        private string GetLogPath()
         {
-#if UNITY_EDITOR
-            return Application.dataPath.Replace("Assets", "");
-#else
-            return Application.persistentDataPath;
-#endif
+            return PlayerDataUtils.GetPersistentDataPath() + "/LogData/";
         }
 
 

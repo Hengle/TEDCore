@@ -47,7 +47,7 @@ namespace TEDCore.PlayerData
         }
 
 
-        private static string GetPersistentDataPath()
+        public static string GetPersistentDataPath()
         {
 #if UNITY_EDITOR
             return Application.dataPath.Replace("Assets", "");
