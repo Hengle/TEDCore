@@ -21,7 +21,7 @@ namespace TEDCore.StateManagement
 
         public abstract void Show(bool show);
         public abstract void Update(float deltaTime);
-        public abstract void FixedUpdate(float fixedDeltaTime);
+        public abstract void FixedUpdate(float deltaTime);
         public abstract void LateUpdate(float deltaTime);
     }
 }

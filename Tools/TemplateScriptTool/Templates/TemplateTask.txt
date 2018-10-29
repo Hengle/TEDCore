@@ -20,7 +20,13 @@ public class $SCRIPTNAME : Task
 	}
     
     
-    public override void FixedUpdate (float fixedDeltaTime)
+    public override void FixedUpdate (float deltaTime)
+    {
+        
+    }
+    
+    
+    public override void LateUpdate (float deltaTime)
     {
         
     }

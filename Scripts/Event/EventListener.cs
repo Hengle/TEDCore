@@ -44,11 +44,13 @@ namespace TEDCore.Event
 
         public void ListenForEvent(int eventName, EventCallback callback, bool callWhenInactive = false, int priority = 0)
 		{
-			EventListenerData eventListenerData = new EventListenerData();
-			eventListenerData.Callback = callback;
-			eventListenerData.CallWhenInactive = callWhenInactive;
+            EventListenerData eventListenerData = new EventListenerData
+            {
+                Callback = callback,
+                CallWhenInactive = callWhenInactive
+            };
 
-			m_eventListeners[eventName] = eventListenerData;
+            m_eventListeners[eventName] = eventListenerData;
 
 			EventManager.Instance.RegisterListener(eventName, this, priority);
 		}
