@@ -32,8 +32,6 @@ namespace TEDCore.UI
                     GameObject screen = GameObject.Instantiate(obj);
                     screen.transform.SetParent(m_canvas, false);
 
-                    ResourceSystem.Instance.Unload<GameObject>(bundleName, assetName);
-
                     if(null != callback)
                     {
                         callback(screen.GetComponent<T>());
