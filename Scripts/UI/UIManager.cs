@@ -1,27 +1,38 @@
 ﻿using UnityEngine;
 using TEDCore.Resource;
+using TEDCore.Utils;
 
 namespace TEDCore.UI
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : Singleton<UIManager>
     {
         private const string SHOW_UI_LAYER = "UI";
         private const string HIDE_UI_LAYER = "HideUI";
 
         private LayerMask m_showUILayer;
         private LayerMask m_hideUILayer;
-        private Transform m_canvas;
+        private Transform m_uiCanvas;
 
-        private void Awake()
+        public UIManager()
         {
             m_showUILayer = LayerMask.NameToLayer(SHOW_UI_LAYER);
             m_hideUILayer = LayerMask.NameToLayer(HIDE_UI_LAYER);
-            m_canvas = GameObject.Find("Canvas").transform;
+            m_uiCanvas = GameObject.Find("UICanvas").transform;
+        }
 
-            if (null == m_canvas)
+
+        public void LoadScreenAsync<T>(string assetName, System.Action<T> callback) where T : MonoBehaviour
+        {
+            ResourceSystem.Instance.LoadAsync<GameObject>(assetName, delegate (GameObject obj)
             {
-                TEDDebug.LogError("[UIManager] - Can't find Canvas.");
-            }
+                GameObject screen = GameObject.Instantiate(obj);
+                screen.transform.SetParent(m_uiCanvas, false);
+
+                if (null != callback)
+                {
+                    callback(screen.GetComponent<T>());
+                }
+            });
         }
 
 
@@ -30,9 +41,9 @@ namespace TEDCore.UI
             ResourceSystem.Instance.LoadAsync<GameObject>(bundleName, assetName, delegate(GameObject obj)
                 {
                     GameObject screen = GameObject.Instantiate(obj);
-                    screen.transform.SetParent(m_canvas, false);
+                    screen.transform.SetParent(m_uiCanvas, false);
 
-                    if(null != callback)
+                    if (null != callback)
                     {
                         callback(screen.GetComponent<T>());
                     }
@@ -50,12 +61,12 @@ namespace TEDCore.UI
         {
             if (show)
             {
-                screen.layer = m_showUILayer;
+                screen.SetLayer(m_showUILayer);
                 screen.transform.SetAsLastSibling();
             }
             else
             {
-                screen.layer = m_hideUILayer;
+                screen.SetLayer(m_hideUILayer);
                 screen.transform.SetAsFirstSibling();
             }
         }

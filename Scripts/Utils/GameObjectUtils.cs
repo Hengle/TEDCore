@@ -5,6 +5,16 @@ namespace TEDCore.Utils
 {
 	public static class GameObjectUtils
 	{
+        public static void SetLayer(this GameObject root, int layer)
+        {
+            Transform[] allChildren = root.GetComponentsInChildren<Transform>(true);
+            foreach (Transform child in allChildren)
+            {
+                child.gameObject.layer = layer;
+            }
+        }
+
+
 		public static T GetChildComponent<T>(this GameObject root, string name) where T : Component
 		{
 			GameObject go = FindChild(root, name);
