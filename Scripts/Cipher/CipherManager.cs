@@ -7,6 +7,7 @@ namespace TEDCore.Cipher
         {
             Caesar,
             Affine,
+            SimpleSubsitution
         }
 
         private CipherType m_cipherType = CipherType.Caesar;
@@ -37,6 +38,9 @@ namespace TEDCore.Cipher
                     break;
                 case CipherType.Affine:
                     cipher = new AffineCipher();
+                    break;
+                case CipherType.SimpleSubsitution:
+                    cipher = new SimpleSubstitutionCipher();
                     break;
             }
 

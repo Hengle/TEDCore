@@ -42,4 +42,19 @@ public class UnitTesting_Cipher : BaseUnitTesting
         TEDDebug.Log("AffinCipher CipherText = " + cipherText);
         TEDDebug.Log("AffinCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
     }
+
+    [TestButton]
+    public void SimpleSubstitutionCipher()
+    {
+        if (string.IsNullOrEmpty(m_plainText))
+        {
+            TEDDebug.LogError("Set test first.");
+            return;
+        }
+
+        CipherManager.Instance.SetCipherType(CipherManager.CipherType.SimpleSubsitution);
+        string cipherText = CipherManager.Instance.Encipher(m_plainText);
+        TEDDebug.Log("SimpleSubstitutionCipher CipherText = " + cipherText);
+        TEDDebug.Log("SimpleSubstitutionCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
+    }
 }

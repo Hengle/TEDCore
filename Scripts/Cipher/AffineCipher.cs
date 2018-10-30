@@ -52,7 +52,6 @@ namespace TEDCore.Cipher
             }
 
             char d = char.IsUpper(c) ? 'A' : 'a';
-            int y = c - d;
             int dx = (a1 * (c - d - b)) % m_mod;
             dx = dx < 0 ? dx + m_mod : dx;
 
