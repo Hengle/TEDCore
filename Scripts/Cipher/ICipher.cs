@@ -3,7 +3,7 @@ namespace TEDCore.Cipher
 {
     public interface ICipher
     {
-        string Encipher(string text);
-        string Decipher(string text);
+        string Encipher(string plainText);
+        string Decipher(string cipherText);
     }
 }

@@ -6,6 +6,7 @@ namespace TEDCore.Cipher
         public enum CipherType
         {
             Caesar,
+            Affine,
         }
 
         private CipherType m_cipherType = CipherType.Caesar;
@@ -33,6 +34,9 @@ namespace TEDCore.Cipher
             {
                 case CipherType.Caesar:
                     cipher = new CaesarCipher();
+                    break;
+                case CipherType.Affine:
+                    cipher = new AffineCipher();
                     break;
             }
 

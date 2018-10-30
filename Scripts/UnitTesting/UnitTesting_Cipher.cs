@@ -27,4 +27,19 @@ public class UnitTesting_Cipher : BaseUnitTesting
         TEDDebug.Log("CaesarCipher CipherText = " + cipherText);
         TEDDebug.Log("CaesarCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
     }
+
+    [TestButton]
+    public void AffinCipher()
+    {
+        if (string.IsNullOrEmpty(m_plainText))
+        {
+            TEDDebug.LogError("Set test first.");
+            return;
+        }
+
+        CipherManager.Instance.SetCipherType(CipherManager.CipherType.Affine);
+        string cipherText = CipherManager.Instance.Encipher(m_plainText);
+        TEDDebug.Log("AffinCipher CipherText = " + cipherText);
+        TEDDebug.Log("AffinCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
+    }
 }
