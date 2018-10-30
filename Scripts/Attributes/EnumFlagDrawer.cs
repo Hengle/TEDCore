@@ -1,4 +1,5 @@
-﻿using System;
+﻿//http://www.sharkbombs.com/2015/02/17/unity-editor-enum-flags-as-toggle-buttons/
+
 using UnityEditor;
 using UnityEngine;
 
@@ -18,8 +19,6 @@ public class EnumFlagDrawer : PropertyDrawer
 
         for (int i = 0; i < enumLength; i++)
         {
-
-            // Check if the button is/was pressed 
             if ((property.intValue & (1 << i)) == 1 << i)
             {
                 buttonPressed[i] = true;
@@ -37,24 +36,5 @@ public class EnumFlagDrawer : PropertyDrawer
         {
             property.intValue = buttonsIntValue;
         }
-
-        //        EnumFlagAttribute flagSettings = (EnumFlagAttribute)attribute;
-        //        Enum targetEnum = (Enum)Enum.ToObject(fieldInfo.FieldType, property.intValue);
-
-        //        EditorGUI.BeginChangeCheck();
-        //        EditorGUI.BeginProperty(position, label, property);
-
-        //#if UNITY_2017_3_OR_NEWER
-        //        Enum enumNew = EditorGUI.EnumFlagsField(position, label.text, targetEnum);
-        //#else
-        //        Enum enumNew = EditorGUI.EnumMaskField(position, label.text, targetEnum);
-        //#endif
-
-        //if (!property.hasMultipleDifferentValues || EditorGUI.EndChangeCheck())
-        //{
-        //    property.intValue = (int)Convert.ChangeType(enumNew, targetEnum.GetType());
-        //}
-
-        //EditorGUI.EndProperty();
     }
 }
