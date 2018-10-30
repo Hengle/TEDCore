@@ -3,12 +3,7 @@ namespace TEDCore.Cipher
 {
     public class CaesarCipher : ICipher
     {
-        private int m_key;
-
-        public CaesarCipher(int key)
-        {
-            SetKey(key);
-        }
+        private int m_key = 10;
 
         public void SetKey(int key)
         {

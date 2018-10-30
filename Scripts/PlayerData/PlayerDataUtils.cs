@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+using TEDCore.Cipher;
 
 namespace TEDCore.PlayerData
 {
@@ -16,7 +17,7 @@ namespace TEDCore.PlayerData
             }
 
             string json = JsonUtility.ToJson(data);
-            File.WriteAllText(filePath, json);
+            File.WriteAllText(filePath, CipherManager.Instance.Encipher(json));
         }
 
 
@@ -31,7 +32,7 @@ namespace TEDCore.PlayerData
             }
 
             string json = File.ReadAllText(filePath);
-            return JsonUtility.FromJson<T>(json);
+            return JsonUtility.FromJson<T>(CipherManager.Instance.Decipher(json));
         }
 
 

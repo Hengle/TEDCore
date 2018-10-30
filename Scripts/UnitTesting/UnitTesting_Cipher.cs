@@ -5,27 +5,26 @@ using TEDCore;
 
 public class UnitTesting_Cipher : BaseUnitTesting
 {
-    [SerializeField] private string m_text;
+    [SerializeField] private string m_plainText;
 
     [TestInputField]
-    public void SetText(string value)
+    public void SetPlainText(string value)
     {
-        m_text = value;
+        m_plainText = value;
     }
 
-    [TestInputField]
-    public void CaesarCipher(string value)
+    [TestButton]
+    public void CaesarCipher()
     {
-        if(string.IsNullOrEmpty(m_text))
+        if(string.IsNullOrEmpty(m_plainText))
         {
             TEDDebug.LogError("Set test first.");
             return;
         }
 
-        int key = int.Parse(value);
-        CaesarCipher cipher = new CaesarCipher(key);
-        string encipher = cipher.Encipher(m_text);
-        TEDDebug.Log("CaesarEncipher = " + encipher);
-        TEDDebug.Log("CaesarDecipher = " + cipher.Decipher(encipher));
+        CipherManager.Instance.SetCipherType(CipherManager.CipherType.Caesar);
+        string cipherText = CipherManager.Instance.Encipher(m_plainText);
+        TEDDebug.Log("CaesarCipher CipherText = " + cipherText);
+        TEDDebug.Log("CaesarCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
     }
 }
