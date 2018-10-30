@@ -1,4 +1,5 @@
-﻿//http://www.sharkbombs.com/2015/02/17/unity-editor-enum-flags-as-toggle-buttons/
+﻿#if UNITY_EDITOR
+//http://www.sharkbombs.com/2015/02/17/unity-editor-enum-flags-as-toggle-buttons/
 
 using UnityEditor;
 using UnityEngine;
@@ -38,3 +39,4 @@ public class EnumFlagDrawer : PropertyDrawer
         }
     }
 }
+#endif
