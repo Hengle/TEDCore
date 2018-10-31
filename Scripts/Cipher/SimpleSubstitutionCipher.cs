@@ -4,7 +4,39 @@ namespace TEDCore.Cipher
     public class SimpleSubstitutionCipher : ICipher
     {
         private string m_plainAlphabet = "abcdefghijklmnopqrstuvwxyz";
-        private string m_cipherAlphabet = "yhkqgvxfoluapwmtzecjdbsnri";
+        private string m_cipherAlphabet = "zebrascdfghijklmnopqtuvwxy";
+        private string m_key = "zebras";
+
+        public void SetKey(string key)
+        {
+            m_key = key.ToLower();
+            m_cipherAlphabet = string.Empty;
+
+            for (int i = 0; i < m_key.Length; i++)
+            {
+                if(m_cipherAlphabet.Contains(m_key[i].ToString()))
+                {
+                    continue;
+                }
+
+                if(!m_plainAlphabet.Contains(m_key[i].ToString()))
+                {
+                    continue;
+                }
+
+                m_cipherAlphabet += m_key[i];
+            }
+
+            for (int i = 0; i < m_plainAlphabet.Length; i++)
+            {
+                if (m_cipherAlphabet.Contains(m_plainAlphabet[i].ToString()))
+                {
+                    continue;
+                }
+
+                m_cipherAlphabet += m_plainAlphabet[i];
+            }
+        }
 
         public string Encipher(string plainText)
         {
