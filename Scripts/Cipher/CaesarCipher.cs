@@ -5,6 +5,11 @@ namespace TEDCore.Cipher
     {
         private int m_key = 10;
 
+        public void SetKey(int key)
+        {
+            m_key = key;
+        }
+
         public string Encipher(string text)
         {
             string output = string.Empty;
