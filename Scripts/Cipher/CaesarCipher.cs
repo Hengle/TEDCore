@@ -3,6 +3,7 @@ namespace TEDCore.Cipher
 {
     public class CaesarCipher : ICipher
     {
+        private const int MOD = 26;
         private int m_key = 10;
 
         public void SetKey(int key)
@@ -14,7 +15,7 @@ namespace TEDCore.Cipher
         {
             string output = string.Empty;
 
-            foreach(char c in text)
+            foreach (char c in text)
             {
                 output += Cipher(c, m_key);
             }
@@ -22,21 +23,16 @@ namespace TEDCore.Cipher
             return output;
         }
 
-        private string Encipher(string text, int key)
+        public string Decipher(string text)
         {
             string output = string.Empty;
 
             foreach (char c in text)
             {
-                output += Cipher(c, key);
+                output += Cipher(c, -m_key);
             }
 
             return output;
-        }
-
-        public string Decipher(string text)
-        {
-            return Encipher(text, 26 - m_key);
         }
 
         private char Cipher(char c, int key)
@@ -47,7 +43,13 @@ namespace TEDCore.Cipher
             }
 
             char d = char.IsUpper(c) ? 'A' : 'a';
-            return (char)((((c + key) - d) % 26) + d);
+            int value = (c - d + key) % MOD;
+            if (value < 0)
+            {
+                value += MOD;
+            }
+
+            return (char)(value + d);
         }
     }
 }
