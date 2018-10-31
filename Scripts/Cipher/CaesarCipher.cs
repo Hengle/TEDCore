@@ -11,7 +11,7 @@ namespace TEDCore.Cipher
             m_key = key;
         }
 
-        public string Encipher(string text)
+        public string Encrypt(string text)
         {
             string output = string.Empty;
 
@@ -23,7 +23,7 @@ namespace TEDCore.Cipher
             return output;
         }
 
-        public string Decipher(string text)
+        public string Decrypt(string text)
         {
             string output = string.Empty;
 
@@ -42,14 +42,15 @@ namespace TEDCore.Cipher
                 return c;
             }
 
-            char d = char.IsUpper(c) ? 'A' : 'a';
-            int value = (c - d + key) % MOD;
-            if (value < 0)
+            char firstChar = char.IsUpper(c) ? 'A' : 'a';
+            int x = c - firstChar;
+            int result = (x + key) % MOD;
+            if (result < 0)
             {
-                value += MOD;
+                result += MOD;
             }
 
-            return (char)(value + d);
+            return (char)(firstChar + result);
         }
     }
 }

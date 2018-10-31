@@ -19,12 +19,12 @@ namespace TEDCore.Cipher
 
         public string Encipher(string plainText)
         {
-            return GetCipher().Encipher(plainText);
+            return GetCipher().Encrypt(plainText);
         }
 
         public string Decipher(string cipherText)
         {
-            return GetCipher().Decipher(cipherText);
+            return GetCipher().Decrypt(cipherText);
         }
 
         private ICipher GetCipher()

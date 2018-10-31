@@ -43,7 +43,7 @@ namespace TEDCore.Cipher
             return GetGCD(n, m % n);
         }
 
-        public string Encipher(string plainText)
+        public string Encrypt(string plainText)
         {
             string cipherText = string.Empty;
 
@@ -62,11 +62,14 @@ namespace TEDCore.Cipher
                 return c;
             }
 
-            char d = char.IsUpper(c) ? 'A' : 'a';
-            return (char)((m_keys[0] * (c - d) + m_keys[1]) % MOD + d);
+            char firstChar = char.IsUpper(c) ? 'A' : 'a';
+            int x = c - firstChar;
+            int result = (m_keys[0] * x + m_keys[1]) % MOD;
+
+            return (char)(result + firstChar);
         }
 
-        public string Decipher(string cipherText)
+        public string Decrypt(string cipherText)
         {
             string plainText = string.Empty;
 
@@ -85,11 +88,15 @@ namespace TEDCore.Cipher
                 return c;
             }
 
-            char d = char.IsUpper(c) ? 'A' : 'a';
-            int dx = (m_keys[2] * (c - d - m_keys[1])) % MOD;
-            dx = dx < 0 ? dx + MOD : dx;
+            char firstChar = char.IsUpper(c) ? 'A' : 'a';
+            int x = c - firstChar;
+            int result = (m_keys[2] * (x - m_keys[1])) % MOD;
+            if(result < 0)
+            {
+                result = result + MOD;
+            }
 
-            return (char)(dx + d);
+            return (char)(result + firstChar);
         }
 
         private int GetModularMultiplicativeInverse(int a)

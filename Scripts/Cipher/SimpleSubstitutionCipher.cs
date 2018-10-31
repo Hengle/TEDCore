@@ -38,7 +38,7 @@ namespace TEDCore.Cipher
             }
         }
 
-        public string Encipher(string plainText)
+        public string Encrypt(string plainText)
         {
             string output = string.Empty;
 
@@ -50,7 +50,7 @@ namespace TEDCore.Cipher
             return output;
         }
 
-        public string Decipher(string cipherText)
+        public string Decrypt(string cipherText)
         {
             string output = string.Empty;
 
