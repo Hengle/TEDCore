@@ -28,7 +28,6 @@ namespace TEDCore.UnitTesting
             m_valueText.text = attribute.InitValue.ToString();
         }
 
-
         public void OnValueChanged(float value)
         {
             if (null == m_unitTesting)

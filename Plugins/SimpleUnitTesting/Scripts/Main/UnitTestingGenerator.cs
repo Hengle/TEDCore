@@ -41,7 +41,6 @@ namespace TEDCore.UnitTesting
             StartCoroutine(Generate());
         }
 
-
         private IEnumerator Generate()
         {
             Clear();
@@ -111,7 +110,6 @@ namespace TEDCore.UnitTesting
             }
         }
 
-
         private void Clear()
         {
             foreach (Transform child in m_contentRoot)
@@ -119,7 +117,6 @@ namespace TEDCore.UnitTesting
                 Destroy(child.gameObject);
             }
         }
-
 
         private void GenerateTestButtons(BaseUnitTesting unitTesting, Transform parent)
         {
@@ -140,7 +137,6 @@ namespace TEDCore.UnitTesting
             }
         }
 
-
         private void GenerateTestToggles(BaseUnitTesting unitTesting, Transform parent)
         {
             UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestToggle>();
@@ -159,7 +155,6 @@ namespace TEDCore.UnitTesting
                 cacheInstance.GetComponent<TestToggleElement>().SetData(unitTesting, unitTestingData[j]);
             }
         }
-
 
         private void GenerateTestInputFields(BaseUnitTesting unitTesting, Transform parent)
         {
@@ -180,7 +175,6 @@ namespace TEDCore.UnitTesting
             }
         }
 
-
         private void GenerateTestSliders(BaseUnitTesting unitTesting, Transform parent)
         {
             UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestSlider>();
@@ -199,7 +193,6 @@ namespace TEDCore.UnitTesting
                 cacheInstance.GetComponent<TestSliderElement>().SetData(unitTesting, unitTestingData[j]);
             }
         }
-
 
         private void GenerateTestDropdowns(BaseUnitTesting unitTesting, Transform parent)
         {

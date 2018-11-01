@@ -47,7 +47,6 @@ namespace TEDCore.UnitTesting
             m_fullScreen.SetActive(false);
         }
 
-
         private IEnumerator Start()
         {
             yield return new WaitForEndOfFrame();
@@ -60,7 +59,6 @@ namespace TEDCore.UnitTesting
 
             OnDragEnd(null);
         }
-
 
         private void Update()
         {
@@ -101,12 +99,10 @@ namespace TEDCore.UnitTesting
             }
         }
 
-
         private bool IsMoving()
         {
             return m_isMoving || m_isSizing;
         }
-
 
         public void OnDrag(BaseEventData eventData)
         {
@@ -118,7 +114,6 @@ namespace TEDCore.UnitTesting
             transform.position = Input.mousePosition;
             m_isMoving = false;
         }
-
 
         public void OnDragEnd(BaseEventData eventData)
         {
@@ -149,7 +144,6 @@ namespace TEDCore.UnitTesting
             SetTargetPosition(closestIndex);
         }
 
-
         private void SetTargetPosition(int direction)
         {
             m_startPosition = m_rectTransform.anchoredPosition;
@@ -174,7 +168,6 @@ namespace TEDCore.UnitTesting
             m_isMoving = true;
         }
 
-
         public void OnPointerDown(BaseEventData eventData)
         {
             if (IsMoving() || m_fullScreen.activeInHierarchy)
@@ -184,7 +177,6 @@ namespace TEDCore.UnitTesting
 
             m_pointerDownTime = Time.realtimeSinceStartup;
         }
-
 
         public void OnPointerUp(BaseEventData eventData)
         {
@@ -209,7 +201,6 @@ namespace TEDCore.UnitTesting
             m_sizeTimer = 0;
             m_isSizing = true;
         }
-
 
         public void OnFullScreenCloseButtonClicked()
         {

@@ -23,7 +23,6 @@ namespace TEDCore.UnitTesting
             toggle.isOn = attribute.IsOn;
         }
 
-
         public void OnToggleChanged(bool value)
         {
             if (null == m_unitTesting)

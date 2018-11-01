@@ -23,7 +23,6 @@ namespace TEDCore.UnitTesting
             GetComponentInChildren<Button>().onClick.AddListener(OnApplyButtonClick);
         }
 
-
         public void OnValueChanged(string value)
         {
             if (null == m_unitTesting)
@@ -33,7 +32,6 @@ namespace TEDCore.UnitTesting
 
             m_inputFieldValue = value;
         }
-
 
         private void OnApplyButtonClick()
         {

@@ -11,7 +11,6 @@ namespace TEDCore.UnitTesting
             
         }
 
-
         public UnitTestingData[] GetUnitTestingData<T>() where T : System.Attribute
         {
             List<UnitTestingData> unitTestingData = new List<UnitTestingData>();
@@ -35,7 +34,6 @@ namespace TEDCore.UnitTesting
 
             return unitTestingData.ToArray();
         }
-
 
         public void RunTestMethod(string testMethodName, object[] data = null)
         {

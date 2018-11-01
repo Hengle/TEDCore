@@ -20,7 +20,6 @@ namespace TEDCore.UnitTesting
             button.onClick.AddListener(OnButtonClicked);
         }
 
-
         public void OnButtonClicked()
         {
             if (null == m_unitTesting)
