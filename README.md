@@ -400,11 +400,14 @@ public class ExampleClass : MonoBehaviour
 BGM Manager is designed for playgin BGM.
 The developer could play the BGM and adjust the volumn of it.
 
+#### Namespace
+TEDCore.Audio
+
 #### Public Methods
 | Name                                      | Parameters                                                                                      | Description                                            |
 |-------------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| SetVolume(float volume)                   | volumn: The volumn of BGM                                                                       | Set the BGM volumn direclty.                           |
-| SetVolume(float volume, float duration)   | volumn: The volumn of BGM<br>duration: The duration to the target volumn                        | Set the BGM volumn with the fading duration.           |
+| SetVolume(float volume)                   | volumn: The volumn value                                                                       | Set the BGM volumn direclty.                           |
+| SetVolume(float volume, float duration)   | volumn: The volumn value<br>duration: The duration to the target volumn                        | Set the BGM volumn with the fading duration.           |
 | Play(string assetName)                    | assetName: The asset name you want to play                                                      | Play the BGM with the asset name.                      |
 | Play(string bundleName, string assetName) | bundleName: The AssetBundle name you want to play<br>assetName: The asset name you want to play | Play the BGM with the AssetBundle name and asset name. |
 | Stop()                                    |                                                                                                 | Stop playing the BGM.                                  |
@@ -446,13 +449,53 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Audio Manager
-Audio Manager is design for playing BGM and SFX.
-The developer could play BGM and SFX while using it and adjust the volume of BGM and SFX on it.
-It also handle the memory load and unload for developers automatically. But it only support to load the audio clip synchronously from Resources folder currently.
+### SFX Manager
+SFX Manager is designed for playgin SFX.
+The developer could play the SFX and adjust the volumn of it.
+It handle the object pool for it, so would recycle the sfx object once the audio clip was finished.
 
 #### Namespace
-TECore.Audio
+TEDCore.Audio
+
+#### Public Methods
+| Name                                      | Parameters                                                                                      | Description                                            |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| SetVolume(float volume)                   | volumn: The volumn value                                                                        | Set the SFX volumn direclty.                           |
+| Play(string assetName)                    | assetName: The asset name you want to play                                                      | Play the SFX with the asset name.                      |
+| Play(string bundleName, string assetName) | bundleName: The AssetBundle name you want to play<br>assetName: The asset name you want to play | Play the SFX with the AssetBundle name and asset name. |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore.Audio;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SFXManager.Instance.Play("SFX1");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SFXManager.Instance.Play("assetbundle", "SFX2");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SFXManager.Instance.SetVolume(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SFXManager.Instance.SetVolume(0);
+        }
+    }
+}
+
+```
 
 ### UI Manager
 UI Manager is designed to the UI prefab in Unity.
