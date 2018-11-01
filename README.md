@@ -250,6 +250,20 @@ AssetBundle Manager is designed to access AssetBundle and you don’t need to us
 #### Namespace
 TEDCore.AssetBundle
 
+#### Public Methods
+| Name                                                                               | Parameters                                                                                          | Description                                                              |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| Initialize(AssetBundleInitializeData initializeData)                               | initializaData: The initialize data for AssetBundleManager                                          | Initialize AssetBundleManager with the data.                             |
+| Download(Action<AssetBundleDownloadProgress> onAssetBundleDownloadProgressChanged) | onAssetBundleDownloadProgressChanged: The callback method for AssetBundle download progress changed | Start downloading all AssetBundle files which don't cache in the device. |
+
+#### AssetBundleInitializeData
+| Type                | Parameters         | Description                                           |
+|---------------------|--------------------|-------------------------------------------------------|
+| int                 | MaxDownloadRequest | The maximum amount of the download request.           |
+| string              | DownloadURL        | The URL path for downloading AssetBundles             |
+| AssetBundleLoadType | LoadType           | The load type, Simulate, StreamingAssets, and Network |
+| Action<bool>        | onInitializeFinish | The initialize callback method                        |
+
 ### Resource Manager
 Resource Manager is designed to get the asset from Resources folder or AssetBundle automatically.
 You can simply load or load asynchronously the asset to memory through Resource Manager.

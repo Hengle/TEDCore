@@ -248,7 +248,7 @@ namespace TEDCore.Resource
 
             var startFrameCount = Time.frameCount;
 
-            var request = AssetBundleSystem.Instance.LoadAssetAsync<T>(assetBundleName, assetName);
+            var request = AssetBundleManager.Instance.LoadAssetAsync<T>(assetBundleName, assetName);
             if (null == request)
             {
                 yield break;
@@ -358,7 +358,7 @@ namespace TEDCore.Resource
 
             var startFrameCount = Time.frameCount;
 
-            AssetBundleLoadAllAssetRequest<T> request = AssetBundleSystem.Instance.LoadAllAssetAsync<T>(assetBundleName, assetName);
+            AssetBundleLoadAllAssetRequest<T> request = AssetBundleManager.Instance.LoadAllAssetAsync<T>(assetBundleName, assetName);
             if (null == request)
             {
                 yield break;

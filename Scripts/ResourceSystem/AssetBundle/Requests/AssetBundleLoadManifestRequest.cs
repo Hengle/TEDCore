@@ -17,7 +17,7 @@ namespace TEDCore.AssetBundle
             if (null != m_request && m_request.isDone)
             {
                 TEDDebug.LogFormat("[AssetBundleLoadManifestRequest] - Setup AssetBundleManifest successfully at frame {0}", Time.frameCount);
-                AssetBundleSystem.Instance.SetupManifest(GetAsset());
+                AssetBundleManager.Instance.SetupManifest(GetAsset());
                 return false;
             }
             else

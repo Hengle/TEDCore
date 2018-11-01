@@ -35,7 +35,7 @@ namespace TEDCore.AssetBundle
                 return false;
             }
 
-            var bundle = AssetBundleSystem.Instance.GetLoadedAssetBundle (m_assetBundleName, out m_downloadingError);
+            var bundle = AssetBundleManager.Instance.GetLoadedAssetBundle (m_assetBundleName, out m_downloadingError);
             if (null != bundle)
             {
                 m_request = bundle.Bundle.LoadAllAssetsAsync();

@@ -1,14 +1,14 @@
 ﻿
 namespace TEDCore.AssetBundle
 {
-    public class TotalAssetBundleDownloadInfo
+    public class AssetBundleDownloadProgress
     {
         public float Progress;
         public int DownloadAssetAmount;
         public int TotalAssetAmount;
         public float TotalAssetSize;
 
-        public TotalAssetBundleDownloadInfo(int totalAssetAmount, float totalAssetSize)
+        public AssetBundleDownloadProgress(int totalAssetAmount, float totalAssetSize)
         {
             Progress = 0;
             DownloadAssetAmount = 0;

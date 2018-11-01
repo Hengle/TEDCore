@@ -7,17 +7,17 @@ namespace TEDCore.AssetBundle
         public int MaxDownloadRequest;
         public string DownloadURL;
         public AssetBundleLoadType LoadType;
-        public Action<bool> OnManifestLoaded;
+        public Action<bool> OnInitializeFinish;
 
         public AssetBundleInitializeData(int maxDownloadRequest,
                                          string downloadURL,
                                          AssetBundleLoadType loadType,
-                                         Action<bool> onManifestLoaded)
+                                         Action<bool> onInitializeFinish)
         {
             MaxDownloadRequest = maxDownloadRequest;
             DownloadURL = downloadURL;
             LoadType = loadType;
-            OnManifestLoaded = onManifestLoaded;
+            OnInitializeFinish = onInitializeFinish;
         }
     }
 }

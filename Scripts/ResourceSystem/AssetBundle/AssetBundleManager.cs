@@ -8,7 +8,7 @@ using TEDCore.Resource;
 
 namespace TEDCore.AssetBundle
 {
-    public class AssetBundleSystem : MonoSingleton<AssetBundleSystem>
+    public class AssetBundleManager : MonoSingleton<AssetBundleManager>
     {
         public class LoadedAssetBundle
         {
@@ -46,11 +46,10 @@ namespace TEDCore.AssetBundle
         }
 
         private AssetBundleManifest m_assetBundleManifest;
-        private Action<bool> m_onAssetBundleManifestLoaded;
+        private Action<bool> m_onInitializeFinish;
 
-        private Action<SingleAssetBundleDownloadInfo> m_onSingleAssetBundleProgressChanged;
-        private Action<TotalAssetBundleDownloadInfo> m_onTotalAssetBundleProgressChanged;
-        private TotalAssetBundleDownloadInfo m_totalAssetBundleDownloadInfo;
+        private Action<AssetBundleDownloadProgress> m_onAssetBundleDownloadProgressChanged;
+        private AssetBundleDownloadProgress m_assetBundleDownloadProgress;
 
         private Dictionary<string, LoadedAssetBundle> m_loadedAssetBundles = new Dictionary<string, LoadedAssetBundle>();
         private Dictionary<string, UnityWebRequest> m_downloadingRequests = new Dictionary<string, UnityWebRequest>();
@@ -157,13 +156,6 @@ namespace TEDCore.AssetBundle
 
                 m_completeDownloadAssetBundles.Add(assetBundleName);
             }
-            else
-            {
-                if (m_onSingleAssetBundleProgressChanged != null)
-                {
-                    m_onSingleAssetBundleProgressChanged(new SingleAssetBundleDownloadInfo(unityWebRequest.downloadProgress, m_assetBundleCatalogs.GetFileSize(assetBundleName)));
-                }
-            }
         }
 
 
@@ -205,27 +197,26 @@ namespace TEDCore.AssetBundle
                 m_downloadingRequests.Remove(key);
             }
 
-            if (m_totalAssetBundleDownloadInfo != null)
+            if (m_assetBundleDownloadProgress != null)
             {
-                m_totalAssetBundleDownloadInfo.SetDownloadCount(m_downloadingRequests.Count + m_waitingDownloadRequests.Count);
+                m_assetBundleDownloadProgress.SetDownloadCount(m_downloadingRequests.Count + m_waitingDownloadRequests.Count);
 
-                if (m_totalAssetBundleDownloadInfo.Progress == 1)
+                if (m_assetBundleDownloadProgress.Progress == 1)
                 {
                     TEDDebug.LogFormat("[AssetBundleSystem] - Download AssetBundle complete at frame {0}", Time.frameCount);
                     ResourceSystem.Instance.Clear();
                 }
 
-                if (m_onTotalAssetBundleProgressChanged != null)
+                if (m_onAssetBundleDownloadProgressChanged != null)
                 {
-                    m_onTotalAssetBundleProgressChanged(m_totalAssetBundleDownloadInfo);
+                    m_onAssetBundleDownloadProgressChanged(m_assetBundleDownloadProgress);
                 }
             }
 
             if (m_downloadingRequests.Count == 0 && m_waitingDownloadRequests.Count == 0)
             {
-                m_onSingleAssetBundleProgressChanged = null;
-                m_onTotalAssetBundleProgressChanged = null;
-                m_totalAssetBundleDownloadInfo = null;
+                m_onAssetBundleDownloadProgressChanged = null;
+                m_assetBundleDownloadProgress = null;
             }
 
             m_inProgressRequests.RemoveAll(request => !request.Update());
@@ -257,7 +248,7 @@ namespace TEDCore.AssetBundle
         public void Initialize(AssetBundleInitializeData initializeData)
         {
             m_maxDownloadRequest = initializeData.MaxDownloadRequest;
-            m_onAssetBundleManifestLoaded = initializeData.OnManifestLoaded;
+            m_onInitializeFinish = initializeData.OnInitializeFinish;
             m_assetBundleLoadType = initializeData.LoadType;
 
             TEDDebug.LogFormat("[AssetBundleSystem] - Initialize with load type '{0}'", m_assetBundleLoadType);
@@ -273,10 +264,10 @@ namespace TEDCore.AssetBundle
             }
             else
             {
-                if (m_onAssetBundleManifestLoaded != null)
+                if (m_onInitializeFinish != null)
                 {
-                    m_onAssetBundleManifestLoaded(true);
-                    m_onAssetBundleManifestLoaded = null;
+                    m_onInitializeFinish(true);
+                    m_onInitializeFinish = null;
                 }
             }
         }
@@ -293,10 +284,10 @@ namespace TEDCore.AssetBundle
 
             if (m_assetBundleCatalogs == null)
             {
-                if (m_onAssetBundleManifestLoaded != null)
+                if (m_onInitializeFinish != null)
                 {
-                    m_onAssetBundleManifestLoaded(false);
-                    m_onAssetBundleManifestLoaded = null;
+                    m_onInitializeFinish(false);
+                    m_onInitializeFinish = null;
                     yield break;
                 }
             }
@@ -354,18 +345,17 @@ namespace TEDCore.AssetBundle
         public void SetupManifest(AssetBundleManifest manifest)
         {
             m_assetBundleManifest = manifest;
-            if (m_onAssetBundleManifestLoaded != null)
+            if (m_onInitializeFinish != null)
             {
-                m_onAssetBundleManifestLoaded(m_assetBundleManifest != null);
-                m_onAssetBundleManifestLoaded = null;
+                m_onInitializeFinish(m_assetBundleManifest != null);
+                m_onInitializeFinish = null;
             }
         }
 
 
-        public void Download(Action<SingleAssetBundleDownloadInfo> onSingleAssetBundleDownloadProgressChanged, Action<TotalAssetBundleDownloadInfo> onTotalAssetBundleProgressChanged)
+        public void Download(Action<AssetBundleDownloadProgress> onAssetBundleDownloadProgressChanged)
         {
-            m_onSingleAssetBundleProgressChanged = onSingleAssetBundleDownloadProgressChanged;
-            m_onTotalAssetBundleProgressChanged = onTotalAssetBundleProgressChanged;
+            m_onAssetBundleDownloadProgressChanged = onAssetBundleDownloadProgressChanged;
 
             if (m_assetBundleLoadType == AssetBundleLoadType.Simulate)
             {
@@ -401,7 +391,7 @@ namespace TEDCore.AssetBundle
                 DownloadAssetBundle(allAssetBundles[i], false);
             }
 
-            m_totalAssetBundleDownloadInfo = new TotalAssetBundleDownloadInfo(allAssetBundles.Length, m_assetBundleCatalogs.GetAllFileSize(downloadAssetBundleNames));
+            m_assetBundleDownloadProgress = new AssetBundleDownloadProgress(allAssetBundles.Length, m_assetBundleCatalogs.GetAllFileSize(downloadAssetBundleNames));
         }
 
 
