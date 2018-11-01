@@ -1,13 +1,13 @@
 # TEDCore
 
 TEDCore is a Unity framework.
-The major purpose is to provide modules and tools for game developing in a stable and convenient ways.
+The major purpose is to provide modules and tools for game developing in convenient ways.
 
 ## Modules
 
 ### Singleton
-Singleton is based on Singleton pattern.
-It does force you to inherit MonoBehaviour when you want to register a new service in Services.
+Singleton is based on **Singleton design pattern**.
+There are two class of it, Singleton and MonoSingleton.
 
 #### Namespace
 TEDCore
@@ -39,9 +39,9 @@ public class ExampleClass : MonoBehaviour
 
 ### State Manager
 State and Task Manager are the most important parts in this library.
-The major concept is based on State pattern.
+The major concept is based on **State design pattern**.
 Each State is a single hierarchy and processing Task that is registered inside it.
-State Manager consists two parts State and StateManager.
+State Manager consists two parts, **State**, and **StateManager**.
 State just likes the scenes in Unity Engine and have the higher control level than Unity scene.
 
 #### Namespace
@@ -101,10 +101,10 @@ public class ExampleClass : MonoBehaviour
 ```
 
 ### Task Manager
-Task Manager need to cooperate with with State Manager.
-In each State you can register multiple Task inside it and each Task works as a single station of the game logic which means we need to follow Single Responsibility Principle in each specific Task.
+Task Manager need to cooperate with with **State Manager**.
+In each State, you can register multiple Task inside it and each Task works as a single station of the game logic which means we need to follow **Single Responsibility Principle** in each specific Task.
 Then change the task state in TaskManager can process the specific Task.
-Task Manager consists two parts Task and TaskManager.
+Task Manager consists two parts, **Task**, and **TaskManager**.
 
 #### Namespace
 TEDCore.StateManagement
@@ -176,10 +176,10 @@ public class NewState : State
 
 ### Event Manager
 Event Manager is designed to a central event receiver and transmitter.
-The concept is based on Observer pattern.
+The concept is based on **Observer design pattern**.
 The main purpose of Event Manager is to send events to other parts of the script without being dependant on their interface or having the explicit of it.
 It can help us to prevent involving in the dependency hell.
-It consists of EventResult, EventListener and EventManager.
+It consists parts, **EventResult**, **EventListener**, and **EventManager**.
 
 #### Namespace
 TEDCore.Event
@@ -245,7 +245,7 @@ public class ExampleClass : MonoBehaviour
 
 ### AssetBundle Manager
 An AssetBundle is an archive file containing platform specific Assets(Model, Textures, Prefabs, Audio clips, and even entire Scenes) that can be loaded at runtime.
-AssetBundle Manager is designed to access AssetBundle and you don’t need to use AssetBundle Manager because Resource Manager would handle everything for you directly.
+AssetBundle Manager is designed to access AssetBundle and **you don’t need to use AssetBundle Manager because Resource Manager would handle everything for you directly**.
 
 #### Namespace
 TEDCore.AssetBundle
@@ -308,7 +308,7 @@ public class ExampleClass : MonoBehaviour
 ```
 
 ### ObjectPool Manager
-ObjectPool Manager is in charge of Object Pools.
+ObjectPool Manager is in charge of **Object Pools**.
 It can help the developers create object pool easily.
 
 #### Namespace
@@ -356,7 +356,7 @@ public class ExampleClass : MonoBehaviour
 ### Timer Manager
 Timer Manager is design for scheduling.
 It help the developer create a sequence schedule with easy steps.
-It consists of BaseTimer and TimerManager.
+It consists of **BaseTimer** and **TimerManager**.
 
 #### Namespace
 TEDCore.Timer
@@ -625,7 +625,7 @@ public class ExampleClass : MonoBehaviour
 ```
 
 ### Notification Manager
-Notification Manager is designed to implement Local Notifications on the mobile platform.
+Notification Manager is designed to implement **Local Notifications on the iOS platform**.
 
 #### Namespace
 TEDCore.Notification
