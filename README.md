@@ -396,6 +396,56 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
+### BGM Manager
+BGM Manager is designed for playgin BGM.
+The developer could play the BGM and adjust the volumn of it.
+
+#### Public Methods
+| Name                                      | Parameters                                                                                      | Description                                            |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| SetVolume(float volume)                   | volumn: The volumn of BGM                                                                       | Set the BGM volumn direclty.                           |
+| SetVolume(float volume, float duration)   | volumn: The volumn of BGM<br>duration: The duration to the target volumn                        | Set the BGM volumn with the fading duration.           |
+| Play(string assetName)                    | assetName: The asset name you want to play                                                      | Play the BGM with the asset name.                      |
+| Play(string bundleName, string assetName) | bundleName: The AssetBundle name you want to play<br>assetName: The asset name you want to play | Play the BGM with the AssetBundle name and asset name. |
+| Stop()                                    |                                                                                                 | Stop playing the BGM.                                  |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore.Audio;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            BGMManager.Instance.Play("BGM1");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            BGMManager.Instance.Play("assetbundle", "BGM2");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            BGMManager.Instance.SetVolume(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            BGMManager.Instance.SetVolume(0, 2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            BGMManager.Instance.Stop();
+        }
+    }
+}
+```
+
 ### Audio Manager
 Audio Manager is design for playing BGM and SFX.
 The developer could play BGM and SFX while using it and adjust the volume of BGM and SFX on it.
