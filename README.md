@@ -12,6 +12,31 @@ It does force you to inherit MonoBehaviour when you want to register a new servi
 #### Namespace
 TEDCore
 
+#### Example
+```
+using UnityEngine;  
+using TEDCore;  
+
+public class EventManager : Singleton<EventManager>  
+{  
+    public void SendEvent(){}  
+}  
+
+public class ResourceSystem : MonoSingleton<ResourceSystem>  
+{  
+    public void Load() { }  
+}  
+
+public class ExampleClass : MonoBehaviour  
+{  
+    private void Awake()  
+    {  
+        EventManager.Instance.SendEvent();  
+        ResourceSystem.Instance.Load();  
+    }  
+}  
+```
+
 ### State Manager
 State and Task Manager are the most important parts in this library.
 The major concept is based on State pattern.
@@ -22,7 +47,7 @@ State just likes the scenes in Unity Engine and have the higher control level th
 #### Namespace
 TEDCore.StateManagement
 
-#### Example
+#### Public Methods
 |Name|Parameters|Description|
 |---|---|---|
 |ChangeState(State newState)|newState: The new state you want to switch to|ChangeState is called when you want to switch from current state to a new state|
