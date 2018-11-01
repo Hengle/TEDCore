@@ -47,9 +47,9 @@ namespace TEDCore.StateManagement
         }
 
 
-        public void ChangeState(Enum state)
+        public void ChangeState(Enum activeState)
 		{
-            CurrentState = TaskUtils.GetStateId(state);
+            CurrentState = TaskUtils.GetStateId(activeState);
 
 			// Deactive
 			for(int cnt = 0; cnt < m_tasks.Count; cnt++)

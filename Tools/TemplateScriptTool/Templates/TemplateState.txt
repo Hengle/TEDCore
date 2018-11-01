@@ -2,13 +2,13 @@
 
 public class $SCRIPTNAME : State
 {
-    private enum $SCRIPTNAMEId
+    private enum E$SCRIPTNAME
     {
-        
+
     }
-    
-	public $SCRIPTNAME(StateManager stateManager) : base(stateManager)
-	{
-		
-	}
+
+    public $SCRIPTNAME(StateManager stateManager) : base(stateManager)
+    {
+
+    }
 }

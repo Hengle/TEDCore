@@ -12,7 +12,7 @@ It does force you to inherit MonoBehaviour when you want to register a new servi
 #### Namespace
 TEDCore
 
-#### Example
+#### Examples
 ```
 using UnityEngine;  
 using TEDCore;  
@@ -55,19 +55,24 @@ TEDCore.StateManagement
 | FixedUpdate(float deltaTime) | deltaTime: The Time.fixedDeltaTime for the game environment | FixedUpdate is called every physics frame, it should connect with MonoBehaviour.FixedUpdate() and sync Time.fixedDeltaTime for it. |
 | LateUpdate(float deltaTime)  | deltaTime: The Time.deltaTime for the game environment      | LateUpdate is called every frame, it should connect with MonoBehaviour.LateUpdate() and sync Time.deltaTime for it.                |
 
-#### Example
+#### Examples
 ```
-using UnityEngine;
 using TEDCore.StateManagement;
 
-public class EmptyState : State
+public class NewState : State
 {
-    public EmptyState(StateManager stateManager) : base(stateManager)
+    private enum ENewState
+    {
+
+    }
+
+    public NewState(StateManager stateManager) : base(stateManager)
     {
 
     }
 }
-
+```
+```
 public class ExampleClass : MonoBehaviour
 {
     private StateManager m_stateManager;
@@ -103,6 +108,71 @@ Task Manager consists two parts Task and TaskManager.
 
 #### Namespace
 TEDCore.StateManagement
+
+#### Public Methods
+| Name                                           | Parameters                                                                                            | Description                                                                                                                        |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| AddTask(Task task, params Enum[] activeStates) | task: The task you want to registeractiveStates: The activie states you want to register for the task | Register the task to the active states with enum type                                                                              |
+| AddTask(Task task, long activeStates)          | task: The task you want to registeractiveStates: The activie states you want to register for the task | Register the task to the active states with long type                                                                              |
+| ChangeState(Enum activeState)                  | activeState: The state you want to active                                                             | Change the state to the active state                                                                                               |
+| Update (float deltaTime)                       | deltaTime: The Time.deltaTime for the game environment                                                | Update is called every frame, it should connect with MonoBehaviour.Update() and sync Time.deltaTime for it.                        |
+| FixedUpdate(float deltaTime)                   | deltaTime: The Time.fixedDeltaTime for the game environment                                           | FixedUpdate is called every physics frame, it should connect with MonoBehaviour.FixedUpdate() and sync Time.fixedDeltaTime for it. |
+| LateUpdate(float deltaTime)                    | deltaTime: The Time.deltaTime for the game environment                                                | LateUpdate is called every frame, it should connect with MonoBehaviour.LateUpdate() and sync Time.deltaTime for it.                |
+
+#### Examples
+```
+using TEDCore.StateManagement;  
+
+public class NewTask : Task  
+{  
+    public NewTask() : base()  
+    {  
+
+    }  
+
+    public override void Show (bool show)  
+    {  
+
+    }  
+
+    public override void Update (float deltaTime)  
+    {  
+
+    }  
+
+    public override void FixedUpdate (float deltaTime)  
+    {  
+
+    }  
+
+    public override void LateUpdate (float deltaTime)  
+    {  
+
+    }  
+
+    public override void Destroy()  
+    {  
+        base.Destroy();  
+    }  
+}  
+```
+```
+using TEDCore.StateManagement;
+
+public class NewState : State
+{
+    private enum ENewState
+    {
+        New,
+    }
+
+    public NewState(StateManager stateManager) : base(stateManager)
+    {
+        TaskManager.AddTask(new NewTask(), ENewState.New);
+        TaskManager.ChangeState(ENewState.New);
+    }
+}
+```
 
 ### Event Manager
 Event Manager is designed to a central event receiver and transmitter.
@@ -342,7 +412,7 @@ namespace TEDCore
 }
 ```
 
-#### Example
+#### Examples
 ```
 using UnityEngine
 using TEDCore;  
