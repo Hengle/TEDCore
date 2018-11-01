@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TEDCore.Http
 {
-    public class HttpRequestManager : MonoBehaviour
+    public class HttpRequestManager : MonoSingleton<HttpRequestManager>
     {
         public enum BackendServerType
         {

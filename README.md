@@ -572,6 +572,58 @@ HttpRequest Manager is designed to implement the RESTful API.
 #### Namespace
 TEDCore.Http
 
+#### Public Methods
+| Name                                                                                                                      | Parameters                                                                                                                                                                                                                                                     | Description                                                                                                  |
+|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| Init(string generalServerUrl, string gameServerUrl, string appId, string apiVersion, string gameVersion)                  | generalServerUrl: The url of the general backend server<br>gameServerUrl: The url of the game backend server<br>apiVersion: The API version<br>gameVersion: The game version                                                                                   | Need to use this method when the game start. It would set up the backend data, API version and game version. |
+| Auth(object jsonData, WebRequest.OnDataCallback callback)                                                                 | jsonData: The auth data<br>callback: The callback method when the request finish                                                                                                                                                                               | After Init(), you can use this method to authorize and get the account session.                              |
+| SetSession(string session)                                                                                                | session: The account session                                                                                                                                                                                                                                   | Set the session.                                                                                             |
+| Post(BackendServerType serverType, string endPoint, object jsonData, WebRequest.OnDataCallback callback, object userData) | serverType: The backend server type<br>endPoint: The API url<br>jsonData: The data you want to post<br>callback: The callback method when the POST request finish<br>userData: The user data you want to pass it on to the callback method                     | After SetSession(), you can use this method to do RESTful POST.                                              |
+| Get(BackendServerType serverType, string endPoint, WebRequest.OnDataCallback callback, object userData)                   | serverType: The backend server type<br>endPoint: The API url<br>callback: The callback method when the GET request finish<br>userData: The user data you want to pass it on to the callback method                                                             | After SetSession(), you can use this method to do RESTful GET.                                               |
+| Delete(BackendServerType serverType, string endPoint, WebRequest.OnDataCallback callback, object userData)                | serverType: The backend server type<br>endPoint: The API url<br>callback: The callback method when the request finish<br>callback: The callback method when the DELETE request finish<br>userData: The user data you want to pass it on to the callback method | After SetSession(), you can use this method to do RESTful DELETE.                                            |
+| GetTexture(string url, WebRequest.OnTextureCallback callback, object userData)                                            | url: The url of the texture you want to get<br>callback: The callback method when the request finish<br>userData: The user data you want to pass it on to the callback method                                                                                  | You can use this method directly to get the texture from the url.                                            |
+
+#### Examples
+```
+using UnityEngine;  
+using UnityEngine.UI;  
+using TEDCore.Http;  
+
+public class ExampleClass : MonoBehaviour  
+{  
+    [SerializeField] private RawImage m_rawImage;  
+
+    private void Awake()  
+    {  
+        HttpRequestManager.Instance.Init(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);  
+        HttpRequestManager.Instance.SetSession("test");  
+    }  
+
+    private void Update()  
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            HttpRequestManager.Instance.Get(HttpRequestManager.BackendServerType.Game, "https://www.bitoex.com/api/v1/get_rate");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            HttpRequestManager.Instance.Get(HttpRequestManager.BackendServerType.Game, "https://www.binance.com/api/v1/ticker/allPrices");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            HttpRequestManager.Instance.GetTexture("https://secure.gravatar.com/avatar/3914e31d1985733a5f56605f19ce2f61", OnTextureLoaded);
+        }
+    }  
+
+    private void OnTextureLoaded(int id, Texture data, object userData)  
+    {  
+        m_rawImage.texture = data;  
+    }  
+}  
+```
+
 ## Tools
 ### TEDDebug DLL
 TEDDebug.dll repackage UnityEngine.Debug so that the developer can turn on/off the log with a simply parameter EnableLog.
