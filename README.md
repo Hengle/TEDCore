@@ -57,34 +57,42 @@ TEDCore.StateManagement
 
 #### Example
 ```
-using RICore.StateManagement;    
+using UnityEngine;
+using TEDCore.StateManagement;
 
-public class EmptyState : State    
-{    
-    public EmptyState(StateManager stateManager) : base(stateManager)    
-    {    
+public class EmptyState : State
+{
+    public EmptyState(StateManager stateManager) : base(stateManager)
+    {
 
-    }    
-}  
+    }
+}
 
-using UnityEngine;    
-using RICore.StateManagement;    
+public class ExampleClass : MonoBehaviour
+{
+    private StateManager m_stateManager;
 
-public class ExampleClass : MonoBehaviour    
-{    
-    private StateManager m_stateManager;    
+    private void Awake()
+    {
+        m_stateManager = new StateManager();
+        m_stateManager.ChangeState(new EmptyState(m_stateManager));
+    }
 
-    private void Awake()    
-    {    
-        m_stateManager = new StateManager();    
-        m_stateManager.ChangeState(new EmptyState(m_stateManager));    
-    }    
+    private void Update()
+    {
+        m_stateManager.Update(Time.deltaTime);
+    }
 
-    private void Update()    
-    {    
-        m_stateManager.Update(Time.deltaTime);    
-    }    
-}  
+    private void FixedUpdate()
+    {
+        m_stateManager.FixedUpdate(Time.fixedDeltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        m_stateManager.LateUpdate(Time.deltaTime);
+    }
+}
 ```
 
 ### Task Manager
