@@ -114,163 +114,163 @@ using UnityEngine;
 
 namespace TEDCore  
 {  
-public class TEDDebug  
-{  
-public static bool EnableLog = true;  
+    public class TEDDebug  
+    {  
+        public static bool EnableLog = true;  
 
-public static void Log(object message)  
-{     
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void Log(object message)  
+        {     
+            if (!EnableLog)  
+            {  
+                return;
+            }  
 
-Debug.Log(message);  
-}  
-
-
-public static void Log(object message, Object context)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
-
-Debug.Log(message, context);  
-}  
+            Debug.Log(message);  
+        }  
 
 
-public static void LogFormat(string format, params object[] args)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void Log(object message, Object context)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogFormat(format, args);  
-}  
-
-
-public static void LogFormat(Object context, string format, params object[] args)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
-
-Debug.LogFormat(context, format, args);  
-}  
+            Debug.Log(message, context);  
+        }  
 
 
-public static void LogWarning(object message)  
-{     
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void LogFormat(string format, params object[] args)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogWarning(message);  
-}  
-
-
-public static void LogWarning(object message, Object context)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
-
-Debug.LogWarning(message, context);  
-}  
+            Debug.LogFormat(format, args);  
+        }  
 
 
-public static void LogWarningFormat(string format, params object[] args)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void LogFormat(Object context, string format, params object[] args)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogWarningFormat(format, args);  
-}  
-
-
-public static void LogWarningFormat(Object context, string format, params object[] args)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
-
-Debug.LogWarningFormat(context, format, args);  
-}  
+            Debug.LogFormat(context, format, args);  
+        }  
 
 
-public static void LogError(object message)  
-{     
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void LogWarning(object message)  
+        {     
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogError(message);  
-}  
-
-
-public static void LogError(object message, Object context)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
-
-Debug.LogError(message, context);  
-}  
+            Debug.LogWarning(message);  
+        }  
 
 
-public static void LogErrorFormat(string format, params object[] args)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void LogWarning(object message, Object context)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogErrorFormat(format, args);  
-}  
-
-
-public static void LogErrorFormat(Object context, string format, params object[] args)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
-
-Debug.LogErrorFormat(context, format, args);  
-}  
+            Debug.LogWarning(message, context);  
+        }  
 
 
-public static void LogException(System.Exception exception)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void LogWarningFormat(string format, params object[] args)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogException(exception);  
-}  
+            Debug.LogWarningFormat(format, args);  
+        }  
 
 
-public static void LogException(System.Exception exception, Object context)  
-{  
-if (!EnableLog)  
-{  
-return;  
-}  
+        public static void LogWarningFormat(Object context, string format, params object[] args)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
 
-Debug.LogException(exception, context);  
-}  
-}  
+            Debug.LogWarningFormat(context, format, args);  
+        }  
+
+
+        public static void LogError(object message)  
+        {     
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
+
+            Debug.LogError(message);  
+        }  
+
+
+        public static void LogError(object message, Object context)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
+
+            Debug.LogError(message, context);  
+        }  
+
+
+        public static void LogErrorFormat(string format, params object[] args)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
+
+            Debug.LogErrorFormat(format, args);  
+        }  
+
+
+        public static void LogErrorFormat(Object context, string format, params object[] args)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
+
+            Debug.LogErrorFormat(context, format, args);  
+        }  
+
+
+        public static void LogException(System.Exception exception)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
+
+            Debug.LogException(exception);  
+        }  
+
+
+        public static void LogException(System.Exception exception, Object context)  
+        {  
+            if (!EnableLog)  
+            {  
+                return;  
+            }  
+
+            Debug.LogException(exception, context);  
+        }  
+    }  
 }
 ```
 
@@ -281,19 +281,18 @@ using TEDCore;
 
 public class ExampleClass : MonoBehaviour  
 {  
-private void Awake()  
-{  
-TEDDebug.Log("Test TEDDebug.Log");  
-TEDDebug.LogFormat("Test TEDDebug.LogFormat {0}", "finished");  
+    private void Awake()  
+    {  
+        TEDDebug.Log("Test TEDDebug.Log");  
+        TEDDebug.LogFormat("Test TEDDebug.LogFormat {0}", "finished");  
 
-TEDDebug.LogWarning("Test TEDDebug.LogWarning");  
-TEDDebug.LogWarningFormat("Test TEDDebug.LogWarningFormat {0}", "finished");  
+        TEDDebug.LogWarning("Test TEDDebug.LogWarning");  
+        TEDDebug.LogWarningFormat("Test TEDDebug.LogWarningFormat {0}", "finished");  
 
-TEDDebug.LogError("Test TEDDebug.LogError");  
-TEDDebug.LogErrorFormat("Test TEDDebug.LogErrorFormat {0}", "finished");  
-}  
+        TEDDebug.LogError("Test TEDDebug.LogError");  
+        TEDDebug.LogErrorFormat("Test TEDDebug.LogErrorFormat {0}", "finished");  
+    }  
 }
-
 ```
 
 ### AssetBundle Tool
