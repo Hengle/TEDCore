@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using TEDCore.Resource;
 using TEDCore.Utils;
 
@@ -20,21 +21,12 @@ namespace TEDCore.UI
             m_uiCanvas = GameObject.Find("UICanvas").transform;
         }
 
-        public void LoadScreenAsync<T>(string assetName, System.Action<T> callback) where T : MonoBehaviour
+        public void LoadUIAsync<T>(string assetName, Action<T> callback) where T : MonoBehaviour
         {
-            ResourceManager.Instance.LoadAsync<GameObject>(assetName, delegate (GameObject obj)
-            {
-                GameObject screen = GameObject.Instantiate(obj);
-                screen.transform.SetParent(m_uiCanvas, false);
-
-                if (null != callback)
-                {
-                    callback(screen.GetComponent<T>());
-                }
-            });
+            LoadUIAsync<T>(string.Empty, assetName, callback);
         }
 
-        public void LoadScreenAsync<T>(string bundleName, string assetName, System.Action<T> callback) where T : MonoBehaviour
+        public void LoadUIAsync<T>(string bundleName, string assetName, Action<T> callback) where T : MonoBehaviour
         {
             ResourceManager.Instance.LoadAsync<GameObject>(bundleName, assetName, delegate(GameObject obj)
                 {
@@ -48,22 +40,22 @@ namespace TEDCore.UI
                 });
         }
 
-        public void DestoryScreen(GameObject screen)
+        public void DestroyUI(GameObject ui)
         {
-            GameObject.Destroy(screen);
+            GameObject.Destroy(ui);
         }
 
-        public void ShowScreen(GameObject screen, bool show)
+        public void SetUIActive(GameObject ui, bool active)
         {
-            if (show)
+            if (active)
             {
-                screen.SetLayer(m_showUILayer);
-                screen.transform.SetAsLastSibling();
+                ui.SetLayer(m_showUILayer);
+                ui.transform.SetAsLastSibling();
             }
             else
             {
-                screen.SetLayer(m_hideUILayer);
-                screen.transform.SetAsFirstSibling();
+                ui.SetLayer(m_hideUILayer);
+                ui.transform.SetAsFirstSibling();
             }
         }
     }

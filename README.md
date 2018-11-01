@@ -1,9 +1,9 @@
 # TEDCore
 
 TEDCore is a Unity framework.
-The major purpose is to provide the features and tools for developing in a stable and convenient ways.
+The major purpose is to provide modules and tools for game developing in a stable and convenient ways.
 
-## Features
+## Modules
 
 ### Singleton
 Singleton is based on Singleton pattern.
@@ -503,6 +503,68 @@ It could help the developers load, show, hide and destroy the UI prefabs.
 
 #### Namespace
 TEDCore.UI
+
+#### Public Methods
+| Name                                                                    | Parameters                                                                                                                                                            | Description                       |
+|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| LoadUIAsync<T>(string assetName, Action<T> callback)                    | assetName: The asset name you want to load with an UI<br>callback: The callback method when the asset was loaded                                                      | Asynchronously load the UI prefab |
+| LoadUIAsync<T>(string bundleName, string assetName, Action<T> callback) | bundleName: The AssetBundle name you want to load<br>assetName: The asset name you want to load with an UI<br>callback: The callback method when the asset was loaded | Asynchronously load the UI prefab |
+| DestroyUI(GameObject ui)                                                | ui: The UI you want to destroy                                                                                                                                        | Destory the UI prefab             |
+| SetUIActive(GameObject ui, bool active)                                 | ui: The UI you want to set<br>active: Active or deactive value                                                                                                        | Set the UI active or deactive     |
+
+#### Examples
+```
+using UnityEngine;
+
+public class EmptyUIView : MonoBehaviour
+{
+
+}
+```
+```
+using UnityEngine;
+using TEDCore.UI;
+
+public class ExampleClass : MonoBehaviour
+{
+    private EmptyUIView m_view;
+
+    private void Start()
+    {
+        UIManager.Instance.LoadUIAsync<EmptyUIView>("EmptyUI", OnEmptyUILoaded);
+    }
+
+
+    private void Update()
+    {
+        if (null == m_view)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UIManager.Instance.SetUIActive(m_view.gameObject, true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            UIManager.Instance.SetUIActive(m_view.gameObject, false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UIManager.Instance.DestroyUI(m_view.gameObject);
+        }
+    }
+
+
+    private void OnEmptyUILoaded(EmptyUIView view)
+    {
+        m_view = view;
+    }
+}
+```
 
 ### HttpRequest Manager
 HttpRequest Manager is designed to implement the RESTful API.
