@@ -184,6 +184,65 @@ It consists of EventResult, EventListener and EventManager.
 #### Namespace
 TEDCore.Event
 
+#### Public Methods
+| Name                                                                     | Parameters                                                                                                                           | Description                                               |
+|--------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
+| RegisterListener(int eventId, IEventListener listener, int priority = 0) | eventId: The event id you want to register<br>listener: The listener you want to register<br> priority: The priority of the listener | Register the listener on the event id                     |
+| RemoveListener(int eventId, IEventListener listener)                     | eventId: The event id you want to remove<br>listener: The listener you want to remove                                                | Remove the listener on the event id                       |
+| SendEvent(int eventId, object eventData = null)                          | eventId: The event id you want to send<br>eventData: The event data you want to send                                                 | Send the event data to the event listener on the event id |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.Event;
+
+public class ExampleClass : MonoBehaviour
+{
+    private enum EExampleEvent
+    {
+        ExampleEvent1,
+        ExampleEvent2,
+        ExampleEvent3,
+    }
+
+    private EventListener m_eventListener;
+
+    private void Awake()
+    {
+        m_eventListener = new EventListener();
+        m_eventListener.ListenForEvent(EExampleEvent.ExampleEvent1.GetHashCode(), OnExampleEvent1);
+        m_eventListener.ListenForEvent(EExampleEvent.ExampleEvent2.GetHashCode(), OnExampleEvent2);
+        m_eventListener.ListenForEvent(EExampleEvent.ExampleEvent3.GetHashCode(), OnExampleEvent3);
+    }
+
+    private void Start()
+    {
+        EventManager.Instance.SendEvent(EExampleEvent.ExampleEvent1.GetHashCode());
+        EventManager.Instance.SendEvent(EExampleEvent.ExampleEvent2.GetHashCode(), 0);
+        EventManager.Instance.SendEvent(EExampleEvent.ExampleEvent3.GetHashCode(), "example");
+    }
+
+    private EventResult OnExampleEvent1(object eventData)
+    {
+        TEDDebug.Log("Received ExampleEvent1 event.");
+        return null;
+    }
+
+    private EventResult OnExampleEvent2(object eventData)
+    {
+        TEDDebug.LogFormat("Received ExampleEvent2 event with int '{0}'.", (int)eventData);
+        return null;
+    }
+
+    private EventResult OnExampleEvent3(object eventData)
+    {
+        TEDDebug.LogFormat("Received ExampleEvent3 event with string '{0}'.", (string)eventData);
+        return null;
+    }
+}
+```
+
 ### AssetBundle Manager
 An AssetBundle is an archive file containing platform specific Assets(Model, Textures, Prefabs, Audio clips, and even entire Scenes) that can be loaded at runtime.
 AssetBundle Manager is designed to access AssetBundle and you don’t need to use AssetBundle Manager because Resource Manager would handle everything for you directly.
