@@ -361,6 +361,41 @@ It consists of BaseTimer and TimerManager.
 #### Namespace
 TEDCore.Timer
 
+#### Public Methods
+| Name                    | Parameters                          | Description       |
+|-------------------------|-------------------------------------|-------------------|
+| Add(BaseTimer timer)    | timer: The timer you want to add    | Add a new timer.  |
+| Remove(BaseTimer timer) | timer: The timer you want to remove | Remove the timer. |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.Timer;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Start()
+    {
+        BaseTimer timer = new BaseTimer(1.0f, OnOneSecondTimerFinished);
+        TimerManager.Instance.Add(timer);
+
+        timer = new BaseTimer(2.0f, OnTwoSecondsTimerFinished, "TestCase");
+        TimerManager.Instance.Add(timer);
+    }
+
+    private void OnOneSecondTimerFinished(object timerData)
+    {
+        TEDDebug.Log("OnOneSecondTimerFinished");
+    }
+
+    private void OnTwoSecondsTimerFinished(object timerData)
+    {
+        TEDDebug.Log("OnTwoSecondsTimerFinished = " + (string)timerData);
+    }
+}
+```
+
 ### Audio Manager
 Audio Manager is design for playing BGM and SFX.
 The developer could play BGM and SFX while using it and adjust the volume of BGM and SFX on it.
