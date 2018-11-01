@@ -7,14 +7,14 @@ public class UnitTesting_Resource : BaseUnitTesting
     [TestButton]
     public void LoadAsyncAssetTenTimes()
     {
-        ResourceSystem.Instance.LoadAsync<GameObject>("EmptyAsset", delegate(GameObject obj)
+        ResourceManager.Instance.LoadAsync<GameObject>("EmptyAsset", delegate(GameObject obj)
             {
                 for (int i = 0; i < 10; i++)
                 {
                     GameObject.Instantiate(obj);
                 }
 
-                ResourceSystem.Instance.Unload<GameObject>("EmptyAsset");
+                ResourceManager.Instance.Unload<GameObject>("EmptyAsset");
             });
     }
 
@@ -24,10 +24,10 @@ public class UnitTesting_Resource : BaseUnitTesting
     {
         for (int i = 0; i < 10; i++)
         {
-            ResourceSystem.Instance.LoadAsync<GameObject>("EmptyAsset", delegate(GameObject obj)
+            ResourceManager.Instance.LoadAsync<GameObject>("EmptyAsset", delegate(GameObject obj)
                 {
                     GameObject.Instantiate(obj);
-                    ResourceSystem.Instance.Unload<GameObject>("EmptyAsset");
+                    ResourceManager.Instance.Unload<GameObject>("EmptyAsset");
                 });
         }
     }
@@ -36,14 +36,14 @@ public class UnitTesting_Resource : BaseUnitTesting
     [TestButton]
     public void LoadAsyncAssetBundleTenTimes()
     {
-        ResourceSystem.Instance.LoadAsync<GameObject>("EmptyAssetBundle", delegate(GameObject obj)
+        ResourceManager.Instance.LoadAsync<GameObject>("EmptyAssetBundle", delegate(GameObject obj)
             {
                 for (int i = 0; i < 10; i++)
                 {
                     GameObject.Instantiate(obj);
                 }
 
-                ResourceSystem.Instance.Unload<GameObject>("EmptyAssetBundle");
+                ResourceManager.Instance.Unload<GameObject>("EmptyAssetBundle");
             });
     }
 
@@ -53,10 +53,10 @@ public class UnitTesting_Resource : BaseUnitTesting
     {
         for (int i = 0; i < 10; i++)
         {
-            ResourceSystem.Instance.LoadAsync<GameObject>("EmptyAssetBundle", delegate(GameObject obj)
+            ResourceManager.Instance.LoadAsync<GameObject>("EmptyAssetBundle", delegate(GameObject obj)
                 {
                     GameObject.Instantiate(obj);
-                    ResourceSystem.Instance.Unload<GameObject>("EmptyAssetBundle");
+                    ResourceManager.Instance.Unload<GameObject>("EmptyAssetBundle");
                 });
         }
     }
@@ -65,7 +65,7 @@ public class UnitTesting_Resource : BaseUnitTesting
     [TestButton]
     public void LoadAsyncAssetTexture()
     {
-        ResourceSystem.Instance.LoadAsync<Texture>("AssetTexture", delegate(Texture obj)
+        ResourceManager.Instance.LoadAsync<Texture>("AssetTexture", delegate(Texture obj)
             {
                 
             });
@@ -75,14 +75,14 @@ public class UnitTesting_Resource : BaseUnitTesting
     [TestButton]
     public void UnloadAssetTexture()
     {
-        ResourceSystem.Instance.Unload<Texture>("AssetTexture");
+        ResourceManager.Instance.Unload<Texture>("AssetTexture");
     }
 
 
     [TestButton]
     public void LoadAsyncAssetBundleTexture()
     {
-        ResourceSystem.Instance.LoadAsync<Texture>("AssetBundleTexture", delegate(Texture obj)
+        ResourceManager.Instance.LoadAsync<Texture>("AssetBundleTexture", delegate(Texture obj)
             {
                 
             });
@@ -92,6 +92,6 @@ public class UnitTesting_Resource : BaseUnitTesting
     [TestButton]
     public void UnloadAssetBundleTexture()
     {
-        ResourceSystem.Instance.Unload<Texture>("AssetBundleTexture");
+        ResourceManager.Instance.Unload<Texture>("AssetBundleTexture");
     }
 }

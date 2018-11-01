@@ -271,6 +271,42 @@ You can simply load or load asynchronously the asset to memory through Resource 
 #### Namespace
 TEDCore.Resource
 
+#### Public Methods
+| Name                                                                                                                 | Parameters                                                                                                                                                                                                                                                                       | Description                      |
+|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
+| LoadAsync<T>(string assetName, Action<T> callback, bool unloadAutomatically = true)                                  | T: The load type of the asset<br>assetName: The asset name or path you want to load<br>callback: The callback when the asynchronously loads is completed<br>unloadAutomatically: Unload the asset automatically or not                                                           | Asynchronously loads asset.      |
+| LoadAsync<T>(string assetBundleName, string assetName, Action<T> callback, bool unloadAutomatically = true)          | T: The load type of the asset<br>assetBundleName: The AssetBundle name you want to load<br>assetName: The asset name or path you want to load<br>callback: The callback when the asynchronously loads is completed<br>unloadAutomatically: Unload the asset automatically or not | Asynchronously loads asset.      |
+| LoadAllAsync<T>(string assetName, Action<List<T>> callback, bool unloadAutomatically = true)                         | T: The load type of the asset<br>assetName: The asset name or path you want to load<br>callback: The callback when the asynchronously loads is completed<br>unloadAutomatically: Unload the asset automatically or not                                                           | Asynchronously loads all assets. |
+| LoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback, bool unloadAutomatically = true) | T: The load type of the asset<br>assetBundleName: The AssetBundle name you want to load<br>assetName: The asset name or path you want to load<br>callback: The callback when the asynchronously loads is completed<br>unloadAutomatically: Unload the asset automatically or not | Asynchronously loads all assets. |
+| Unload<T>(string assetName)                                                                                          | T: The load type of the asset<br>assetName: The asset name or path you want to unload                                                                                                                                                                                            | Unload asset                     |
+| Unload<T>(string assetBundleName, string assetName)                                                                  | T: The load type of the asset<br>assetBundleName: The AssetBundle name you want to unload<br>assetName: The asset name or path you want to unload                                                                                                                                | Unload asset                     |
+| Release()                                                                                                            |                                                                                                                                                                                                                                                                                  | Release memory.                  |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore.Resource;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Start()
+    {
+        ResourceManager.Instance.LoadAsync<GameObject>("EmptyAsset", OnLoadResourceAssetComplete);
+        ResourceManager.Instance.LoadAsync<GameObject>("assetbundle", "EmptyAsset", OnLoadResourceAssetComplete);
+    }
+
+    private void OnLoadResourceAssetComplete(GameObject cache)
+    {
+        GameObject.Instantiate(cache);
+    }
+
+    private void OnLoadAssetBundleAssetComplete(GameObject cache)
+    {
+        GameObject.Instantiate(cache);
+    }  
+}
+```
+
 ### Pool Manager
 Pool Manager is based on Object Pool.
 It can help the developer create object pool repeatedly.

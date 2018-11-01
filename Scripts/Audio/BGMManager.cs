@@ -61,7 +61,7 @@ namespace TEDCore.Audio
                 return;
             }
 
-            ResourceSystem.Instance.LoadAsync<AudioClip>(assetName, OnAssetLoaded);
+            ResourceManager.Instance.LoadAsync<AudioClip>(assetName, OnAssetLoaded);
         }
 
 
@@ -78,7 +78,7 @@ namespace TEDCore.Audio
                 return;
             }
 
-            ResourceSystem.Instance.LoadAsync<AudioClip>(bundleName, assetName, OnAssetLoaded);
+            ResourceManager.Instance.LoadAsync<AudioClip>(bundleName, assetName, OnAssetLoaded);
         }
 
 
@@ -111,7 +111,7 @@ namespace TEDCore.Audio
             m_audioSource.Stop();
             m_audioSource.clip = null;
 
-            ResourceSystem.Instance.Release();
+            ResourceManager.Instance.Release();
         }
 
 

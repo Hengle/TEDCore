@@ -31,7 +31,7 @@ namespace TEDCore.Audio
                 return;
             }
 
-            ResourceSystem.Instance.LoadAsync<AudioClip>(assetName, OnAssetLoaded);
+            ResourceManager.Instance.LoadAsync<AudioClip>(assetName, OnAssetLoaded);
         }
 
         public void Play(string bundleName, string assetName)
@@ -42,7 +42,7 @@ namespace TEDCore.Audio
                 return;
             }
 
-            ResourceSystem.Instance.LoadAsync<AudioClip>(bundleName, assetName, OnAssetLoaded);
+            ResourceManager.Instance.LoadAsync<AudioClip>(bundleName, assetName, OnAssetLoaded);
         }
 
         private void OnAssetLoaded(AudioClip audioClip)
@@ -68,7 +68,7 @@ namespace TEDCore.Audio
             audioSource.clip = null;
             ObjectPoolManager.Instance.Recycle(OBJECT_POOL_KEY, audioSource.gameObject);
 
-            ResourceSystem.Instance.Release();
+            ResourceManager.Instance.Release();
         }
     }
 }

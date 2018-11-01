@@ -23,7 +23,7 @@ namespace TEDCore.UI
 
         public void LoadScreenAsync<T>(string assetName, System.Action<T> callback) where T : MonoBehaviour
         {
-            ResourceSystem.Instance.LoadAsync<GameObject>(assetName, delegate (GameObject obj)
+            ResourceManager.Instance.LoadAsync<GameObject>(assetName, delegate (GameObject obj)
             {
                 GameObject screen = GameObject.Instantiate(obj);
                 screen.transform.SetParent(m_uiCanvas, false);
@@ -38,7 +38,7 @@ namespace TEDCore.UI
 
         public void LoadScreenAsync<T>(string bundleName, string assetName, System.Action<T> callback) where T : MonoBehaviour
         {
-            ResourceSystem.Instance.LoadAsync<GameObject>(bundleName, assetName, delegate(GameObject obj)
+            ResourceManager.Instance.LoadAsync<GameObject>(bundleName, assetName, delegate(GameObject obj)
                 {
                     GameObject screen = GameObject.Instantiate(obj);
                     screen.transform.SetParent(m_uiCanvas, false);

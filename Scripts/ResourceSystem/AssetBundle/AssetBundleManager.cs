@@ -204,7 +204,7 @@ namespace TEDCore.AssetBundle
                 if (m_assetBundleDownloadProgress.Progress == 1)
                 {
                     TEDDebug.LogFormat("[AssetBundleSystem] - Download AssetBundle complete at frame {0}", Time.frameCount);
-                    ResourceSystem.Instance.Clear();
+                    ResourceManager.Instance.Clear();
                 }
 
                 if (m_onAssetBundleDownloadProgressChanged != null)

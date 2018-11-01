@@ -13,7 +13,7 @@ public class UnitTesting_ObjectPool : BaseUnitTesting
     public void RegisterPool(string value)
     {
         m_poolKey = value;
-        ResourceSystem.Instance.LoadAsync<GameObject>(value, OnResourcePoolLoad);
+        ResourceManager.Instance.LoadAsync<GameObject>(value, OnResourcePoolLoad);
     }
 
     private void OnResourcePoolLoad(GameObject asset)
