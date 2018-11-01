@@ -1,14 +1,14 @@
 ﻿// WARNING: Do not modify! Generated file.
 using UnityEngine;
 
-namespace TEDCore.Database
+namespace TEDCore.ClientDatabase
 {
-	public class $DataClassNameScriptableObject : ClientDatabaseScriptableObject
-	{
-		public $DataClassName[] data;
+    public class $DataClassNameScriptableObject : ClientDatabaseScriptableObject
+    {
+        public $DataClassName[] data;
 
-		#if UNITY_EDITOR
-		public override void LoadTextAsset()
+        #if UNITY_EDITOR
+        public override void LoadTextAsset()
         {
             TextAsset textData = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>($TextAssetPath);
             string[][] datas = CsvConverter.SerializeCSVData(textData);
@@ -28,5 +28,5 @@ namespace TEDCore.Database
             UnityEditor.AssetDatabase.SaveAssets();
         }
         #endif
-	}
+    }
 }

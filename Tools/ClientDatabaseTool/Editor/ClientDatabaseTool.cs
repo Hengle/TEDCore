@@ -7,9 +7,12 @@ namespace TEDCore.ClientDatabase
 {
     public class ClientDatabaseTool : EditorWindow
     {
+        private const string MENU_ITEM_INITIALIZE_PLUGIN = "TEDCore/Client Database/Initialize Plugin";
+        private const string MENU_ITEM_GENERATE_SCRIPTS = "TEDCore/Client Database/Generate Scripts";
+
         private const string TEMPLATE_PATH = "Assets/Tools/ClientDatabaseTool/Templates/";
         private const string TEMPLATE_DATABASE_NAME = "Template_Database.txt";
-        private const string TEMPLATE_DATABASEMANAGER_NAME = "Template_DatabaseManager.txt";
+        private const string TEMPLATE_DATABASEMANAGER_NAME = "Template_ClientDatabaseManager.txt";
         private const string TEMPLATE_SCRIPTABLE_OBJECT_NAME = "Template_ScriptableObject.txt";
 
         private const string CLIENT_DATABASE_ROOT = "/ClientDatabase/";
@@ -17,7 +20,7 @@ namespace TEDCore.ClientDatabase
         private const string GENERATE_SCRIPT_PATH = "GenerateScripts/";
         private const string SCRIPTABLE_OBJECT_PATH = "Resources/";
 
-        [MenuItem("TEDCore/Client Database/Initialize")]
+        [MenuItem(MENU_ITEM_INITIALIZE_PLUGIN)]
         private static void Initialize()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(Application.dataPath + CLIENT_DATABASE_ROOT);
@@ -35,7 +38,7 @@ namespace TEDCore.ClientDatabase
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("TEDCore/Client Database/Generate Scripts")]
+        [MenuItem(MENU_ITEM_GENERATE_SCRIPTS)]
         private static void GenerateScript()
         {
             ClientDatabaseTool window = EditorWindow.GetWindow<ClientDatabaseTool>();
@@ -127,13 +130,13 @@ namespace TEDCore.ClientDatabase
                 m_registerList += string.Format("RegisterDataType (new {0}Database());\n", textAsset.name);
                 if (cnt != csvPaths.Length - 1)
                 {
-                    m_registerList += "\t\t\t";
+                    m_registerList += "            ";
                 }
 
                 m_convertList += string.Format("CsvToJsonConverter.Convert<{0}Data>(\"{0}\");\n", textAsset.name);
                 if (cnt != csvPaths.Length - 1)
                 {
-                    m_convertList += "\t\t\t";
+                    m_convertList += "            ";
                 }
 
                 CreateDatabaseScript(textAsset);
@@ -173,7 +176,7 @@ namespace TEDCore.ClientDatabase
         {
             string template = GetTemplate(TEMPLATE_PATH + TEMPLATE_DATABASEMANAGER_NAME);
             template = template.Replace("$RegisterList", m_registerList);
-            GenerateScript("DatabaseManager", template);
+            GenerateScript("ClientDatabaseManager", template);
         }
 
         private string GetClassParameters(TextAsset textAsset)
@@ -191,7 +194,7 @@ namespace TEDCore.ClientDatabase
                 if (cnt != keyCount - 1)
                 {
                     classParameters += "\n";
-                    classParameters += "\t\t";
+                    classParameters += "        ";
                 }
             }
 
@@ -245,7 +248,7 @@ namespace TEDCore.ClientDatabase
                 if (cnt != keyCount - 1)
                 {
                     csvSerialize += "\n";
-                    csvSerialize += "\t\t\t\t";
+                    csvSerialize += "                ";
                 }
             }
 
@@ -256,10 +259,10 @@ namespace TEDCore.ClientDatabase
         {
             string csvSerialize = "";
 
-            csvSerialize += string.Format("\n\t\t\t\tif(!{0}.TryParse(datas[i][{1}], out temp.{2}))\n", attributes[0], arrayCount, attributes[1]);
-            csvSerialize += "\t\t\t\t{\n";
-            csvSerialize += string.Format("\t\t\t\t\ttemp.{0} = {1};\n", attributes[1], defaultValue);
-            csvSerialize += "\t\t\t\t}";
+            csvSerialize += string.Format("\n                if(!{0}.TryParse(datas[i][{1}], out temp.{2}))\n", attributes[0], arrayCount, attributes[1]);
+            csvSerialize += "                {\n";
+            csvSerialize += string.Format("                    temp.{0} = {1};\n", attributes[1], defaultValue);
+            csvSerialize += "                }";
 
             return csvSerialize;
         }
