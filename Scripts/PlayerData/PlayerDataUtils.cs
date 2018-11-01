@@ -8,7 +8,7 @@ namespace TEDCore.PlayerData
     {
         public static void Save<T>(T data) where T : PlayerData
         {
-            string filePath = GetFilePath(data.FileName);
+            string filePath = GetFilePath(CipherManager.Instance.Encrypt(data.FileName));
 
             string directoryPath = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directoryPath))
@@ -17,22 +17,24 @@ namespace TEDCore.PlayerData
             }
 
             string json = JsonUtility.ToJson(data);
-            File.WriteAllText(filePath, CipherManager.Instance.Encipher(json));
+            File.WriteAllText(filePath, CipherManager.Instance.Encrypt(json));
         }
 
 
         public static T Load<T>() where T : PlayerData, new()
         {
             T savableData = new T();
-            string filePath = GetFilePath(savableData.FileName);
+            string filePath = GetFilePath(CipherManager.Instance.Encrypt(savableData.FileName));
 
             if(!File.Exists(filePath))
             {
+                TEDDebug.LogError("[PlayerDataUtils] - Finding the file failed, save the default data for player.");
                 Save(savableData);
             }
 
             string json = File.ReadAllText(filePath);
-            return JsonUtility.FromJson<T>(CipherManager.Instance.Decipher(json));
+            T playerData = JsonUtility.FromJson<T>(CipherManager.Instance.Decrypt(json));
+            return playerData;
         }
 
 

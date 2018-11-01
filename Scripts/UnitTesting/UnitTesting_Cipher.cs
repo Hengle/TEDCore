@@ -14,7 +14,7 @@ public class UnitTesting_Cipher : BaseUnitTesting
     }
 
     [TestButton]
-    public void CaesarCipher()
+    public void TestCaesarCipher()
     {
         if(string.IsNullOrEmpty(m_plainText))
         {
@@ -22,14 +22,14 @@ public class UnitTesting_Cipher : BaseUnitTesting
             return;
         }
 
-        CipherManager.Instance.SetCipherType(CipherManager.CipherType.Caesar);
-        string cipherText = CipherManager.Instance.Encipher(m_plainText);
+        CaesarCipher caesarCipher = new CaesarCipher();
+        string cipherText = caesarCipher.Encrypt(m_plainText);
         TEDDebug.Log("CaesarCipher CipherText = " + cipherText);
-        TEDDebug.Log("CaesarCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
+        TEDDebug.Log("CaesarCipher PlainText = " + caesarCipher.Decrypt(cipherText));
     }
 
     [TestButton]
-    public void AffinCipher()
+    public void TestAffineCipher()
     {
         if (string.IsNullOrEmpty(m_plainText))
         {
@@ -37,14 +37,14 @@ public class UnitTesting_Cipher : BaseUnitTesting
             return;
         }
 
-        CipherManager.Instance.SetCipherType(CipherManager.CipherType.Affine);
-        string cipherText = CipherManager.Instance.Encipher(m_plainText);
+        AffineCipher affineCipher = new AffineCipher();
+        string cipherText = affineCipher.Encrypt(m_plainText);
         TEDDebug.Log("AffinCipher CipherText = " + cipherText);
-        TEDDebug.Log("AffinCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
+        TEDDebug.Log("AffinCipher PlainText = " + affineCipher.Decrypt(cipherText));
     }
 
     [TestButton]
-    public void SimpleSubstitutionCipher()
+    public void TestSimpleSubstitutionCipher()
     {
         if (string.IsNullOrEmpty(m_plainText))
         {
@@ -52,9 +52,9 @@ public class UnitTesting_Cipher : BaseUnitTesting
             return;
         }
 
-        CipherManager.Instance.SetCipherType(CipherManager.CipherType.SimpleSubsitution);
-        string cipherText = CipherManager.Instance.Encipher(m_plainText);
+        SimpleSubstitutionCipher simpleSubstitutionCipher = new SimpleSubstitutionCipher();
+        string cipherText = simpleSubstitutionCipher.Encrypt(m_plainText);
         TEDDebug.Log("SimpleSubstitutionCipher CipherText = " + cipherText);
-        TEDDebug.Log("SimpleSubstitutionCipher PlainText = " + CipherManager.Instance.Decipher(cipherText));
+        TEDDebug.Log("SimpleSubstitutionCipher PlainText = " + simpleSubstitutionCipher.Decrypt(cipherText));
     }
 }

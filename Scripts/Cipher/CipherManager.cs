@@ -1,50 +1,49 @@
 ﻿
 namespace TEDCore.Cipher
 {
-    public class CipherManager : Singleton<CipherManager>
+    public class CipherManager : Singleton<CipherManager>, ICipher
     {
-        public enum CipherType
+        private const int CAESAR_CIPHER_KEY = 5;
+        private const int AFFINE_CIPHER_KEY_A = 21;
+        private const int AFFINE_CIPHER_KEY_B = 10;
+        private const string SIMPLE_SUBSTITUTION_CIPHER_KEY = "Don't try to hack this because you can't make it easily.";
+
+        public string Encrypt(string plainText)
         {
-            Caesar,
-            Affine,
-            SimpleSubsitution
+            string cipherText = plainText;
+
+            CaesarCipher caesarCipher = new CaesarCipher();
+            caesarCipher.SetKey(CAESAR_CIPHER_KEY);
+            cipherText = caesarCipher.Encrypt(cipherText);
+
+            AffineCipher affineCipher = new AffineCipher();
+            affineCipher.SetKeys(new int[] { AFFINE_CIPHER_KEY_A, AFFINE_CIPHER_KEY_B });
+            cipherText = affineCipher.Encrypt(cipherText);
+
+            SimpleSubstitutionCipher simpleSubstitutionCipher = new SimpleSubstitutionCipher();
+            simpleSubstitutionCipher.SetKey(SIMPLE_SUBSTITUTION_CIPHER_KEY);
+            cipherText = simpleSubstitutionCipher.Encrypt(cipherText);
+
+            return cipherText;
         }
 
-        private CipherType m_cipherType = CipherType.Caesar;
-
-        public void SetCipherType(CipherType cipherType)
+        public string Decrypt(string cipherText)
         {
-            m_cipherType = cipherType;
-        }
+            string plainText = cipherText;
 
-        public string Encipher(string plainText)
-        {
-            return GetCipher().Encrypt(plainText);
-        }
+            SimpleSubstitutionCipher simpleSubstitutionCipher = new SimpleSubstitutionCipher();
+            simpleSubstitutionCipher.SetKey(SIMPLE_SUBSTITUTION_CIPHER_KEY);
+            plainText = simpleSubstitutionCipher.Decrypt(plainText);
 
-        public string Decipher(string cipherText)
-        {
-            return GetCipher().Decrypt(cipherText);
-        }
+            AffineCipher affineCipher = new AffineCipher();
+            affineCipher.SetKeys(new int[] { AFFINE_CIPHER_KEY_A, AFFINE_CIPHER_KEY_B });
+            plainText = affineCipher.Decrypt(plainText);
 
-        private ICipher GetCipher()
-        {
-            ICipher cipher = null;
+            CaesarCipher caesarCipher = new CaesarCipher();
+            caesarCipher.SetKey(CAESAR_CIPHER_KEY);
+            plainText = caesarCipher.Decrypt(plainText);
 
-            switch(m_cipherType)
-            {
-                case CipherType.Caesar:
-                    cipher = new CaesarCipher();
-                    break;
-                case CipherType.Affine:
-                    cipher = new AffineCipher();
-                    break;
-                case CipherType.SimpleSubsitution:
-                    cipher = new SimpleSubstitutionCipher();
-                    break;
-            }
-
-            return cipher;
+            return plainText;
         }
     }
 }
