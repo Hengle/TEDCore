@@ -624,6 +624,33 @@ public class ExampleClass : MonoBehaviour
 }  
 ```
 
+### Notification Manager
+Notification Manager is designed to implement Local Notifications on the mobile platform.
+
+#### Namespace
+TEDCore.Notification
+
+#### Public Methods
+| Name                                      | Parameters                                                                                                     | Description                                                |
+|-------------------------------------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| Schedule(int seconds, string description) | seconds: After X seconds, the local notification will show.<br>description: The local notification description | Setup the local notification with seconds and descriptoin. |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore.Notification;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Awake()
+    {
+        NotificationManager.Instance.Schedule(60, "Display the local notifcation after 60 seconds");
+        NotificationManager.Instance.Schedule(120, "Display the local notifcation after 120 seconds");
+        NotificationManager.Instance.Schedule(300, "Display the local notifcation after 300 seconds");
+    }
+}
+```
+
 ## Tools
 ### TEDDebug DLL
 TEDDebug.dll repackage UnityEngine.Debug so that the developer can turn on/off the log with a simply parameter EnableLog.
