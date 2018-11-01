@@ -3,6 +3,6 @@ namespace TEDCore.Event
 {
 	public interface IEventListener
 	{
-        EventResult OnEvent(int eventName, object eventData);
+        EventResult OnEvent(int eventId, object eventData);
 	}
 }

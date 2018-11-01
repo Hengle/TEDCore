@@ -30,24 +30,24 @@ namespace TEDCore.Event
             }
 		}
 
-        private Dictionary<int, List<ListenerContainer>> m_eventListeners;
-        private Dictionary<int, ListenerContainer[]> m_eventListenerArrays;
+        private Dictionary<int, List<ListenerContainer>> m_eventListenerContainers;
+        private readonly Dictionary<int, ListenerContainer[]> m_eventListenerArrays;
 
         public EventManager()
 		{
-            m_eventListeners = new Dictionary<int, List<ListenerContainer>>();
+            m_eventListenerContainers = new Dictionary<int, List<ListenerContainer>>();
             m_eventListenerArrays = new Dictionary<int, ListenerContainer[]>();
 		}
 
 
-        public void RegisterListener(int eventName, IEventListener listener, int priority = 0)
+        public void RegisterListener(int eventId, IEventListener listener, int priority = 0)
 		{
-			if(!m_eventListeners.ContainsKey(eventName))
+			if(!m_eventListenerContainers.ContainsKey(eventId))
 			{
-				m_eventListeners[eventName] = new List<ListenerContainer>();
+				m_eventListenerContainers[eventId] = new List<ListenerContainer>();
 			}
 
-			List<ListenerContainer> listeners = m_eventListeners[eventName];
+			List<ListenerContainer> listeners = m_eventListenerContainers[eventId];
             int listenerCount = listeners.Count;
             for (int i = 0; i < listenerCount; i++)
             {
@@ -61,31 +61,31 @@ namespace TEDCore.Event
 			listeners.Add(new ListenerContainer(listener, priority));
             listeners.Sort();
 
-            m_eventListeners[eventName] = listeners;
+            m_eventListenerContainers[eventId] = listeners;
 
-            if (m_eventListenerArrays.ContainsKey(eventName))
+            if (m_eventListenerArrays.ContainsKey(eventId))
             {
-                m_eventListenerArrays[eventName] = listeners.ToArray();
+                m_eventListenerArrays[eventId] = listeners.ToArray();
             }
             else
             {
-                m_eventListenerArrays.Add(eventName, listeners.ToArray());
+                m_eventListenerArrays.Add(eventId, listeners.ToArray());
             }
 		}
 
 
-        public void RemoveListener(int eventName, IEventListener listener)
+        public void RemoveListener(int eventId, IEventListener listener)
 		{
-			if(m_eventListeners.ContainsKey(eventName))
+			if(m_eventListenerContainers.ContainsKey(eventId))
 			{
 				ListenerContainer tempListener;
-                int listenerCount = m_eventListeners[eventName].Count;
+                int listenerCount = m_eventListenerContainers[eventId].Count;
 
                 List<ListenerContainer> removeListeners = new List<ListenerContainer>();
 
                 for(int i = 0; i < listenerCount; i++)
 				{
-                    tempListener = m_eventListeners[eventName][i];
+                    tempListener = m_eventListenerContainers[eventId][i];
 
 					if(tempListener.Listener == listener)
 					{
@@ -96,32 +96,32 @@ namespace TEDCore.Event
                 listenerCount = removeListeners.Count;
                 for (int i = 0; i < listenerCount; i++)
                 {
-                    m_eventListeners[eventName].Remove(removeListeners[i]);
+                    m_eventListenerContainers[eventId].Remove(removeListeners[i]);
                 }
 
-                if (m_eventListenerArrays.ContainsKey(eventName))
+                if (m_eventListenerArrays.ContainsKey(eventId))
                 {
-                    m_eventListenerArrays[eventName] = m_eventListeners[eventName].ToArray();
+                    m_eventListenerArrays[eventId] = m_eventListenerContainers[eventId].ToArray();
                 }
                 else
                 {
-                    m_eventListenerArrays.Add(eventName, m_eventListeners[eventName].ToArray());
+                    m_eventListenerArrays.Add(eventId, m_eventListenerContainers[eventId].ToArray());
                 }
 			}
 		}
 
 
-        public EventResult SendEvent(int eventName, object eventData = null)
+        public EventResult SendEvent(int eventId, object eventData = null)
 		{
-            if(m_eventListenerArrays.ContainsKey(eventName))
+            if(m_eventListenerArrays.ContainsKey(eventId))
 			{
 				EventResult result;
 
-                int listenerCount = m_eventListenerArrays[eventName].Length;
+                int listenerCount = m_eventListenerArrays[eventId].Length;
 
                 for(int i = 0; i < listenerCount; i++)
 				{
-                    result = m_eventListenerArrays[eventName][i].Listener.OnEvent(eventName, eventData);
+                    result = m_eventListenerArrays[eventId][i].Listener.OnEvent(eventId, eventData);
 
                     if (null == result)
                     {
