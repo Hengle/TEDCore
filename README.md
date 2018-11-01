@@ -48,10 +48,44 @@ State just likes the scenes in Unity Engine and have the higher control level th
 TEDCore.StateManagement
 
 #### Public Methods
-|Name|Parameters|Description|
-|---|---|---|
-|ChangeState(State newState)|newState: The new state you want to switch to|ChangeState is called when you want to switch from current state to a new state|
-|Update()|deltaTime: The delta time for the game environment|Update is called every frame, if you connect it with MonoBehaviour.Update(), it can sync delta time with in each State and Task|
+| Name                         | Parameters                                                  | Description                                                                                                                        |
+|------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ChangeState(State newState)  | newState: The new state you want to switch to               | ChangeState is called when you want to switch from current state to a new state                                                    |
+| Update(float deltaTime)      | deltaTime: The Time.deltaTime for the game environment      | Update is called every frame, it should connect with MonoBehaviour.Update() and sync Time.deltaTime for it.                        |
+| FixedUpdate(float deltaTime) | deltaTime: The Time.fixedDeltaTime for the game environment | FixedUpdate is called every physics frame, it should connect with MonoBehaviour.FixedUpdate() and sync Time.fixedDeltaTime for it. |
+| LateUpdate(float deltaTime)  | deltaTime: The Time.deltaTime for the game environment      | LateUpdate is called every frame, it should connect with MonoBehaviour.LateUpdate() and sync Time.deltaTime for it.                |
+
+#### Example
+```
+using RICore.StateManagement;    
+
+public class EmptyState : State    
+{    
+    public EmptyState(StateManager stateManager) : base(stateManager)    
+    {    
+
+    }    
+}  
+
+using UnityEngine;    
+using RICore.StateManagement;    
+
+public class ExampleClass : MonoBehaviour    
+{    
+    private StateManager m_stateManager;    
+
+    private void Awake()    
+    {    
+        m_stateManager = new StateManager();    
+        m_stateManager.ChangeState(new EmptyState(m_stateManager));    
+    }    
+
+    private void Update()    
+    {    
+        m_stateManager.Update(Time.deltaTime);    
+    }    
+}  
+```
 
 ### Task Manager
 Task Manager need to cooperate with with State Manager.
