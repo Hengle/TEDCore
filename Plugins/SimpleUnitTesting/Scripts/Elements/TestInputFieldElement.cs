@@ -1,17 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 namespace TEDCore.UnitTesting
 {
-    public class TestInputFieldElement : MonoBehaviour
+    public class TestInputFieldElement : BaseUnitTestingElement
     {
         private string m_inputFieldValue;
-        private BaseUnitTesting m_unitTesting;
-        private UnitTestingData m_unitTestingData;
 
-        public void SetData(BaseUnitTesting unitTesting, UnitTestingData unitTestingData)
+        public override void SetData(BaseUnitTesting baseUnitTesting, UnitTestingData unitTestingData)
         {
-            m_unitTesting = unitTesting;
+            m_baseUnitTesting = baseUnitTesting;
             m_unitTestingData = unitTestingData;
 
             gameObject.transform.Find("TitleText").GetComponent<Text>().text = m_unitTestingData.MethodName.ToScriptName();
@@ -25,7 +22,7 @@ namespace TEDCore.UnitTesting
 
         public void OnValueChanged(string value)
         {
-            if (null == m_unitTesting)
+            if (null == m_baseUnitTesting)
             {
                 return;
             }
@@ -35,14 +32,14 @@ namespace TEDCore.UnitTesting
 
         private void OnApplyButtonClick()
         {
-            if (null == m_unitTesting)
+            if (null == m_baseUnitTesting)
             {
                 return;
             }
 
             object[] data = new object[] { m_inputFieldValue };
 
-            m_unitTesting.RunTestMethod(m_unitTestingData.MethodName, data);
+            m_baseUnitTesting.RunTestMethod(m_unitTestingData.MethodName, data);
         }
     }
 }

@@ -1,17 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 namespace TEDCore.UnitTesting
 {
-    public class TestSliderElement : MonoBehaviour
+    public class TestSliderElement : BaseUnitTestingElement
     {
-        private BaseUnitTesting m_unitTesting;
-        private UnitTestingData m_unitTestingData;
         private Text m_valueText;
 
-        public void SetData(BaseUnitTesting unitTesting, UnitTestingData unitTestingData)
+        public override void SetData(BaseUnitTesting baseUnitTesting, UnitTestingData unitTestingData)
         {
-            m_unitTesting = unitTesting;
+            m_baseUnitTesting = baseUnitTesting;
             m_unitTestingData = unitTestingData;
 
             gameObject.transform.Find("TitleText").GetComponent<Text>().text = m_unitTestingData.MethodName.ToScriptName();
@@ -30,14 +27,14 @@ namespace TEDCore.UnitTesting
 
         public void OnValueChanged(float value)
         {
-            if (null == m_unitTesting)
+            if (null == m_baseUnitTesting)
             {
                 return;
             }
 
             object[] data = new object[]{ value };
 
-            m_unitTesting.RunTestMethod(m_unitTestingData.MethodName, data);
+            m_baseUnitTesting.RunTestMethod(m_unitTestingData.MethodName, data);
             m_valueText.text = value.ToString();
         }
     }

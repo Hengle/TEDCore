@@ -68,9 +68,7 @@ namespace TEDCore.UnitTesting
                     continue;
                 }
 
-                cacheInstance = Instantiate<GameObject>(m_templateTitle.gameObject, m_contentRoot);
-                cacheInstance.GetComponent<Text>().text = m_unitTestings[i].GetType().Name;
-                cacheInstance.SetActive(true);
+                cacheInstance = GenerateTitle(m_unitTestings[i].GetType().Name);
 
                 if (m_maxWidth == 0)
                 {
@@ -80,33 +78,26 @@ namespace TEDCore.UnitTesting
                     m_maxWidth -= m_contentRoot.GetComponent<VerticalLayoutGroup>().padding.left * 2;
                 }
 
-                GameObject cacheParent = Instantiate<GameObject>(m_templateParent.gameObject, m_contentRoot);
-                cacheParent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(m_maxWidth / 2 - m_spaceWidth, 100);
-                cacheParent.SetActive(true);
-
-                GenerateTestButtons(m_unitTestings[i], cacheParent.transform);
-                GenerateTestToggles(m_unitTestings[i], cacheParent.transform);
+                GameObject cacheParent = GenerateLayoutGroup(2);
+                GenerateElements<TestButton>(m_unitTestings[i], m_templateTestButtonElement, cacheParent.transform);
+                GenerateElements<TestToggle>(m_unitTestings[i], m_templateTestToggleElement, cacheParent.transform);
 
                 if (cacheParent.transform.childCount == 0)
                 {
                     Destroy(cacheParent);
                 }
 
-                cacheParent = Instantiate<GameObject>(m_templateParent.gameObject, m_contentRoot);
-                cacheParent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(m_maxWidth - m_spaceWidth, 100);
-                cacheParent.SetActive(true);
-
-                GenerateTestInputFields(m_unitTestings[i], cacheParent.transform);
-                GenerateTestSliders(m_unitTestings[i], cacheParent.transform);
-                GenerateTestDropdowns(m_unitTestings[i], cacheParent.transform);
+                cacheParent = GenerateLayoutGroup(1);
+                GenerateElements<TestInputField>(m_unitTestings[i], m_templateTestInputFieldElement, cacheParent.transform);
+                GenerateElements<TestSlider>(m_unitTestings[i], m_templateTestSliderElement, cacheParent.transform);
+                GenerateElements<TestDropdown>(m_unitTestings[i], m_templateTestDropdownElement, cacheParent.transform);
 
                 if (cacheParent.transform.childCount == 0)
                 {
                     Destroy(cacheParent);
                 }
 
-                cacheInstance = Instantiate<GameObject>(m_templateSpace.gameObject, m_contentRoot);
-                cacheInstance.SetActive(true);
+                GenerateEmptySpace();
             }
         }
 
@@ -118,99 +109,47 @@ namespace TEDCore.UnitTesting
             }
         }
 
-        private void GenerateTestButtons(BaseUnitTesting unitTesting, Transform parent)
+        private GameObject GenerateTitle(string title)
         {
-            UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestButton>();
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateTitle.gameObject, m_contentRoot);
+            cacheInstance.GetComponent<Text>().text = title;
+            cacheInstance.SetActive(true);
 
-            if (null == unitTestingData ||
-                unitTestingData.Length < 1)
+            return cacheInstance;
+        }
+
+        private GameObject GenerateLayoutGroup(int division)
+        {
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateParent.gameObject, m_contentRoot);
+            cacheInstance.GetComponent<GridLayoutGroup>().cellSize = new Vector2(m_maxWidth / division - m_spaceWidth, 100);
+            cacheInstance.SetActive(true);
+
+            return cacheInstance;
+        }
+
+        private void GenerateElements<T>(BaseUnitTesting baseUnitTesting, BaseUnitTestingElement baseUnitTestingElement, Transform parent) where T : System.Attribute
+        {
+            UnitTestingData[] unitTestingDatas = baseUnitTesting.GetUnitTestingData<T>();
+
+            if (null == unitTestingDatas ||
+                unitTestingDatas.Length < 1)
             {
                 return;
             }
 
-            GameObject cacheInstance = null;
-            for (int j = 0; j < unitTestingData.Length; j++)
+            BaseUnitTestingElement cacheData = null;
+            for (int j = 0; j < unitTestingDatas.Length; j++)
             {
-                cacheInstance = Instantiate<GameObject>(m_templateTestButtonElement.gameObject, parent);
-                cacheInstance.SetActive(true);
-                cacheInstance.GetComponent<TestButtonElement>().SetData(unitTesting, unitTestingData[j]);
+                cacheData = Instantiate(baseUnitTestingElement, parent);
+                cacheData.gameObject.SetActive(true);
+                cacheData.SetData(baseUnitTesting, unitTestingDatas[j]);
             }
         }
 
-        private void GenerateTestToggles(BaseUnitTesting unitTesting, Transform parent)
+        private void GenerateEmptySpace()
         {
-            UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestToggle>();
-
-            if (null == unitTestingData ||
-                unitTestingData.Length < 1)
-            {
-                return;
-            }
-
-            GameObject cacheInstance = null;
-            for (int j = 0; j < unitTestingData.Length; j++)
-            {
-                cacheInstance = Instantiate<GameObject>(m_templateTestToggleElement.gameObject, parent);
-                cacheInstance.SetActive(true);
-                cacheInstance.GetComponent<TestToggleElement>().SetData(unitTesting, unitTestingData[j]);
-            }
-        }
-
-        private void GenerateTestInputFields(BaseUnitTesting unitTesting, Transform parent)
-        {
-            UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestInputField>();
-
-            if (null == unitTestingData ||
-                unitTestingData.Length < 1)
-            {
-                return;
-            }
-
-            GameObject cacheInstance = null;
-            for (int j = 0; j < unitTestingData.Length; j++)
-            {
-                cacheInstance = Instantiate<GameObject>(m_templateTestInputFieldElement.gameObject, parent);
-                cacheInstance.SetActive(true);
-                cacheInstance.GetComponent<TestInputFieldElement>().SetData(unitTesting, unitTestingData[j]);
-            }
-        }
-
-        private void GenerateTestSliders(BaseUnitTesting unitTesting, Transform parent)
-        {
-            UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestSlider>();
-
-            if (null == unitTestingData ||
-                unitTestingData.Length < 1)
-            {
-                return;
-            }
-
-            GameObject cacheInstance = null;
-            for (int j = 0; j < unitTestingData.Length; j++)
-            {
-                cacheInstance = Instantiate<GameObject>(m_templateTestSliderElement.gameObject, parent);
-                cacheInstance.SetActive(true);
-                cacheInstance.GetComponent<TestSliderElement>().SetData(unitTesting, unitTestingData[j]);
-            }
-        }
-
-        private void GenerateTestDropdowns(BaseUnitTesting unitTesting, Transform parent)
-        {
-            UnitTestingData[] unitTestingData = unitTesting.GetUnitTestingData<TestDropdown>();
-
-            if (null == unitTestingData ||
-                unitTestingData.Length < 1)
-            {
-                return;
-            }
-
-            GameObject cacheInstance = null;
-            for (int j = 0; j < unitTestingData.Length; j++)
-            {
-                cacheInstance = Instantiate<GameObject>(m_templateTestDropdownElement.gameObject, parent);
-                cacheInstance.SetActive(true);
-                cacheInstance.GetComponent<TestDropdownElement>().SetData(unitTesting, unitTestingData[j]);
-            }
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateSpace.gameObject, m_contentRoot);
+            cacheInstance.SetActive(true);
         }
     }
 }
