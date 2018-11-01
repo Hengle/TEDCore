@@ -13,19 +13,7 @@ namespace TEDCore.ObjectPool
 			m_gameObjectPools = new Dictionary<string, GameObjectPool>();
 		}
 
-
-        public void Clear()
-        {
-            foreach (KeyValuePair<string, GameObjectPool> kvp in m_gameObjectPools)
-            {
-                kvp.Value.Destroy();
-            }
-
-            m_gameObjectPools.Clear();
-        }
-
-
-        public void RegisterPool(string key, GameObject referenceAsset, int initialSize)
+        public void AddPool(string key, GameObject referenceAsset, int initialSize)
 		{
 			if(m_gameObjectPools.ContainsKey(key))
 			{
@@ -47,7 +35,6 @@ namespace TEDCore.ObjectPool
             m_gameObjectPools[key] = new GameObjectPool(key, referenceAsset, initialSize);
 		}
 
-
         public GameObject Get(string key)
 		{
             if(!HasPool(key))
@@ -58,7 +45,6 @@ namespace TEDCore.ObjectPool
 
             return m_gameObjectPools[key].Get();
         }
-
 
         public void Recycle(string key, GameObject instance)
         {
@@ -71,10 +57,19 @@ namespace TEDCore.ObjectPool
             m_gameObjectPools[key].Recycle(instance);
         }
 
-
         private bool HasPool(string key)
 		{
 			return m_gameObjectPools.ContainsKey(key);
 		}
-	}
+
+        public void Clear()
+        {
+            foreach (KeyValuePair<string, GameObjectPool> kvp in m_gameObjectPools)
+            {
+                kvp.Value.Destroy();
+            }
+
+            m_gameObjectPools.Clear();
+        }
+    }
 }

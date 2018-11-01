@@ -307,14 +307,51 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Pool Manager
-Pool Manager is based on Object Pool.
-It can help the developer create object pool repeatedly.
-Currently, it only support to create a GameObject object pool and the asset need to be in the Resources folder.
-It consists of Pool and PoolManager.
+### ObjectPool Manager
+ObjectPool Manager is in charge of Object Pools.
+It can help the developers create object pool easily.
 
 #### Namespace
-TEDCore.Pool
+TEDCore.ObjectPool
+
+#### Public Methods
+| Name                                                                 | Parameters                                                                                                        | Description                                          |
+|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| RegisterPool(string key, GameObject referenceAsset, int initialSize) | key: The key for the pool<br>referenceAsset: The asset for the pool<br>initialSize: The initial size for the pool | Create a new object pool for the asset with the key. |
+| Get(string key)                                                      | key: The key for the pool                                                                                         | Get the asset from the object pool with the key.     |
+| Recycle(string key, GameObject instance)                             | key: The key for the pool<br>instance: The asset you want to recycle                                              | Recycle the asset to the object pool with the key.   |
+| Clear()                                                              |                                                                                                                   | Remove all existing object pools.                    |
+
+#### Examples
+```
+using UnityEngine;
+using System.Collections.Generic;
+using TEDCore.ObjectPool;
+
+public class ExampleClass : MonoBehaviour
+{
+    [SerializeField] private GameObject m_emptyAsset;
+    private Queue<GameObject> m_emptyAssets = new Queue<GameObject>();
+
+    private void Start()
+    {
+        ObjectPoolManager.Instance.AddPool("EmptyAsset", m_emptyAsset, 5);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_emptyAssets.Enqueue(ObjectPoolManager.Instance.Get("EmptyAsset"));
+        }
+
+        if (Input.GetMouseButtonDown(1) && m_emptyAssets.Count > 0)
+        {
+            ObjectPoolManager.Instance.Recycle("EmptyAsset", m_emptyAssets.Dequeue());
+        }
+    }
+}
+```
 
 ### Timer Manager
 Timer Manager is design for scheduling.

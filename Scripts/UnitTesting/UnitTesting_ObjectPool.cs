@@ -18,7 +18,7 @@ public class UnitTesting_ObjectPool : BaseUnitTesting
 
     private void OnResourcePoolLoad(GameObject asset)
     {
-        ObjectPoolManager.Instance.RegisterPool(m_poolKey, asset, 10);
+        ObjectPoolManager.Instance.AddPool(m_poolKey, asset, 10);
     }
 
     [TestButton]

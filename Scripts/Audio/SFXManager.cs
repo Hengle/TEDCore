@@ -15,7 +15,7 @@ namespace TEDCore.Audio
             GameObject referenceAsset = new GameObject();
             referenceAsset.AddComponent<AudioSource>();
 
-            ObjectPoolManager.Instance.RegisterPool(OBJECT_POOL_KEY, referenceAsset, 10);
+            ObjectPoolManager.Instance.AddPool(OBJECT_POOL_KEY, referenceAsset, 10);
         }
 
         public void SetVolume(float volume)
