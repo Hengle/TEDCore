@@ -23,13 +23,11 @@ namespace TEDCore.AssetBundle
             }
         }
 
-
         [MenuItem(ASSETBUNDLE_EDITOR_LOAD_TYPE_SIMULATE, false)]
         private static void SwitchLoadModeToSimulate()
         {
             AssetBundleDef.SetAssetBundleLoadType(AssetBundleLoadType.Simulate);
         }
-
 
         [MenuItem(ASSETBUNDLE_EDITOR_LOAD_TYPE_SIMULATE, true)]
         private static bool SwitchLoadModeToSimulateValidate()
@@ -39,13 +37,11 @@ namespace TEDCore.AssetBundle
             return loadType != AssetBundleLoadType.Simulate;
         }
 
-
         [MenuItem(ASSETBUNDLE_EDITOR_LOAD_TYPE_STREAMING, false)]
         private static void SwitchLoadModeToStreaming()
         {
             AssetBundleDef.SetAssetBundleLoadType(AssetBundleLoadType.Streaming);
         }
-
 
         [MenuItem(ASSETBUNDLE_EDITOR_LOAD_TYPE_STREAMING, true)]
         private static bool SwitchLoadModeToStreamingValidate()
@@ -55,13 +51,11 @@ namespace TEDCore.AssetBundle
             return loadType != AssetBundleLoadType.Streaming;
         }
 
-
         [MenuItem(ASSETBUNDLE_EDITOR_LOAD_TYPE_NETWORK, false)]
         private static void SwitchLoadModeToNetwork()
         {
             AssetBundleDef.SetAssetBundleLoadType(AssetBundleLoadType.Network);
         }
-
 
         [MenuItem(ASSETBUNDLE_EDITOR_LOAD_TYPE_NETWORK, true)]
         private static bool SwitchLoadModeToNetworkValidate()

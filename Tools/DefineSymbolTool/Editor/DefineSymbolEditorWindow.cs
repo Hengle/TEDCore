@@ -17,12 +17,10 @@ namespace TEDCore.DefineSymbol
             m_window.Show();
         }
 
-
         private void OnFocus()
         {
             DefineSymbolEditor.Initialize();
         }
-
 
         private void OnGUI()
         {
@@ -47,7 +45,6 @@ namespace TEDCore.DefineSymbol
             EditorGUILayout.EndScrollView();
         }
 
-
         private void CreateMenu()
         {
             EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -66,7 +63,6 @@ namespace TEDCore.DefineSymbol
 
             EditorGUILayout.EndVertical();
         }
-
 
         private void CreateSymbolMenuParts(DefineSymbol symbol, int symbolIndex)
         {
@@ -119,7 +115,6 @@ namespace TEDCore.DefineSymbol
             EditorGUILayout.EndVertical();
         }
 
-
         private void CreateScriptingDefineSymbols()
         {
             GUILayout.Space(20);
@@ -132,7 +127,6 @@ namespace TEDCore.DefineSymbol
             EditorGUILayout.LabelField("New Scripting Define Symbols");
             EditorGUILayout.HelpBox(DefineSymbolEditor.GetResult(), MessageType.None);
         }
-
 
         private void CreateButtons()
         {
@@ -151,7 +145,6 @@ namespace TEDCore.DefineSymbol
             }
         }
 
-
         private void CreateResetButton()
         {
             if (GUILayout.Button("Reset"))
@@ -159,7 +152,6 @@ namespace TEDCore.DefineSymbol
                 DefineSymbolEditor.Initialize();
             }
         }
-
 
         private void CreateSaveButton()
         {

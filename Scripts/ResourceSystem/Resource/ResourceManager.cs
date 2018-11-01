@@ -20,7 +20,6 @@ namespace TEDCore.Resource
                 m_referencedCount = 0;
             }
 
-
             public LoadedResource(UnityEngine.Object[] resources)
             {
                 m_resources = resources;
@@ -47,18 +46,15 @@ namespace TEDCore.Resource
             return string.Format("{0}/{1}.{2}", assetBundleName, assetName, typeof(T).Name);
         }
 
-
         private bool InCache<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
             return m_loadedResources.ContainsKey(GetCacheKey<T>(assetBundleName, assetName));
         }
 
-
         public void Unload<T>(string assetName) where T : UnityEngine.Object
         {
             Unload<T>(string.Empty, assetName);
         }
-
 
         public void Unload<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
@@ -70,7 +66,6 @@ namespace TEDCore.Resource
                 Release();
             }
         }
-
 
         public void Release()
         {
@@ -89,7 +84,6 @@ namespace TEDCore.Resource
                 }
             }
 
-
             for (int i = 0; i < removeResources.Count; i++)
             {
                 m_loadedResources.Remove(removeResources[i]);
@@ -99,7 +93,6 @@ namespace TEDCore.Resource
             System.GC.Collect();
         }
 
-
         public void Clear()
         {
             m_loadedResources.Clear();
@@ -107,19 +100,16 @@ namespace TEDCore.Resource
             System.GC.Collect();
         }
 
-
         #region LoadAsync
         public void LoadAsync<T>(string assetName, Action<T> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
             LoadAsync<T>(string.Empty, assetName, callback, unloadAutomatically);
         }
 
-
         public void LoadAsync<T>(string assetBundleName, string assetName, Action<T> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
             StartCoroutine(StartLoadAsync<T>(assetBundleName, assetName, callback, unloadAutomatically));
         }
-
 
         private IEnumerator StartLoadAsync<T>(string assetBundleName, string assetName, Action<T> callback, bool unloadAutomatically) where T : UnityEngine.Object
         {
@@ -163,7 +153,6 @@ namespace TEDCore.Resource
             }
         }
 
-
         private IEnumerator PreloadAsync<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
             AddAsyncLoadingReferencedCounts(GetCacheKey<T>(assetBundleName, assetName));
@@ -183,7 +172,6 @@ namespace TEDCore.Resource
             RemoveAsyncLoadingReferencedCounts(GetCacheKey<T>(assetBundleName, assetName));
         }
 
-
         private void AddAsyncLoadingReferencedCounts(string path)
         {
             if (m_asyncLoadingReferencedCounts.ContainsKey(path))
@@ -195,7 +183,6 @@ namespace TEDCore.Resource
                 m_asyncLoadingReferencedCounts.Add(path, 1);
             }
         }
-
 
         private void RemoveAsyncLoadingReferencedCounts(string path)
         {
@@ -209,7 +196,6 @@ namespace TEDCore.Resource
                 }
             }
         }
-
 
         private IEnumerator PreloadResourceAsync<T>(string assetName) where T : UnityEngine.Object
         {
@@ -237,7 +223,6 @@ namespace TEDCore.Resource
 
             TEDDebug.LogFormat("[ResourceSystem] - Loading Asset '{0}' has done from frame {1} to frame {2}.", assetName, startFrameCount, Time.frameCount);
         }
-
 
         private IEnumerator PreloadAssetBundleAsync<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
@@ -271,19 +256,16 @@ namespace TEDCore.Resource
         }
         #endregion
 
-
         #region LoadAllAsync
         public void LoadAllAsync<T>(string assetName, Action<List<T>> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
             LoadAllAsync<T>(string.Empty, assetName, callback, unloadAutomatically);
         }
 
-
         public void LoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback, bool unloadAutomatically = true) where T : UnityEngine.Object
         {
             StartCoroutine(StartLoadAllAsync<T>(assetBundleName, assetName, callback, unloadAutomatically));
         }
-
 
         private IEnumerator StartLoadAllAsync<T>(string assetBundleName, string assetName, Action<List<T>> callback, bool unloadAutomatically) where T : UnityEngine.Object
         {
@@ -326,7 +308,6 @@ namespace TEDCore.Resource
             }
         }
 
-
         private IEnumerator PreloadAllAsync<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
             AddAsyncLoadingReferencedCounts(GetCacheKey<T>(assetBundleName, assetName));
@@ -347,7 +328,6 @@ namespace TEDCore.Resource
 
             RemoveAsyncLoadingReferencedCounts(GetCacheKey<T>(assetBundleName, assetName));
         }
-
 
         private IEnumerator PreloadAllAssetBundleAsync<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {

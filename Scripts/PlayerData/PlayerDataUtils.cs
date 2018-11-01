@@ -20,7 +20,6 @@ namespace TEDCore.PlayerData
             File.WriteAllText(filePath, CipherManager.Instance.Encrypt(json));
         }
 
-
         public static T Load<T>() where T : PlayerData, new()
         {
             T savableData = new T();
@@ -37,18 +36,15 @@ namespace TEDCore.PlayerData
             return playerData;
         }
 
-
         private static string GetFilePath(string fileName)
         {
             return GetPlayerDataPath() + fileName;
         }
 
-
         private static string GetPlayerDataPath()
         {
             return GetPersistentDataPath() + "/PlayerData/";
         }
-
 
         public static string GetPersistentDataPath()
         {

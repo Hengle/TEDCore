@@ -15,7 +15,6 @@ namespace TEDCore.AssetBundle
             m_assetName = assetName;
         }
 
-
         public override T[] GetAsset()
         {
             var assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(m_assetBundleName, m_assetName);
@@ -43,12 +42,10 @@ namespace TEDCore.AssetBundle
             return assets.OfType<T>().ToArray();
         }
 
-
         public override bool Update()
         {
             return false;
         }
-
 
         public override bool IsDone()
         {

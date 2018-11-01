@@ -15,7 +15,6 @@ namespace TEDCore.Log
             Application.logMessageReceived += HandleLog;
         }
 
-
         private void CreateFile()
         {
             string logPath = GetFilePath();
@@ -35,18 +34,15 @@ namespace TEDCore.Log
             m_streamWriter.AutoFlush = true;
         }
 
-
         private string GetFilePath()
         {
             return string.Format("{0}Log_{1}.txt", GetLogPath(), System.DateTime.Now.ToString("yyyyMMddHHmmss"));
         }
 
-
         private string GetLogPath()
         {
             return PlayerDataUtils.GetPersistentDataPath() + "/LogData/";
         }
-
 
         private void HandleLog(string logString, string stackTrace, LogType type)
         {
@@ -59,7 +55,6 @@ namespace TEDCore.Log
             m_streamWriter.WriteLine(System.DateTime.Now.ToString() + "\t" + logString);
             m_streamWriter.WriteLine(stackTrace);
         }
-
 
         protected override void OnDestroy()
         {

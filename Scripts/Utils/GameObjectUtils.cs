@@ -14,7 +14,6 @@ namespace TEDCore.Utils
             }
         }
 
-
 		public static T GetChildComponent<T>(this GameObject root, string name) where T : Component
 		{
 			GameObject go = FindChild(root, name);
@@ -26,7 +25,6 @@ namespace TEDCore.Utils
 
 			return null;
 		}
-
 
 		public static GameObject FindChild(this GameObject root, string name)
 		{
@@ -63,7 +61,6 @@ namespace TEDCore.Utils
 			return null;
 		}
 
-
 		public static List<GameObject> FindChildContainName(this GameObject root, string name)
 		{
 			GameObject go = null;
@@ -85,14 +82,12 @@ namespace TEDCore.Utils
 			return childs;
 		}
 
-
 		public static void FitScreen(this GameObject screen)
 		{
 			float ratio = 1280f / Screen.width;
 			
 			screen.GetComponent<RectTransform> ().sizeDelta = new Vector2(1280, Screen.height * ratio);
 		}
-
 
 		public static Vector3 InputToWorldPosition(Vector2 inputPosition)
 		{

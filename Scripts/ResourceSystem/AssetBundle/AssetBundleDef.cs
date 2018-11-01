@@ -14,7 +14,6 @@ namespace TEDCore.AssetBundle
             return GetOutputPath(GetPlatformName());
         }
 
-
         public static string GetOutputPath(string buildTarget)
         {
             var outputPath = Path.Combine(Application.dataPath.Replace("Assets", ""), ASSET_BUNDLE_OUTPUT_FOLDER);
@@ -22,7 +21,6 @@ namespace TEDCore.AssetBundle
 
             return outputPath;
         }
-
 
         public static AssetBundleLoadType GetAssetBundleLoadType()
         {
@@ -36,7 +34,6 @@ namespace TEDCore.AssetBundle
 #endif
         }
 
-
         public static void SetAssetBundleLoadType(AssetBundleLoadType loadType)
         {
 #if UNITY_EDITOR
@@ -44,12 +41,10 @@ namespace TEDCore.AssetBundle
 #endif
         }
 
-
         public static string GetStreamingAssetsPath()
         {
             return Application.streamingAssetsPath + "/AssetBundles";
         }
-
 
         public static string GetDownloadStreamingAssetsPath()
         {
@@ -59,7 +54,6 @@ namespace TEDCore.AssetBundle
             return Application.streamingAssetsPath + "/AssetBundles";
 #endif
         }
-
 
         public static string GetPlatformName()
         {

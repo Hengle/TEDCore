@@ -20,7 +20,6 @@ namespace TEDCore.DefineSymbol
             m_enable = enable;
         }
 
-
         public void Update(string key, string description, bool enable)
         {
             m_key = key;

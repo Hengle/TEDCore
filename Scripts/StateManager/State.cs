@@ -13,13 +13,11 @@ namespace TEDCore.StateManagement
 			TaskManager = new TaskManager(stateManager);
 		}
 
-
 		public override void Destroy ()
 		{
 			base.Destroy ();
 			TaskManager.Destroy();
 		}
-
 
 		#region IUpdate
 		public virtual void Update (float deltaTime)
@@ -28,14 +26,12 @@ namespace TEDCore.StateManagement
 		}
         #endregion
 
-
         #region IFixedUpdate
         public virtual void FixedUpdate(float deltaTime)
         {
             TaskManager.FixedUpdate(deltaTime);
         }
         #endregion
-
 
         #region ILateUpdate
         public virtual void LateUpdate(float deltaTime)

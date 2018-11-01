@@ -6,16 +6,13 @@ namespace TEDCore.Event
 	{
         public delegate EventResult EventCallback(object eventData);
 
-
 		protected class EventListenerData
 		{
 			public EventCallback Callback;
 			public bool CallWhenInactive;
 		}
 
-
         protected Dictionary<int, EventListenerData> m_eventListeners;
-
 
 		private bool m_active;
 		public bool Active
@@ -28,19 +25,16 @@ namespace TEDCore.Event
 			}
 		}
 
-
 		protected virtual void OnActiveChanged()
 		{
 
 		}
-
 
 		public EventListener()
 		{
             Active = true;
             m_eventListeners = new Dictionary<int, EventListenerData>();
 		}
-
 
         public void ListenForEvent(int eventName, EventCallback callback, bool callWhenInactive = false, int priority = 0)
 		{
@@ -55,7 +49,6 @@ namespace TEDCore.Event
 			EventManager.Instance.RegisterListener(eventName, this, priority);
 		}
 
-
         public void StopListenForEvent(int eventName)
 		{
 			if(m_eventListeners.ContainsKey(eventName))
@@ -65,7 +58,6 @@ namespace TEDCore.Event
                 EventManager.Instance.RemoveListener(eventName, this);
 			}
 		}
-
 
 		#region IEventListener
         public EventResult OnEvent(int eventName, object eventData)
@@ -88,7 +80,6 @@ namespace TEDCore.Event
 			return null;
 		}
 		#endregion
-
 
 		#region IDestroyable
 		public virtual void Destroy()

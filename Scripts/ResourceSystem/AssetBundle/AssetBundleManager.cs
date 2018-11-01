@@ -85,7 +85,6 @@ namespace TEDCore.AssetBundle
             UpdateCompleteDownloadRequests();
         }
 
-
         private void UpdateWaitingDownloadRequests()
         {
             if (m_waitingDownloadRequests.Count == 0 ||
@@ -123,7 +122,6 @@ namespace TEDCore.AssetBundle
             }
         }
 
-
         private void UpdateDownloadingRequests()
         {
             m_completeDownloadAssetBundles.Clear();
@@ -133,7 +131,6 @@ namespace TEDCore.AssetBundle
                 CachedAssetBundle(keyValue.Key, keyValue.Value);
             }
         }
-
 
         private void CachedAssetBundle(string assetBundleName, UnityWebRequest unityWebRequest)
         {
@@ -158,7 +155,6 @@ namespace TEDCore.AssetBundle
             }
         }
 
-
         private bool HasRequestError(string assetBundleName, UnityWebRequest unityWebRequest)
         {
             if (unityWebRequest.isHttpError || unityWebRequest.isNetworkError || !string.IsNullOrEmpty(unityWebRequest.error))
@@ -172,7 +168,6 @@ namespace TEDCore.AssetBundle
             return false;
         }
 
-
         private void AddDownloadError(string assetBundleName, string error)
         {
             if (m_downloadingErrors.ContainsKey(assetBundleName))
@@ -184,7 +179,6 @@ namespace TEDCore.AssetBundle
                 m_downloadingErrors.Add(assetBundleName, error);
             }
         }
-
 
         private void UpdateCompleteDownloadRequests()
         {
@@ -222,7 +216,6 @@ namespace TEDCore.AssetBundle
             m_inProgressRequests.RemoveAll(request => !request.Update());
         }
 
-
         private void ReassignShader(UnityEngine.AssetBundle assetBundle)
         {
             if (assetBundle.isStreamedSceneAssetBundle)
@@ -243,7 +236,6 @@ namespace TEDCore.AssetBundle
                 assets[i].shader = Shader.Find(cacheShader.name);
             }
         }
-
 
         public void Initialize(AssetBundleInitializeData initializeData)
         {
@@ -272,7 +264,6 @@ namespace TEDCore.AssetBundle
             }
         }
 
-
         private IEnumerator PreInitialize(string relativePath)
         {
             var platformName = AssetBundleDef.GetPlatformName();
@@ -298,7 +289,6 @@ namespace TEDCore.AssetBundle
                 yield return StartCoroutine(request);
             }
         }
-
 
         private IEnumerator<float> InitializeCatalog()
         {
@@ -326,7 +316,6 @@ namespace TEDCore.AssetBundle
             request.Dispose();
         }
 
-
         private AssetBundleLoadManifestRequest InitializeManifest(string path)
         {
             UnloadAssetBundles(new List<string> { AssetBundleDef.GetPlatformName() });
@@ -341,7 +330,6 @@ namespace TEDCore.AssetBundle
             return request;
         }
 
-
         public void SetupManifest(AssetBundleManifest manifest)
         {
             m_assetBundleManifest = manifest;
@@ -351,7 +339,6 @@ namespace TEDCore.AssetBundle
                 m_onInitializeFinish = null;
             }
         }
-
 
         public void Download(Action<AssetBundleDownloadProgress> onAssetBundleDownloadProgressChanged)
         {
@@ -394,7 +381,6 @@ namespace TEDCore.AssetBundle
             m_assetBundleDownloadProgress = new AssetBundleDownloadProgress(allAssetBundles.Length, m_assetBundleCatalogs.GetAllFileSize(downloadAssetBundleNames));
         }
 
-
         public AssetBundleLoadAssetRequest<T> LoadAssetAsync<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
             AssetBundleLoadAssetRequest<T> request = null;
@@ -415,7 +401,6 @@ namespace TEDCore.AssetBundle
 
             return request;
         }
-
 
         public AssetBundleLoadAllAssetRequest<T> LoadAllAssetAsync<T>(string assetBundleName, string assetName) where T : UnityEngine.Object
         {
@@ -438,7 +423,6 @@ namespace TEDCore.AssetBundle
             return request;
         }
 
-
         public AssetBundleLoadSceneRequest LoadSceneAsync(string assetBundleName, string sceneName, bool isAdditive)
         {
             AssetBundleLoadSceneRequest request = null;
@@ -451,13 +435,11 @@ namespace TEDCore.AssetBundle
             return request;
         }
 
-
         private void LoadFromNetwork(string assetBundleName)
         {
             LoadDependenciesFromNetwork(assetBundleName);
             LoadAssetBundleFromNetwork(assetBundleName);
         }
-
 
         private bool LoadAssetBundleFromNetwork(string assetBundleName)
         {
@@ -470,7 +452,6 @@ namespace TEDCore.AssetBundle
 
             return DownloadAssetBundle(assetBundleName, false);
         }
-
 
         private bool DownloadAssetBundle(string assetBundleName, bool isLoadingAssetBundleManifest)
         {
@@ -502,7 +483,6 @@ namespace TEDCore.AssetBundle
             return false;
         }
 
-
         private void LoadDependenciesFromNetwork(string assetBundleName)
         {
             if (m_dependencies.ContainsKey(assetBundleName))
@@ -522,7 +502,6 @@ namespace TEDCore.AssetBundle
                 LoadAssetBundleFromNetwork(dependencies[i]);
             }
         }
-
 
         private void UnloadAssetBundles(List<string> bundleNames)
         {
@@ -552,13 +531,11 @@ namespace TEDCore.AssetBundle
             Resources.UnloadUnusedAssets();
         }
 
-
         private void UnloadAssetBundle(string bundleName)
         {
             UnloadAssetBundleInternal(bundleName);
             UnloadDependencies(bundleName);
         }
-
 
         private void UnloadAssetBundleInternal(string bundleName)
         {
@@ -576,7 +553,6 @@ namespace TEDCore.AssetBundle
             m_completeDownloadAssetBundles.Remove(bundleName);
         }
 
-
         private void UnloadDependencies(string bundleName)
         {
             string[] dependencies = null;
@@ -592,7 +568,6 @@ namespace TEDCore.AssetBundle
 
             m_dependencies.Remove(bundleName);
         }
-
 
         public LoadedAssetBundle GetLoadedAssetBundle(string assetBundleName, out string error)
         {

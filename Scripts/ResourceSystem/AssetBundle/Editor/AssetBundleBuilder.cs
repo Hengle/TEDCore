@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 using System.IO;
 
 namespace TEDCore.AssetBundle
@@ -56,7 +55,6 @@ namespace TEDCore.AssetBundle
 
             TEDDebug.Log("Build AssetBundles successfully.");
         }
-
 
         private static void DirectoryCopy(string sourceDirName, string destDirName)
         {

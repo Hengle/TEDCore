@@ -23,7 +23,6 @@ namespace TEDCore.AssetBundle
             AssetDatabase.Refresh();
         }
 
-
         private static void SetAssetBundleNames(DirectoryInfo directoryInfo)
         {
             FileInfo[] fileInfos = directoryInfo.GetFiles();
@@ -46,7 +45,6 @@ namespace TEDCore.AssetBundle
                 }
             }
         }
-
 
         private static void SetAssetBundleName(DirectoryInfo directoryInfo, FileInfo fileInfo)
         {

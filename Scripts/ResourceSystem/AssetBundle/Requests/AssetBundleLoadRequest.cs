@@ -12,22 +12,17 @@ namespace TEDCore.AssetBundle
             }
         }
 
-
         public bool MoveNext()
         {
             return !IsDone();
         }
-
 
         public void Reset()
         {
             
         }
 
-
         public abstract bool Update();
-
-
         public abstract bool IsDone();
     }
 

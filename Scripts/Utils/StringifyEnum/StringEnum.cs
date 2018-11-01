@@ -15,7 +15,6 @@ namespace TEDCore.Utils
             return result;
         }
 
-
         public T StringToEnum(string stringValue)
         {
             if (String.IsNullOrEmpty(stringValue))

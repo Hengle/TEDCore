@@ -30,7 +30,6 @@ namespace TEDCore.Http
             m_userData = userData;
         }
 
-
         private WebRequest(OnTextureCallback callback, object userData)
         {
             m_requestId = m_nextRequestId;
@@ -39,7 +38,6 @@ namespace TEDCore.Http
             m_onTextureCallback = callback;
             m_userData = userData;
         }
-
 
         public void Dispose()
         {
@@ -50,7 +48,6 @@ namespace TEDCore.Http
 
             m_request.Dispose();
         }
-
 
         public static WebRequest Post(string url, Dictionary<string, string> headers, object jsonObject, OnDataCallback callback, object userData)
         {
@@ -77,7 +74,6 @@ namespace TEDCore.Http
             return webRequest;
     	}
 
-
         public static WebRequest Get(string url, Dictionary<string, string> headers, OnDataCallback callback, object userData)
         {
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(url);
@@ -92,7 +88,6 @@ namespace TEDCore.Http
 
             return webRequest;
         }
-
 
         public static WebRequest Delete(string url, Dictionary<string, string> headers, OnDataCallback callback, object userData)
         {
@@ -110,7 +105,6 @@ namespace TEDCore.Http
             return webRequest;
         }
 
-
         public static WebRequest GetTexture(string url, OnTextureCallback callback, object userData)
         {
             UnityWebRequest unityWebRequest = UnityWebRequestTexture.GetTexture(url);
@@ -120,7 +114,6 @@ namespace TEDCore.Http
 
             return webRequest;
         }
-
 
         public void Send()
         {
@@ -133,7 +126,6 @@ namespace TEDCore.Http
             m_startTime = Time.realtimeSinceStartup;
         }
 
-
         public bool IsDone()
         {
             if (null == m_request)
@@ -143,7 +135,6 @@ namespace TEDCore.Http
 
             return m_request.isDone;
         }
-
 
         public bool IsOverTime()
         {
@@ -157,7 +148,6 @@ namespace TEDCore.Http
             }
         }
 
-
         public bool IsError()
         {
             if (null == m_request)
@@ -168,7 +158,6 @@ namespace TEDCore.Http
             return m_request.isNetworkError;
         }
 
-
         public string GetError()
         {
             if (null == m_request)
@@ -178,7 +167,6 @@ namespace TEDCore.Http
 
             return m_request.error;
         }
-
 
         public void Finish()
         {
@@ -194,13 +182,11 @@ namespace TEDCore.Http
             Dispose();
         }
 
-
         private void OnTextureLoaded()
         {
             TEDDebug.LogFormat("[WebRequest] OnTextureLoaded - requst id = {0}, url = {1}", m_requestId, m_request.url);
             m_onTextureCallback.Invoke(m_requestId, DownloadHandlerTexture.GetContent(m_request), m_userData);
         }
-
 
         private void OnDataLoaded()
         {

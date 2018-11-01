@@ -14,9 +14,7 @@ namespace TEDCore
             Initialize();
 		}
 
-
         public abstract void Initialize();
-
 
 		public virtual void Update()
 		{
@@ -26,7 +24,6 @@ namespace TEDCore
 			}
 		}
 
-
         public virtual void FixedUpdate()
         {
             if (null != m_stateManager.CurrentState)
@@ -34,7 +31,6 @@ namespace TEDCore
                 m_stateManager.FixedUpdate(Time.fixedDeltaTime);
             }
         }
-
 
         public virtual void LateUpdate()
         {

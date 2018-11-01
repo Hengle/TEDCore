@@ -20,7 +20,6 @@ namespace TEDCore.UI
             m_uiCanvas = GameObject.Find("UICanvas").transform;
         }
 
-
         public void LoadScreenAsync<T>(string assetName, System.Action<T> callback) where T : MonoBehaviour
         {
             ResourceManager.Instance.LoadAsync<GameObject>(assetName, delegate (GameObject obj)
@@ -34,7 +33,6 @@ namespace TEDCore.UI
                 }
             });
         }
-
 
         public void LoadScreenAsync<T>(string bundleName, string assetName, System.Action<T> callback) where T : MonoBehaviour
         {
@@ -50,12 +48,10 @@ namespace TEDCore.UI
                 });
         }
 
-
         public void DestoryScreen(GameObject screen)
         {
             GameObject.Destroy(screen);
         }
-
 
         public void ShowScreen(GameObject screen, bool show)
         {

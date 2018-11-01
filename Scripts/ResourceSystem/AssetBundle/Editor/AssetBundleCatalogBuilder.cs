@@ -67,7 +67,6 @@ namespace TEDCore.AssetBundle
             TEDDebug.LogFormat("[AssetBundleCatalogBuilder] - Build catalog.txt success in {0}", catalogPath);
         }
 
-
         private static float GetFileSizeInB(long length)
         {
             return Mathf.Round(length * 100) / 100;

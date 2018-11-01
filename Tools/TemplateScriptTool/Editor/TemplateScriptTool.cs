@@ -14,20 +14,17 @@ namespace TEDCore.TemplateScript
             CreateTemplateScript(TEMPLATE_PATH + "TemplateState.txt", "NewState.cs");
         }
 
-
         [MenuItem("Assets/Create/C# Template Scripts/Empty Task", false, 80)]
         private static void CreateEmptyTask()
         {
             CreateTemplateScript(TEMPLATE_PATH + "TemplateTask.txt", "NewTask.cs");
         }
 
-
         [MenuItem("Assets/Create/C# Template Scripts/Empty View", false, 80)]
         private static void CreateEmptyElement()
         {
             CreateTemplateScript(TEMPLATE_PATH + "TemplateView.txt", "NewView.cs");
         }
-
 
         private static void CreateTemplateScript(string resourcePath, string pathName)
         {

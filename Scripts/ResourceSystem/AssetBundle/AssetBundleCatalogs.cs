@@ -20,7 +20,6 @@ namespace TEDCore.AssetBundle
             }
         }
 
-
         public uint GetCrc(string assetBundleName)
         {
             for (int i = 0; i < m_catalogs.Length; i++)
@@ -34,7 +33,6 @@ namespace TEDCore.AssetBundle
             return 0;
         }
 
-
         public float GetFileSize(string assetBundleName)
         {
             for (int i = 0; i < m_catalogs.Length; i++)
@@ -47,7 +45,6 @@ namespace TEDCore.AssetBundle
 
             return 0;
         }
-
 
         public float GetAllFileSize(List<string> assetBundleNames)
         {

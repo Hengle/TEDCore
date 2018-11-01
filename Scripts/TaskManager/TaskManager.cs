@@ -22,7 +22,6 @@ namespace TEDCore.StateManagement
 			StateManager = stateManager;
 		}
 
-
         public void AddTask(Task task, params Enum[] activeStates)
         {
             task.TaskManager = this;
@@ -34,7 +33,6 @@ namespace TEDCore.StateManagement
             m_tasks.Add(td);
         }
 
-
         public void AddTask(Task task, long activeStates)
         {
             task.TaskManager = this;
@@ -45,7 +43,6 @@ namespace TEDCore.StateManagement
 
             m_tasks.Add(td);
         }
-
 
         public void ChangeState(Enum activeState)
 		{
@@ -70,12 +67,10 @@ namespace TEDCore.StateManagement
 			}
 		}
 
-
         private static bool ContainState(long stateFlags, long stateId)
         {
             return (stateFlags & stateId) == stateId;
         }
-
 
 		#region IUpdate
 		public void Update (float deltaTime)
@@ -90,7 +85,6 @@ namespace TEDCore.StateManagement
 		}
         #endregion
 
-
         #region IFixedUpdate
         public void FixedUpdate(float deltaTime)
         {
@@ -104,7 +98,6 @@ namespace TEDCore.StateManagement
         }
         #endregion
 
-
         #region ILateUpdate
         public void LateUpdate(float deltaTime)
         {
@@ -117,7 +110,6 @@ namespace TEDCore.StateManagement
             }
         }
         #endregion
-
 
         #region IDestroyable
         public void Destroy ()

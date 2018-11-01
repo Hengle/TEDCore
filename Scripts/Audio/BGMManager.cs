@@ -14,7 +14,6 @@ namespace TEDCore.Audio
             m_audioSource.volume = m_volume;
         }
 
-
         private float m_duration;
         private bool m_fade;
         private float m_currentVolume;
@@ -28,7 +27,6 @@ namespace TEDCore.Audio
             m_duration = duration;
             m_lerp = 0;
         }
-
 
         private void Update()
         {
@@ -47,7 +45,6 @@ namespace TEDCore.Audio
             SetVolume(Mathf.Lerp(m_currentVolume, m_targetVolume, m_lerp / m_duration));
         }
 
-
         public void Play(string assetName)
         {
             if(string.IsNullOrEmpty(assetName))
@@ -64,7 +61,6 @@ namespace TEDCore.Audio
             ResourceManager.Instance.LoadAsync<AudioClip>(assetName, OnAssetLoaded);
         }
 
-
         public void Play(string bundleName, string assetName)
         {
             if (string.IsNullOrEmpty(assetName))
@@ -80,7 +76,6 @@ namespace TEDCore.Audio
 
             ResourceManager.Instance.LoadAsync<AudioClip>(bundleName, assetName, OnAssetLoaded);
         }
-
 
         private void OnAssetLoaded(AudioClip audioClip)
         {
@@ -100,7 +95,6 @@ namespace TEDCore.Audio
             m_audioSource.Play();
         }
 
-
         public void Stop()
         {
             if (null == m_audioSource)
@@ -113,7 +107,6 @@ namespace TEDCore.Audio
 
             ResourceManager.Instance.Release();
         }
-
 
         private void Create()
         {

@@ -23,19 +23,16 @@ namespace TEDCore.Utils
             m_startRect = new Rect(10, 10, Screen.width * 0.15f, Screen.height * 0.1f);
         }
 
-
         private void Start()
         {
             Timing.RunCoroutine(FPS());
         }
-
 
         private void Update()
         {
             m_accum += Time.timeScale / Time.deltaTime;
             ++m_frames;
         }
-
 
         private IEnumerator<float> FPS()
         {
@@ -53,7 +50,6 @@ namespace TEDCore.Utils
             }
         }
 
-
         private void OnGUI()
         {
             if (null == m_style)
@@ -67,7 +63,6 @@ namespace TEDCore.Utils
             GUI.color = m_updateColor ? m_color : Color.white;
             m_startRect = GUI.Window(0, m_startRect, DoMyWindow, "");
         }
-
 
         private void DoMyWindow(int windowID)
         {

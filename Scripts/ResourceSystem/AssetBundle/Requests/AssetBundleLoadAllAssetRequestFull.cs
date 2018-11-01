@@ -14,19 +14,15 @@ namespace TEDCore.AssetBundle
             m_assetBundleName = assetBundleName;
         }
 
-
         public override T[] GetAsset()
         {
             if (null != m_request && m_request.isDone)
             {
                 return m_request.allAssets.OfType<T>().ToArray();
             }
-            else
-            {
-                return null;
-            }
-        }
 
+            return null;
+        }
 
         public override bool Update ()
         {
@@ -41,12 +37,9 @@ namespace TEDCore.AssetBundle
                 m_request = bundle.Bundle.LoadAllAssetsAsync();
                 return false;
             }
-            else
-            {
-                return true;
-            }
-        }
 
+            return true;
+        }
 
         public override bool IsDone ()
         {

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using TEDCore;
 using UnityEngine.SceneManagement;
 
 namespace TEDCore.AssetBundle
@@ -18,7 +17,6 @@ namespace TEDCore.AssetBundle
             m_sceneName = sceneName;
             m_isAdditive = isAdditive;
         }
-
 
         public override bool Update()
         {
@@ -41,12 +39,9 @@ namespace TEDCore.AssetBundle
 
                 return false;
             }
-            else
-            {
-                return true;
-            }
-        }
 
+            return true;
+        }
 
         public override bool IsDone()
         {

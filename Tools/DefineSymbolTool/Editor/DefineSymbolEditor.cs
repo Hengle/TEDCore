@@ -41,7 +41,6 @@ namespace TEDCore.DefineSymbol
             m_defineSymbols = defineSymbolSettings.defineSymbols.ToList();
         }
 
-
         public static void UpdateDefineSymbol(int index, string key, string description, bool isEnabled)
         {
             m_isEdited = true;
@@ -60,7 +59,6 @@ namespace TEDCore.DefineSymbol
             symbol.Update(key, description, isEnabled);
         }
 
-
         public static void Delete(int index)
         {
             if (index >= m_defineSymbols.Count)
@@ -72,7 +70,6 @@ namespace TEDCore.DefineSymbol
 
             m_defineSymbols.RemoveAt(index);
         }
-
 
         public static string GetResult()
         {
@@ -92,7 +89,6 @@ namespace TEDCore.DefineSymbol
             return scriptingDefineSymbols;
         }
 
-
         public static void Save()
         {
             m_isEdited = false;
@@ -103,7 +99,6 @@ namespace TEDCore.DefineSymbol
 
             AssetDatabase.SaveAssets();
         }
-
 
         private static void SaveScriptableObject()
         {

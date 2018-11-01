@@ -12,12 +12,10 @@ namespace TEDCore.StateManagement
 
 		}
 
-
 		protected override void OnActiveChanged ()
 		{
 			Show (Active);
 		}
-
 
         public abstract void Show(bool show);
         public abstract void Update(float deltaTime);

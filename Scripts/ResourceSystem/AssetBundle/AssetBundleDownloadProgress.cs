@@ -16,7 +16,6 @@ namespace TEDCore.AssetBundle
             TotalAssetSize = totalAssetSize;
         }
 
-
         public void SetDownloadCount(int downloadCount)
         {
             DownloadAssetAmount = TotalAssetAmount - downloadCount;

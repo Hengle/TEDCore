@@ -37,7 +37,6 @@ namespace TEDCore.Http
             m_gameVersion = gameVersion;
         }
 
-
         public void Auth(object jsonData, WebRequest.OnDataCallback callback)
         {
             if (!m_init)
@@ -68,18 +67,15 @@ namespace TEDCore.Http
             m_waitingRequests.Enqueue(webRequest);
         }
 
-
         public void SetSession(string session)
         {
             m_session = session;
         }
 
-
         private bool HasSession()
         {
             return !string.IsNullOrEmpty(m_session);
         }
-
 
         public void Post(BackendServerType serverType, string endPoint, object jsonData = null, WebRequest.OnDataCallback callback = null, object userData = null)
         {
@@ -112,7 +108,6 @@ namespace TEDCore.Http
             m_waitingRequests.Enqueue(webRequest);
         }
 
-
         public void Get(BackendServerType serverType, string endPoint, WebRequest.OnDataCallback callback = null, object userData = null)
         {
             if (!m_init)
@@ -143,7 +138,6 @@ namespace TEDCore.Http
 
             m_waitingRequests.Enqueue(webRequest);
         }
-
 
         public void Delete(BackendServerType serverType, string endPoint, WebRequest.OnDataCallback callback = null, object userData = null)
         {
@@ -176,7 +170,6 @@ namespace TEDCore.Http
             m_waitingRequests.Enqueue(webRequest);
         }
 
-
         public void GetTexture(string url, WebRequest.OnTextureCallback callback = null, object userData = null)
         {
             WebRequest webRequest = WebRequest.GetTexture(url, callback, userData);
@@ -194,12 +187,10 @@ namespace TEDCore.Http
             m_waitingRequests.Enqueue(webRequest);
         }
 
-
         private string GetUrl(BackendServerType serverType, string endPoint)
         {
             return string.Format("{0}/v{1}/{2}", serverType == BackendServerType.General ? m_generalServerUrl : m_gameServerUrl, m_apiVersion, endPoint);
         }
-
 
         private Dictionary<string, string> GetHeaders(bool isJson, bool isAuth = false)
         {
@@ -224,7 +215,6 @@ namespace TEDCore.Http
 
             return headers;
         }
-
 
         private void Update()
         {

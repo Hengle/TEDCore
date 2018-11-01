@@ -18,7 +18,6 @@ namespace TEDCore.Timer
             m_timerData = timerData;
 		}
 
-
 		public void Update(float deltaTime)
 		{
             m_duration -= deltaTime;

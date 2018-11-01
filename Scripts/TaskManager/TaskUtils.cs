@@ -16,12 +16,10 @@ namespace TEDCore.StateManagement
             return stateId;
         }
 
-
         private static long GetEnumStateId(Enum value)
         {
             return 1 << Convert.ToInt32(value);
         }
-
 
         public static long GetAllStateId<T>() where T : struct, IConvertible
         {
@@ -35,7 +33,6 @@ namespace TEDCore.StateManagement
 
             return stateId;
         }
-
 
         private static long GetEnumStateId<T>(T value) where T : struct, IConvertible
         {

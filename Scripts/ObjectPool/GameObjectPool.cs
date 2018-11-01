@@ -6,6 +6,7 @@ namespace TEDCore.ObjectPool
     {
         public GameObjectPool(string key, GameObject reference, int initialSize) : base(key, reference, initialSize)
         {
+
         }
 
         public override GameObject Get()
@@ -21,7 +22,6 @@ namespace TEDCore.ObjectPool
 
             return asset;
         }
-
 
         public override void Recycle(GameObject asset)
         {

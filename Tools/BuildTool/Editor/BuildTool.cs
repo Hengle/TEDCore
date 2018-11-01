@@ -22,7 +22,6 @@ namespace TEDCore.Build
             BuildPipeline.BuildPlayer(scenes, buildPath, BuildTarget.Android, BuildOptions.Development | BuildOptions.AllowDebugging);
         }
 
-
         [MenuItem("TEDCore/Build/Build Android Release")]
         private static void BuildAndroidRelease()
         {
@@ -37,7 +36,6 @@ namespace TEDCore.Build
             AssetDatabase.Refresh();
             BuildPipeline.BuildPlayer(scenes, buildPath, BuildTarget.Android, BuildOptions.None);
         }
-
 
         private static string[] GetSceneNames()
         {
@@ -58,7 +56,6 @@ namespace TEDCore.Build
 
             return sceneNames.ToArray();
         }
-
 
         private static string GetAndroidBuildPath()
         {

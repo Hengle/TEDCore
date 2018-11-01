@@ -20,10 +20,8 @@ namespace TEDCore.AssetBundle
                 AssetBundleManager.Instance.SetupManifest(GetAsset());
                 return false;
             }
-            else
-            {
-                return true;
-            }
+
+            return true;
         }
     }
 }

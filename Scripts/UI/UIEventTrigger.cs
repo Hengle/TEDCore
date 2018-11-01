@@ -15,64 +15,73 @@ namespace TEDCore.UI
 		public PositionDelegate onUp;
 		public VoidDelegate onSelect;
 		public VoidDelegate onUpdateSelect;
-		
-		static public UIEventTrigger Get (GameObject go)
+
+        public static UIEventTrigger Get (GameObject go)
 		{
 			UIEventTrigger listener = go.GetComponent<UIEventTrigger>();
 
 			if (listener == null)
-				listener = go.AddComponent<UIEventTrigger>();
+            {
+                listener = go.AddComponent<UIEventTrigger>();
+            }
 
 			return listener;
 		}
 
-
 		public override void OnPointerClick(PointerEventData eventData)
 		{
 			if(onClick != null)
-				onClick(gameObject);
+            {
+                onClick(gameObject);
+            }
 		}
-
 
 		public override void OnPointerDown(PointerEventData eventData)
 		{
 			if(onDown != null)
-				onDown(gameObject, eventData.position);
+            {
+                onDown(gameObject, eventData.position);
+            }
 		}
 
-
-		public override void OnPointerEnter(PointerEventData eventData)
-		{
-			if(onEnter != null)
-				onEnter(gameObject);
-		}
-
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            if (onEnter != null)
+            {
+                onEnter(gameObject);
+            }
+        }
 
 		public override void OnPointerExit(PointerEventData eventData)
 		{
 			if(onExit != null)
-				onExit(gameObject);
+            {
+                onExit(gameObject);
+            }
 		}
-
 
 		public override void OnPointerUp(PointerEventData eventData)
 		{
 			if(onUp != null)
-				onUp(gameObject, eventData.position);
+            {
+                onUp(gameObject, eventData.position);
+            }
 		}
-
 
 		public override void OnSelect(BaseEventData eventData)
 		{
 			if(onSelect != null)
-				onSelect(gameObject);
+            {
+                onSelect(gameObject);
+            }
 		}
-
 
 		public override void OnUpdateSelected(BaseEventData eventData)
 		{
 			if(onUpdateSelect != null)
-				onUpdateSelect(gameObject);
+            {
+                onUpdateSelect(gameObject);
+            }
 		}
 	}
 }

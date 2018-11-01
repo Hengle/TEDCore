@@ -12,7 +12,6 @@ namespace TEDCore.ClientDatabase
             return lineArray[0].Split(',');
         }
 
-
         public static string[][] SerializeCSVData(TextAsset csvData)
         {
             string[][] csv;
@@ -27,7 +26,6 @@ namespace TEDCore.ClientDatabase
 
             return csv;
         }
-
 
         public static T[] ConvertToArray<T>(string value)
         {

@@ -16,7 +16,6 @@ namespace TEDCore.Event
 				Priority = priority;
 			}
 
-
             public int CompareTo(ListenerContainer listener)
             {
                 if (null == listener)
@@ -38,7 +37,6 @@ namespace TEDCore.Event
             m_eventListenerContainers = new Dictionary<int, List<ListenerContainer>>();
             m_eventListenerArrays = new Dictionary<int, ListenerContainer[]>();
 		}
-
 
         public void RegisterListener(int eventId, IEventListener listener, int priority = 0)
 		{
@@ -72,7 +70,6 @@ namespace TEDCore.Event
                 m_eventListenerArrays.Add(eventId, listeners.ToArray());
             }
 		}
-
 
         public void RemoveListener(int eventId, IEventListener listener)
 		{
@@ -109,7 +106,6 @@ namespace TEDCore.Event
                 }
 			}
 		}
-
 
         public EventResult SendEvent(int eventId, object eventData = null)
 		{

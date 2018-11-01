@@ -15,7 +15,6 @@ namespace TEDCore.AssetBundle
             m_assetName = assetName;
         }
 
-
         public override T GetAsset()
         {
             if (null != m_request && m_request.isDone)
@@ -25,7 +24,6 @@ namespace TEDCore.AssetBundle
 
             return null;
         }
-
 
         public override bool Update()
         {
@@ -43,7 +41,6 @@ namespace TEDCore.AssetBundle
 
             return true;
         }
-
 
         public override bool IsDone()
         {

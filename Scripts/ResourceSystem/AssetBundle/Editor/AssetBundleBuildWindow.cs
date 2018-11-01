@@ -12,14 +12,12 @@ namespace TEDCore.AssetBundle
             window.Show();
         }
 
-
         private enum CompressionType
         {
             Uncompression,
             StandardCompression,
             ChunkBasedCompression
         }
-
 
         private Vector2 m_scrollPosition;
         private void OnGUI()
@@ -37,7 +35,6 @@ namespace TEDCore.AssetBundle
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndScrollView();
         }
-
 
         protected BuildTarget m_buildTarget;
         protected string m_outputPath;
@@ -71,7 +68,6 @@ namespace TEDCore.AssetBundle
             EditorGUILayout.Space();
         }
 
-
         private bool m_showOutputOptions = true;
         protected bool m_clearFolders;
         protected bool m_copyToStreamingAssets;
@@ -94,7 +90,6 @@ namespace TEDCore.AssetBundle
 
             EditorGUILayout.Space();
         }
-
 
         private bool m_showAssetBundleBuildOptions = true;
         private GUIContent m_compressionContent = new GUIContent("Compression", "Choose no compress, standard (LZMA), or chunk based (LZ4)");
@@ -137,7 +132,6 @@ namespace TEDCore.AssetBundle
 
             EditorGUILayout.Space();
         }
-
 
         private void OnDrawBuildButton()
         {
@@ -187,7 +181,6 @@ namespace TEDCore.AssetBundle
                 BuildAssetBundles();
             }
         }
-
 
         protected virtual void BuildAssetBundles()
         {

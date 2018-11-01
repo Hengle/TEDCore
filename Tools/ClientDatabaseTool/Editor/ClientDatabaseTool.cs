@@ -35,7 +35,6 @@ namespace TEDCore.ClientDatabase
             AssetDatabase.Refresh();
         }
 
-
         [MenuItem("TEDCore/Client Database/Generate Scripts")]
         private static void GenerateScript()
         {
@@ -80,7 +79,6 @@ namespace TEDCore.ClientDatabase
             }
         }
 
-
         private void StartGenerateScript()
         {
             InitializeTool();
@@ -94,7 +92,6 @@ namespace TEDCore.ClientDatabase
 
             UpdateProgressBar("Please Wait", "Wait Editor Compiling....");
         }
-
 
         private void InitializeTool()
         {
@@ -110,7 +107,6 @@ namespace TEDCore.ClientDatabase
 
             Directory.CreateDirectory(Application.dataPath + CLIENT_DATABASE_ROOT + GENERATE_SCRIPT_PATH);
         }
-
 
         private void CreateDatabaseScript()
         {
@@ -145,7 +141,6 @@ namespace TEDCore.ClientDatabase
             }
         }
 
-
         private void CreateDatabaseScript(TextAsset textAsset)
         {
             m_dataId++;
@@ -161,7 +156,6 @@ namespace TEDCore.ClientDatabase
             GenerateScript(textAsset.name + "Database", template);
         }
 
-
         private void CreateScriptableObjectScript(TextAsset textAsset)
         {
             m_classNames.Add(textAsset.name + "DataScriptableObject");
@@ -175,14 +169,12 @@ namespace TEDCore.ClientDatabase
             GenerateScript(textAsset.name + "DataScriptableObject", template);
         }
 
-
         private void CreateDatabaseManagerScript()
         {
             string template = GetTemplate(TEMPLATE_PATH + TEMPLATE_DATABASEMANAGER_NAME);
             template = template.Replace("$RegisterList", m_registerList);
             GenerateScript("DatabaseManager", template);
         }
-
 
         private string GetClassParameters(TextAsset textAsset)
         {
@@ -205,7 +197,6 @@ namespace TEDCore.ClientDatabase
 
             return classParameters;
         }
-
 
         private string GetCsvSerialize(TextAsset textAsset)
         {
@@ -261,7 +252,6 @@ namespace TEDCore.ClientDatabase
             return csvSerialize;
         }
 
-
         private static string GetCsvSerialize(string[] attributes, int arrayCount, string defaultValue)
         {
             string csvSerialize = "";
@@ -274,14 +264,12 @@ namespace TEDCore.ClientDatabase
             return csvSerialize;
         }
 
-
         private string GetTemplate(string path)
         {
             TextAsset txt = (TextAsset)AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset));
 
             return txt.text;
         }
-
 
         public void GenerateScript(string dataName, string data)
         {
@@ -297,7 +285,6 @@ namespace TEDCore.ClientDatabase
             sr.Close();
         }
 
-
         private void GenerateScriptableObject()
         {
             if (Directory.Exists(Application.dataPath + CLIENT_DATABASE_ROOT + SCRIPTABLE_OBJECT_PATH))
@@ -312,7 +299,6 @@ namespace TEDCore.ClientDatabase
                 GenerateScriptableObject(m_classNames[i]);
             }
         }
-
 
         private void GenerateScriptableObject(string className)
         {
@@ -335,7 +321,6 @@ namespace TEDCore.ClientDatabase
             ClientDatabaseScriptableObject scriptableObject = AssetDatabase.LoadAssetAtPath<ClientDatabaseScriptableObject>("Assets" + CLIENT_DATABASE_ROOT + SCRIPTABLE_OBJECT_PATH + className + ".asset");
             scriptableObject.LoadTextAsset();
         }
-
 
         private void UpdateProgressBar(string title, string info)
         {

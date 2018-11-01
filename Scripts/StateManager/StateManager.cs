@@ -6,13 +6,11 @@ namespace TEDCore.StateManagement
         public bool IsPause { get; set; }
         public State CurrentState { get; private set; }
 
-
         public StateManager()
         {
             IsPause = false;
             CurrentState = null;
         }
-
 
         public void ChangeState(State newState)
         {
@@ -24,7 +22,6 @@ namespace TEDCore.StateManagement
             CurrentState = newState;
         }
 
-
         #region IUpdate
         public void Update(float deltaTime)
         {
@@ -35,7 +32,6 @@ namespace TEDCore.StateManagement
         }
         #endregion
 
-
         #region IFixedUpdate
         public void FixedUpdate(float deltaTime)
         {
@@ -45,7 +41,6 @@ namespace TEDCore.StateManagement
             }
         }
         #endregion
-
 
         #region ILateUpdate
         public void LateUpdate(float deltaTime)

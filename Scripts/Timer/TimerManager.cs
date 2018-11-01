@@ -15,18 +15,15 @@ namespace TEDCore.Timer
             m_removingTimers = new Queue<BaseTimer>();
 		}
 
-
         public void Add(BaseTimer timer)
 		{
 			m_timers.Add(timer);
 		}
 
-
         public void Remove(BaseTimer timer)
 		{
 			m_timers.Remove(timer);
 		}
-
 
         private void Update()
         {

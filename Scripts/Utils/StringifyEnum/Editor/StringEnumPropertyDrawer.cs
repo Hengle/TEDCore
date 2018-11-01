@@ -23,7 +23,6 @@ namespace TEDCore.Utils
             EditorGUI.EndProperty();
         }
 
-
         private void Initialize(SerializedProperty property)
         {
             if (m_enumStringProperty != null)
@@ -49,7 +48,6 @@ namespace TEDCore.Utils
                 }
             }
         }
-
 
         public string[] GetEnumList()
         {
