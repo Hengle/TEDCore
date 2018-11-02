@@ -1003,17 +1003,17 @@ Then, the engineers could generate the referenced scripts by single click.
 #### Steps
 1. Modify datas in **Google Sheet** **<color=red>(PS. The first row should be DataType/DataName)</color>**
 | string/Key | string/Name | int/Hp |
-|:----------:|:-----------:|:------:|
-|      1     |  Monster_1  |   10   |
-|      2     |  Monster_2  |   20   |
-|      3     |  Monster_3  |   30   |
-|      4     |  Monster_4  |   40   |
-|      5     |  Monster_5  |   50   |
-|      6     |  Monster_6  |   60   |
-|      7     |  Monster_7  |   70   |
-|      8     |  Monster_8  |   80   |
-|      9     |  Monster_9  |   90   |
-|     10     |  Monster_10 |   100  |
+|------------|-------------|--------|
+| 1          | Monster_1   | 10     |
+| 2          | Monster_2   | 20     |
+| 3          | Monster_3   | 30     |
+| 4          | Monster_4   | 40     |
+| 5          | Monster_5   | 50     |
+| 6          | Monster_6   | 60     |
+| 7          | Monster_7   | 70     |
+| 8          | Monster_8   | 80     |
+| 9          | Monster_9   | 90     |
+| 10         | Monster_10  | 100    |
 
 2. Save the table to .csv format
 ![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_2.png)
