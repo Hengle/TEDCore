@@ -694,8 +694,8 @@ TEDCore.Coroutine
 |-------------------------------------|--------------------------------------------------|------------------------------------------------------|
 | WaitForSeconds(float seconds)       | seconds: The seconds you want to wait            | Create a new WaitForSeconds coroutine.               |
 | WaitForEndOfFrame()                 |                                                  | Create a new WaitForEndOfFrame coroutine.            |
-| WaitUntil(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitUtil coroutine.                     |
-| WaitWhile(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitWhile coroutine.                    |
+| WaitUntil(Func&lt;bool&gt; predicate)     | predicate: The predicate you want to wait        | Create a new WaitUtil coroutine.                     |
+| WaitWhile(Func&lt;bool&gt; predicate)     | predicate: The predicate you want to wait        | Create a new WaitWhile coroutine.                    |
 
 #### Examples
 ```
