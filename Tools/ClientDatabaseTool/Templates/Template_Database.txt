@@ -33,7 +33,7 @@ namespace TEDCore.ClientDatabase
             ResourceManager.Instance.LoadAsync<$DataScriptableName>(DATA_PATH, OnDataLoaded);
         }
 
-        private void OnDataLoaded(ItemDataScriptableObject scriptableObject)
+        private void OnDataLoaded($DataScriptableName scriptableObject)
         {
             m_scriptableObject = GameObject.Instantiate<$DataScriptableName>(scriptableObject);
             ResourceManager.Instance.Unload<$DataScriptableName>(DATA_PATH);

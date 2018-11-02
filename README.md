@@ -986,16 +986,47 @@ TemplateScript Tool could help the developers create the template script.
 It supports you to create State, Task, View and NetworkMessage template script in the current version.
 
 ### ClientDatabase Tool
-ClientDatabase Tool is designed to load the content from Google Sheets and generate the script automatically.
-The designers could modify the content in Google Sheets and then export the content with csv format.
+ClientDatabase Tool is designed to load the content from **Google Sheets** and generate the script automatically.
+The designers could modify the content in **Google Sheets** and then export the content with **csv** format.
 Then, the engineers could generate the referenced scripts by single click.
 
-Support Data Type
-bool
-float
-int
-string
-bool[]
-float[]
-int[]
-string[]
+#### Support Data Type
+* bool
+* float
+* int
+* string
+* bool[]
+* float[]
+* int[]
+* string[]
+
+#### Steps
+1. Modify datas in **Google Sheet** **<color=red>(PS. The first row should be DataType/DataName)</color>**
+| string/Key | string/Name | int/Hp |
+|:----------:|:-----------:|:------:|
+|      1     |  Monster_1  |   10   |
+|      2     |  Monster_2  |   20   |
+|      3     |  Monster_3  |   30   |
+|      4     |  Monster_4  |   40   |
+|      5     |  Monster_5  |   50   |
+|      6     |  Monster_6  |   60   |
+|      7     |  Monster_7  |   70   |
+|      8     |  Monster_8  |   80   |
+|      9     |  Monster_9  |   90   |
+|     10     |  Monster_10 |   100  |
+
+2. Save the table to .csv format
+![image]()
+
+3. Click **TEDCore/Client Database/Initialize Plugin** to generate the default folders
+![image]()
+
+4. Put .csv files to **Assets/ClientDatabase/CsvResources** folder
+![image]()
+
+5. Click **TEDCore/Client Database/Generate Scripts** to generate the scripts automatically
+![image]()
+
+6. The scripts and scriptable objects would generate to **ClientDatabase/GenerateScripts** and **ClientDatabase/Resources**
+![image]()
+![image]()
