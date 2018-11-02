@@ -1007,3 +1007,39 @@ Then, the engineers could generate the referenced scripts by single click.
 4. Put .csv files to **Assets/ClientDatabase/CsvResources** folder
 5. Click **TEDCore/Client Database/Generate Scripts** to generate the scripts automatically
 6. The scripts and scriptable objects would generate to **ClientDatabase/GenerateScripts** and **ClientDatabase/Resources**
+
+#### Public Methods
+| Name             | Parameters                           | Description                                              |
+|------------------|--------------------------------------|----------------------------------------------------------|
+| Initialize()     |                                      | Initialize the manager, load the database from Resources |
+| GetDatabase<T>() | T: The Database type you want to get | Get the database of type                                 |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.ClientDatabase;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Awake()
+    {
+        ClientDatabaseManager.Instance.Initialize();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            MonsterDatabase testDatabase = ClientDatabaseManager.Instance.GetDatabase<MonsterDatabase>();
+            MonsterData testData = null;
+
+            for (int i = 1; i <= testDatabase.GetCount(); i++)
+            {
+                testData = testDatabase.GetData(i);
+                TEDDebug.LogFormat("id {0}, name {1}, hp {2}", testData.Key, testData.Name, testData.Hp);
+            }
+        }
+    }
+}
+```

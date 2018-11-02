@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TEDCore.ClientDatabase
 {
-    public class ClientDatabaseManager : MonoBehaviour
+    public class ClientDatabaseManager : Singleton<ClientDatabaseManager>
     {
         private Dictionary<uint, IDatabase> m_databases;
 
