@@ -667,6 +667,93 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
+### Coroutine Manager
+Coroutine Manager would help developers to handle Unity Coroutine.
+It utilize the method chain for allowing the coroutines to be chained together in a single statement without requiring variables to store the intermediate results.
+
+#### Namespace
+TEDCore.Coroutine
+
+#### Public Methods - CoroutineManager
+| Name                                | Parameters                                       | Description                                          |
+|-------------------------------------|--------------------------------------------------|------------------------------------------------------|
+| Create()                            |                                                  | Create a new empty coroutine container.              |
+| Create(IEnumerator coroutine)       | coroutine: The coroutine you want to add default | Create a new coroutine container with the coroutine. |
+| WaitForSeconds(float seconds)       | seconds: The seconds you want to wait            | Create a new WaitForSeconds coroutine.               |
+| WaitForEndOfFrame()                 |                                                  | Create a new WaitForEndOfFrame coroutine.            |
+| WaitUntil(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitUtil coroutine.                     |
+| WaitWhile(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitWhile coroutine.                    |
+| RunCoroutine(IEnumerator coroutine) | coroutine: The coroutine you want to start       | Start the coroutine.                                 |
+
+#### Public Methods - CoroutineChain
+| Name                                 | Parameters                                                          | Description                                                 |
+|--------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------|
+| Enqueue(IEnumerator coroutine)       | coroutine: The coroutine you want to add                            | Add a coroutine to the coroutine chain.                     |
+| Enqueue(Action action)               | action: The action you want to add                                  | Add a action callback to the coroutine chain.               |
+| Enqueue<T>(Action<T> action, T data) | action: The action you want to add<br>data: The data for the action | Add a action callback to the coroutine chain with the data. |
+| RunCoroutine()                       |                                                                     | Start the coroutine chain.                                  |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.Coroutine;
+
+public class ExampleClass : MonoBehaviour
+{
+    [SerializeField] private bool m_waitUntil1;
+    [SerializeField] private bool m_waitUntil2;
+    [SerializeField] private bool m_waitWhile;
+
+    private void Start()
+    {
+        CoroutineManager.Instance.Create()
+                        .Enqueue(CoroutineManager.Instance.WaitForSeconds(1.0f))
+                        .Enqueue(WaitForSeconds)
+                        .Enqueue(CoroutineManager.Instance.WaitForEndOfFrame())
+                        .Enqueue(WaitForEndOfFrame)
+                        .Enqueue(CoroutineManager.Instance.WaitUntil(() => m_waitUntil1))
+                        .Enqueue(WaitUntil1)
+                        .Enqueue(CoroutineManager.Instance.WaitUntil(() => m_waitUntil2))
+                        .Enqueue(WaitUntil2, "finish")
+                        .Enqueue(CoroutineManager.Instance.WaitWhile(() => !m_waitWhile))
+                        .Enqueue(WaitWhile, 1)
+                        .Enqueue(Finish)
+                        .RunCoroutine();
+    }
+
+    private void WaitForSeconds()
+    {
+        TEDDebug.Log("Call WaitForSeconds()");
+    }
+
+    private void WaitForEndOfFrame()
+    {
+        TEDDebug.Log("Call WaitForEndOfFrame()");
+    }
+
+    private void WaitUntil1()
+    {
+        TEDDebug.Log("Call WaitUntil1()");
+    }
+
+    private void WaitUntil2(string value)
+    {
+        TEDDebug.LogFormat("Call WaitUntil2() with string '{0}'", value);
+    }
+
+    private void WaitWhile(int value)
+    {
+        TEDDebug.LogFormat("Call WaitWhile() with int '{0}'", value);
+    }
+
+    private void Finish()
+    {
+        TEDDebug.Log("Call Finish()");
+    }
+}
+```
+
 ## Tools
 ### TEDDebug DLL
 TEDDebug.dll repackage UnityEngine.Debug so that the developer can turn on/off the log with a simply parameter EnableLog.
