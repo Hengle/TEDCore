@@ -60,7 +60,7 @@ namespace TEDCore.Coroutine
 
         public CoroutineChain StartCoroutine()
         {
-            CoroutineManager.Instance.StartCoroutine(RunEnemerators());
+            CoroutineChainManager.Instance.StartCoroutine(RunEnemerators());
             return this;
         }
 
@@ -69,7 +69,7 @@ namespace TEDCore.Coroutine
             while (m_coroutines.Count > 0)
             {
                 m_currentCoroutine = m_coroutines.Dequeue();
-                yield return CoroutineManager.Instance.StartCoroutine(m_currentCoroutine);
+                yield return CoroutineChainManager.Instance.StartCoroutine(m_currentCoroutine);
             }
 
             m_currentCoroutine = null;
@@ -80,7 +80,7 @@ namespace TEDCore.Coroutine
             m_coroutines.Clear();
             if(m_currentCoroutine != null)
             {
-                CoroutineManager.Instance.StopCoroutine(m_currentCoroutine);
+                CoroutineChainManager.Instance.StopCoroutine(m_currentCoroutine);
             }
         }
     }

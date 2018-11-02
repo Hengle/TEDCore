@@ -667,18 +667,18 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Coroutine Manager
-Coroutine Manager would help developers to handle Unity Coroutine.
+### CoroutineChain Manager
+CoroutineChain Manager would help developers to handle Unity Coroutine with dependencies.
 It utilize the method chain for allowing the coroutines to be chained together in a single statement without requiring variables to store the intermediate results.
 
 #### Namespace
 TEDCore.Coroutine
 
-#### Public Methods - CoroutineManager
+#### Public Methods - CoroutineChainManager
 | Name                                   | Parameters                                       | Description                                          |
 |----------------------------------------|--------------------------------------------------|------------------------------------------------------|
-| CreateCoroutine()                      |                                                  | Create a new empty coroutine container.              |
-| CreateCoroutine(IEnumerator coroutine) | coroutine: The coroutine you want to add default | Create a new coroutine container with the coroutine. |
+| Create()                      |                                                  | Create a new empty coroutine chain.              |
+| Create(IEnumerator coroutine) | coroutine: The coroutine you want to add default | Create a new coroutine chain with the coroutine. |
 
 #### Public Methods - CoroutineChain
 | Name                                 | Parameters                                                          | Description                                                 |
@@ -713,19 +713,19 @@ public class ExampleClass : MonoBehaviour
 
     private void Start()
     {
-        m_coroutineChain = CoroutineManager.Instance.CreateCoroutine()
-                                            .Enqueue(CoroutineUtils.WaitForSeconds(1.0f))
-                                            .Enqueue(WaitForSeconds)
-                                            .Enqueue(CoroutineUtils.WaitForEndOfFrame())
-                                            .Enqueue(WaitForEndOfFrame)
-                                            .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil1))
-                                            .Enqueue(WaitUntil1)
-                                            .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil2))
-                                            .Enqueue(WaitUntil2, "finish")
-                                            .Enqueue(CoroutineUtils.WaitWhile(() => !m_waitWhile))
-                                            .Enqueue(WaitWhile, 1)
-                                            .Enqueue(Finish)
-                                            .StartCoroutine();
+        m_coroutineChain = CoroutineChainManager.Instance.Create()
+                                                .Enqueue(CoroutineUtils.WaitForSeconds(1.0f))
+                                                .Enqueue(WaitForSeconds)
+                                                .Enqueue(CoroutineUtils.WaitForEndOfFrame())
+                                                .Enqueue(WaitForEndOfFrame)
+                                                .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil1))
+                                                .Enqueue(WaitUntil1)
+                                                .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil2))
+                                                .Enqueue(WaitUntil2, "finish")
+                                                .Enqueue(CoroutineUtils.WaitWhile(() => !m_waitWhile))
+                                                .Enqueue(WaitWhile, 1)
+                                                .Enqueue(Finish)
+                                                .StartCoroutine();
     }
 
     private void Update()
