@@ -9,12 +9,11 @@ namespace TEDCore.Performance
         public FpsPerformanceData FpsData { get { return m_fpsData; } }
         private FpsPerformanceData m_fpsData = new FpsPerformanceData();
 
-        private NormalTimer m_updateTimer;
+        private BaseTimer m_updateTimer;
 
         public PerformanceManager()
         {
-            m_updateTimer = new NormalTimer(UPDATE_DURATION, UpdateData);
-            TimerManager.Instance.Add(m_updateTimer);
+            m_updateTimer = TimerManager.Instance.Schedule(UPDATE_DURATION, UpdateData);
         }
 
 
@@ -37,9 +36,7 @@ namespace TEDCore.Performance
         private void UpdateData()
         {
             m_fpsData.Update();
-
-            m_updateTimer = new NormalTimer(UPDATE_DURATION, UpdateData);
-            TimerManager.Instance.Add(m_updateTimer);
+            m_updateTimer = TimerManager.Instance.Schedule(UPDATE_DURATION, UpdateData);
         }
     }
 }

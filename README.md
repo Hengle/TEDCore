@@ -362,10 +362,12 @@ It consists of **BaseTimer** and **TimerManager**.
 TEDCore.Timer
 
 #### Public Methods
-| Name                    | Parameters                          | Description       |
-|-------------------------|-------------------------------------|-------------------|
-| Add(BaseTimer timer)    | timer: The timer you want to add    | Add a new timer.  |
-| Remove(BaseTimer timer) | timer: The timer you want to remove | Remove the timer. |
+| Name                                                                | Parameters                                                                                                                              | Description       |
+|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| Schedule(float duration, Action onTimerFinished)                    | duration: The duration of the timer<br>onTimerFinished: The callback method when the timer was finished                                 | Setup a new timer |
+| Schedule<T>(float duration, Action<T> onTimerFinished, T timerData) | duration: The duration of the timer<br>onTimerFinished: The callback method when the timer was finished<br>timerData: The callback data | Setup a new timer |
+| Add(BaseTimer timer)                                                | timer: The timer you want to add                                                                                                        | Add a new timer.  |
+| Remove(BaseTimer timer)                                             | timer: The timer you want to remove                                                                                                     | Remove the timer. |
 
 #### Examples
 ```
@@ -377,21 +379,35 @@ public class ExampleClass : MonoBehaviour
 {
     private void Start()
     {
-        BaseTimer timer = new BaseTimer(1.0f, OnOneSecondTimerFinished);
-        TimerManager.Instance.Add(timer);
+        TimerManager.Instance.Schedule(1.0f, OnOneSecondTimerFinished);
 
-        timer = new BaseTimer(2.0f, OnTwoSecondsTimerFinished, "TestCase");
-        TimerManager.Instance.Add(timer);
+        TimerManager.Instance.Schedule(2.0f, OnTwoSecondsTimerFinished, "Two Seconds");
+
+        NormalTimer normalTimer = new NormalTimer(3.0f, OnThreeSecondsTimerFinished);
+        TimerManager.Instance.Add(normalTimer);
+
+        NormalTimer<string> stringTimer = new NormalTimer<string>(4.0f, OnFourSecondsTimerFinished, "Four Seconds");
+        TimerManager.Instance.Add(stringTimer);
     }
 
-    private void OnOneSecondTimerFinished(object timerData)
+    private void OnOneSecondTimerFinished()
     {
         TEDDebug.Log("OnOneSecondTimerFinished");
     }
 
-    private void OnTwoSecondsTimerFinished(object timerData)
+    private void OnTwoSecondsTimerFinished(string timerData)
     {
-        TEDDebug.Log("OnTwoSecondsTimerFinished = " + (string)timerData);
+        TEDDebug.Log("OnTwoSecondsTimerFinished = " + timerData);
+    }
+
+    private void OnThreeSecondsTimerFinished()
+    {
+        TEDDebug.Log("OnThreeSecondsTimerFinished");
+    }
+
+    private void OnFourSecondsTimerFinished(string timerData)
+    {
+        TEDDebug.Log("OnFourSecondsTimerFinished = " + timerData);
     }
 }
 ```

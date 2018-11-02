@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace TEDCore.Timer
 {
@@ -14,6 +15,22 @@ namespace TEDCore.Timer
             m_timers = new List<BaseTimer>();
             m_removingTimers = new Queue<BaseTimer>();
 		}
+
+        public BaseTimer Schedule(float duration, Action onTimerFinished)
+        {
+            NormalTimer normalTimer = new NormalTimer(duration, onTimerFinished);
+            Add(normalTimer);
+
+            return normalTimer;
+        }
+
+        public BaseTimer Schedule<T>(float duration, Action<T> onTimerFinished, T timerData)
+        {
+            NormalTimer<T> normalTimer = new NormalTimer<T>(duration, onTimerFinished, timerData);
+            Add(normalTimer);
+
+            return normalTimer;
+        }
 
         public void Add(BaseTimer timer)
 		{

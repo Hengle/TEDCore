@@ -58,8 +58,7 @@ namespace TEDCore.Audio
             audioSource.volume = m_volume;
             audioSource.Play();
 
-            NormalTimer<AudioSource> baseTimer = new NormalTimer<AudioSource>(audioClip.length, OnPlayFinished, audioSource);
-            TimerManager.Instance.Add(baseTimer);
+            TimerManager.Instance.Schedule(audioClip.length, OnPlayFinished, audioSource);
         }
 
         private void OnPlayFinished(AudioSource audioSource)
