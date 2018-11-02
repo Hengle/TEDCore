@@ -1002,20 +1002,20 @@ Then, the engineers could generate the referenced scripts by single click.
 
 #### Steps
 1. Modify datas in **Google Sheet** **<color=red>(PS. The first row should be DataType/DataName)</color>**
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_1.png | width=50)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_1.png =100x)
 
 2. Save the table to .csv format
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_2.png | width=50)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_2.png =100x)
 
 3. Click **TEDCore/Client Database/Initialize Plugin** to generate the default folders
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_3.png | width=50)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_3.png =100x)
 
 4. Put .csv files to **Assets/ClientDatabase/CsvResources** folder
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_4.png | width=50)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_4.png =100x)
 
 5. Click **TEDCore/Client Database/Generate Scripts** to generate the scripts automatically
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_5.png | width=50)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_5.png =100x)
 
 6. The scripts and scriptable objects would generate to **ClientDatabase/GenerateScripts** and **ClientDatabase/Resources**
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6a.png | width=50)
-![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6b.png | width=50)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6a.png =100x)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6b.png =100x)
