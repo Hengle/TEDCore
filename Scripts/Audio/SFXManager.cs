@@ -58,13 +58,12 @@ namespace TEDCore.Audio
             audioSource.volume = m_volume;
             audioSource.Play();
 
-            BaseTimer baseTimer = new BaseTimer(audioClip.length, OnPlayFinished, audioSource);
+            NormalTimer<AudioSource> baseTimer = new NormalTimer<AudioSource>(audioClip.length, OnPlayFinished, audioSource);
             TimerManager.Instance.Add(baseTimer);
         }
 
-        private void OnPlayFinished(object timerData)
+        private void OnPlayFinished(AudioSource audioSource)
         {
-            AudioSource audioSource = (AudioSource)timerData;
             audioSource.clip = null;
             ObjectPoolManager.Instance.Recycle(OBJECT_POOL_KEY, audioSource.gameObject);
 
