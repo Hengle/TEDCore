@@ -4,7 +4,7 @@ namespace TEDCore.Coroutine
 {
     public class CoroutineManager : MonoSingleton<CoroutineManager>
     {
-        public CoroutineChain Create()
+        public CoroutineChain CreateCoroutine()
         {
             return new CoroutineChain();
         }
@@ -12,11 +12,6 @@ namespace TEDCore.Coroutine
         public CoroutineChain Create(IEnumerator coroutine)
         {
             return new CoroutineChain(coroutine);
-        }
-
-        public UnityEngine.Coroutine RunCoroutine(IEnumerator coroutine)
-        {
-            return StartCoroutine(coroutine);
         }
     }
 }

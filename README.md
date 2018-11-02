@@ -675,11 +675,10 @@ It utilize the method chain for allowing the coroutines to be chained together i
 TEDCore.Coroutine
 
 #### Public Methods - CoroutineManager
-| Name                                | Parameters                                       | Description                                          |
-|-------------------------------------|--------------------------------------------------|------------------------------------------------------|
-| Create()                            |                                                  | Create a new empty coroutine container.              |
-| Create(IEnumerator coroutine)       | coroutine: The coroutine you want to add default | Create a new coroutine container with the coroutine. |
-| RunCoroutine(IEnumerator coroutine) | coroutine: The coroutine you want to start       | Start the coroutine.                                 |
+| Name                                   | Parameters                                       | Description                                          |
+|----------------------------------------|--------------------------------------------------|------------------------------------------------------|
+| CreateCoroutine()                      |                                                  | Create a new empty coroutine container.              |
+| CreateCoroutine(IEnumerator coroutine) | coroutine: The coroutine you want to add default | Create a new coroutine container with the coroutine. |
 
 #### Public Methods - CoroutineChain
 | Name                                 | Parameters                                                          | Description                                                 |
@@ -687,7 +686,8 @@ TEDCore.Coroutine
 | Enqueue(IEnumerator coroutine)       | coroutine: The coroutine you want to add                            | Add a coroutine to the coroutine chain.                     |
 | Enqueue(Action action)               | action: The action you want to add                                  | Add a action callback to the coroutine chain.               |
 | Enqueue<T>(Action<T> action, T data) | action: The action you want to add<br>data: The data for the action | Add a action callback to the coroutine chain with the data. |
-| RunCoroutine()                       |                                                                     | Start the coroutine chain.                                  |
+| StartCoroutine()                     |                                                                     | Start the coroutine chain.                                  |
+| StopCoroutine()                      |                                                                     | Stop the coroutine chain.                                   |
 
 #### Public Methods - CoroutineUtils
 | Name                                | Parameters                                       | Description                                          |
@@ -708,22 +708,33 @@ public class ExampleClass : MonoBehaviour
     [SerializeField] private bool m_waitUntil1;
     [SerializeField] private bool m_waitUntil2;
     [SerializeField] private bool m_waitWhile;
+    
+    private CoroutineChain m_coroutineChain;
 
     private void Start()
     {
-        CoroutineManager.Instance.CreateCoroutine()
-                        .Enqueue(CoroutineUtils.WaitForSeconds(1.0f))
-                        .Enqueue(WaitForSeconds)
-                        .Enqueue(CoroutineUtils.WaitForEndOfFrame())
-                        .Enqueue(WaitForEndOfFrame)
-                        .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil1))
-                        .Enqueue(WaitUntil1)
-                        .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil2))
-                        .Enqueue(WaitUntil2, "finish")
-                        .Enqueue(CoroutineUtils.WaitWhile(() => !m_waitWhile))
-                        .Enqueue(WaitWhile, 1)
-                        .Enqueue(Finish)
-                        .RunCoroutine();
+        m_coroutineChain = CoroutineManager.Instance.CreateCoroutine()
+                                            .Enqueue(CoroutineUtils.WaitForSeconds(1.0f))
+                                            .Enqueue(WaitForSeconds)
+                                            .Enqueue(CoroutineUtils.WaitForEndOfFrame())
+                                            .Enqueue(WaitForEndOfFrame)
+                                            .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil1))
+                                            .Enqueue(WaitUntil1)
+                                            .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil2))
+                                            .Enqueue(WaitUntil2, "finish")
+                                            .Enqueue(CoroutineUtils.WaitWhile(() => !m_waitWhile))
+                                            .Enqueue(WaitWhile, 1)
+                                            .Enqueue(Finish)
+                                            .StartCoroutine();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            m_coroutineChain.StopCoroutine();
+            m_coroutineChain = null;
+        }
     }
 
     private void WaitForSeconds()

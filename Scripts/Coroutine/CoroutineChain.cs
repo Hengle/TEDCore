@@ -6,6 +6,7 @@ namespace TEDCore.Coroutine
 {
     public class CoroutineChain
     {
+        private IEnumerator m_currentCoroutine;
         private Queue<IEnumerator> m_coroutines;
 
         public CoroutineChain()
@@ -57,16 +58,29 @@ namespace TEDCore.Coroutine
             }
         }
 
-        public void RunCoroutine()
+        public CoroutineChain StartCoroutine()
         {
-            CoroutineManager.Instance.RunCoroutine(RunEnemerators());
+            CoroutineManager.Instance.StartCoroutine(RunEnemerators());
+            return this;
         }
 
         private IEnumerator RunEnemerators()
         {
             while (m_coroutines.Count > 0)
             {
-                yield return CoroutineManager.Instance.RunCoroutine(m_coroutines.Dequeue());
+                m_currentCoroutine = m_coroutines.Dequeue();
+                yield return CoroutineManager.Instance.StartCoroutine(m_currentCoroutine);
+            }
+
+            m_currentCoroutine = null;
+        }
+
+        public void StopCoroutine()
+        {
+            m_coroutines.Clear();
+            if(m_currentCoroutine != null)
+            {
+                CoroutineManager.Instance.StopCoroutine(m_currentCoroutine);
             }
         }
     }
