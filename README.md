@@ -1016,17 +1016,17 @@ Then, the engineers could generate the referenced scripts by single click.
 |     10     |  Monster_10 |   100  |
 
 2. Save the table to .csv format
-![image]()
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_2.png)
 
 3. Click **TEDCore/Client Database/Initialize Plugin** to generate the default folders
-![image]()
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_3.png)
 
 4. Put .csv files to **Assets/ClientDatabase/CsvResources** folder
-![image]()
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_4.png)
 
 5. Click **TEDCore/Client Database/Generate Scripts** to generate the scripts automatically
-![image]()
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_5.png)
 
 6. The scripts and scriptable objects would generate to **ClientDatabase/GenerateScripts** and **ClientDatabase/Resources**
-![image]()
-![image]()
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6a.png)
+![image](https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6b.png)
