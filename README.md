@@ -1015,6 +1015,18 @@ Then, the engineers could generate the referenced scripts by single click.
 | GetDatabase<T>() | T: The Database type you want to get | Get the database of type                                 |
 
 #### Examples
+| string/Key | string/Name | int/Hp |
+|:----------:|:-----------:|:------:|
+|      1     |  Monster_1  |   10   |
+|      2     |  Monster_2  |   20   |
+|      3     |  Monster_3  |   30   |
+|      4     |  Monster_4  |   40   |
+|      5     |  Monster_5  |   50   |
+|      6     |  Monster_6  |   60   |
+|      7     |  Monster_7  |   70   |
+|      8     |  Monster_8  |   80   |
+|      9     |  Monster_9  |   90   |
+|     10     |  Monster_10 |   100  |
 ```
 using UnityEngine;
 using TEDCore;
