@@ -679,10 +679,6 @@ TEDCore.Coroutine
 |-------------------------------------|--------------------------------------------------|------------------------------------------------------|
 | Create()                            |                                                  | Create a new empty coroutine container.              |
 | Create(IEnumerator coroutine)       | coroutine: The coroutine you want to add default | Create a new coroutine container with the coroutine. |
-| WaitForSeconds(float seconds)       | seconds: The seconds you want to wait            | Create a new WaitForSeconds coroutine.               |
-| WaitForEndOfFrame()                 |                                                  | Create a new WaitForEndOfFrame coroutine.            |
-| WaitUntil(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitUtil coroutine.                     |
-| WaitWhile(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitWhile coroutine.                    |
 | RunCoroutine(IEnumerator coroutine) | coroutine: The coroutine you want to start       | Start the coroutine.                                 |
 
 #### Public Methods - CoroutineChain
@@ -692,6 +688,14 @@ TEDCore.Coroutine
 | Enqueue(Action action)               | action: The action you want to add                                  | Add a action callback to the coroutine chain.               |
 | Enqueue<T>(Action<T> action, T data) | action: The action you want to add<br>data: The data for the action | Add a action callback to the coroutine chain with the data. |
 | RunCoroutine()                       |                                                                     | Start the coroutine chain.                                  |
+
+#### Public Methods - CoroutineUtils
+| Name                                | Parameters                                       | Description                                          |
+|-------------------------------------|--------------------------------------------------|------------------------------------------------------|
+| WaitForSeconds(float seconds)       | seconds: The seconds you want to wait            | Create a new WaitForSeconds coroutine.               |
+| WaitForEndOfFrame()                 |                                                  | Create a new WaitForEndOfFrame coroutine.            |
+| WaitUntil(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitUtil coroutine.                     |
+| WaitWhile(Func<bool> predicate)     | predicate: The predicate you want to wait        | Create a new WaitWhile coroutine.                    |
 
 #### Examples
 ```
@@ -707,16 +711,16 @@ public class ExampleClass : MonoBehaviour
 
     private void Start()
     {
-        CoroutineManager.Instance.Create()
-                        .Enqueue(CoroutineManager.Instance.WaitForSeconds(1.0f))
+        CoroutineManager.Instance.CreateCoroutine()
+                        .Enqueue(CoroutineUtils.WaitForSeconds(1.0f))
                         .Enqueue(WaitForSeconds)
-                        .Enqueue(CoroutineManager.Instance.WaitForEndOfFrame())
+                        .Enqueue(CoroutineUtils.WaitForEndOfFrame())
                         .Enqueue(WaitForEndOfFrame)
-                        .Enqueue(CoroutineManager.Instance.WaitUntil(() => m_waitUntil1))
+                        .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil1))
                         .Enqueue(WaitUntil1)
-                        .Enqueue(CoroutineManager.Instance.WaitUntil(() => m_waitUntil2))
+                        .Enqueue(CoroutineUtils.WaitUntil(() => m_waitUntil2))
                         .Enqueue(WaitUntil2, "finish")
-                        .Enqueue(CoroutineManager.Instance.WaitWhile(() => !m_waitWhile))
+                        .Enqueue(CoroutineUtils.WaitWhile(() => !m_waitWhile))
                         .Enqueue(WaitWhile, 1)
                         .Enqueue(Finish)
                         .RunCoroutine();
