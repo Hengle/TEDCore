@@ -1017,4 +1017,5 @@ Then, the engineers could generate the referenced scripts by single click.
 <img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_5.png" width="200">
 
 6. The scripts and scriptable objects would generate to **ClientDatabase/GenerateScripts** and **ClientDatabase/Resources**
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6a.png" width="200"><img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6b.png" width="200">
+<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6a.png" width="200">
+<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6b.png" width="200">
