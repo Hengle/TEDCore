@@ -1001,21 +1001,9 @@ Then, the engineers could generate the referenced scripts by single click.
 * string[]
 
 #### Steps
-1. Modify datas in **Google Sheet** **<color=red>(PS. The first row should be DataType/DataName)</color>**
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_1.png" width="200">
-
+1. Modify datas in **Google Sheet** **<font color=red>(PS. The first row should be DataType/DataName)</font>**
 2. Save the table to .csv format
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_2.png" width="200">
-
 3. Click **TEDCore/Client Database/Initialize Plugin** to generate the default folders
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_3.png" width="200">
-
 4. Put .csv files to **Assets/ClientDatabase/CsvResources** folder
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_4.png" width="200">
-
 5. Click **TEDCore/Client Database/Generate Scripts** to generate the scripts automatically
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_5.png" width="200">
-
 6. The scripts and scriptable objects would generate to **ClientDatabase/GenerateScripts** and **ClientDatabase/Resources**
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6a.png" width="200">
-<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/ClientDatabaseTool/GithubReferences/clientdatabase_step_6b.png" width="200">
