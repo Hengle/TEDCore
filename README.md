@@ -1196,7 +1196,7 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### PerformanceHUD
-#### Namespace
-#### Public Methods
-#### Examples
+### Performance Tool
+Performance Tool can help developers to handle the fps during the project.
+The only thing need to do is add component **PerformanceHUD** to the gameobject inside the scene, then, the HUD would display direclty.
+<img src="" width="200" />
