@@ -776,7 +776,7 @@ It can help developers to encypt and decrypt the text.
 #### Namespace
 TEDCore.Cipher
 
-#### Public Methods
+#### Public Methods - CipherManager
 | Name                       | Parameters                               | Description       |
 |----------------------------|------------------------------------------|-------------------|
 | Encrypt(string plainText)  | plainText: The text you want to encrypt  | Encrypt the text. |
@@ -809,9 +809,61 @@ public class ExampleClass : MonoBehaviour
 ```
 
 ### PlayerData
+PlayerData module could hlep developers to save the player data in the client side.
+It would also cipher the file name and the data inside it.
+
 #### Namespace
+TEDCore.PlayerData
+
 #### Public Methods
+| Name                                  | Parameters                                                       | Description    |
+|---------------------------------------|------------------------------------------------------------------|----------------|
+| Save<T>(T data) where T : PlayerData  | T: The class type of the data<br>data: The data you want to save | Save the data. |
+| Load<T>() where T : PlayerData, new() | T: The class type of the data                                    | Load the data. |
+
 #### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.PlayerData;
+
+public class ExampleClass : MonoBehaviour
+{
+    public class TestData : PlayerData
+    {
+        public override string FileName
+        {
+            get
+            {
+                return "TestData.dat";
+            }
+        }
+
+        public int id;
+        public string name;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            TestData testData = new TestData();
+            testData.id = 1;
+            testData.name = "ExampleName";
+
+            PlayerDataUtils.Save(testData);
+        }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            TestData testData = PlayerDataUtils.Load<TestData>();
+
+            TEDDebug.Log("id = " + testData.id);
+            TEDDebug.Log("name = " + testData.name);
+        }
+    }
+}
+```
 
 ### Network
 #### Namespace
