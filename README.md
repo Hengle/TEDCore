@@ -815,7 +815,7 @@ It would also cipher the file name and the data inside it.
 #### Namespace
 TEDCore.PlayerData
 
-#### Public Methods
+#### Public Methods - PlayerDataUtils
 | Name                                  | Parameters                                                       | Description    |
 |---------------------------------------|------------------------------------------------------------------|----------------|
 | Save<T>(T data) where T : PlayerData  | T: The class type of the data<br>data: The data you want to save | Save the data. |
@@ -860,6 +860,45 @@ public class ExampleClass : MonoBehaviour
 
             TEDDebug.Log("id = " + testData.id);
             TEDDebug.Log("name = " + testData.name);
+        }
+    }
+}
+```
+
+### Log
+Log module would be in charge of recording the logs during the project.
+It could help the developers to debug the game with log error and exception.
+The log file would be generated at **ProjectPath/LogData/**.
+
+#### Namespace
+TEDCore.Log
+
+#### Public Methods - LogManager
+| Name             | Parameters | Description                                  |
+|------------------|------------|----------------------------------------------|
+| StartRecording() |            | Start recording the logs during the project. |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.Log;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            LogManager.Instance.StartRecording();
+        }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            TEDDebug.Log("Log");
+            TEDDebug.LogWarning("LogWarning");
+            TEDDebug.LogError("LogError");
+            TEDDebug.LogException(new System.Exception("LogException"));
         }
     }
 }
