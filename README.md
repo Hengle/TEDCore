@@ -1131,8 +1131,15 @@ Currently, it support to build StanlaloneOSX and Android version.
 ### DefineSymbol Tool
 The main purpose of DefineSymbol Tool is to make sure all developers are on the same page of the scripting define symbol in the project they are working on.
 
-It would create a file in DefineSymbol/DefineSymbolSettings.asset when the developers save the define symbol at the first time.
-And the DefineSymbolSettings.asset should be committed to Git, then other developers could get the same DefineSymbolSettings.asset and they should be on the same page of the scripting define symbol with its description.
+It would create a file **DefineSymbol/DefineSymbolSettings.asset** when the developers save the define symbol at the first time.
+And the **DefineSymbolSettings.asset should be committed to Git**, then other developers could get the same DefineSymbolSettings.asset and they should be on the same page of the scripting define symbol with its description.
+
+#### Menu Items
+| Item                         | Description                   |
+|------------------------------|-------------------------------|
+| TEDCore/Define Symbol Window | Open the define symbol window |
+<br>
+<img src="https://github.com/ted10401/TEDCore/blob/master/Tools/DefineSymbolTool/GithubResources/DefineSymbolTool_Profile.png" width="400" />
 
 ### TemplateScript Tool
 TemplateScript Tool could help the developers create the template script.
