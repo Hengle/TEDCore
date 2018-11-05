@@ -845,10 +845,53 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Network
+### Timer
+Timer module is design for scheduling the timer.
+It help the developer create a sequence schedule with easy steps.
+It consists of **Timer** and **TimerManager**.
+
 #### Namespace
-#### Public Methods
+TEDCore.Timer
+
+#### Public Methods - TimerManager
+| Name     | Parameters | Description               |
+|----------|------------|---------------------------|
+| Create() |            | Create a new empty timer. |
+
+#### Public Methods - Timer
+| Name                             | Parameters                                          | Description                                     |
+|----------------------------------|-----------------------------------------------------|-------------------------------------------------|
+| SetDuration(float duration)      | duration: The duration of the timer                 | Create a new empty timer.                       |
+| OnUpdate(Action<float> onUpdate) | onUpdate: The method while the duration is changing | Register the method while duration is changing. |
+| OnComplete(Action onComplete)    | onComplete: The method when the timer completed     | Register the method when the timer complete.    |
+
 #### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.Timer;
+
+public class ExampleClass : MonoBehaviour
+{
+    private void Start()
+    {
+        TimerManager.Instance.Create()
+                    .SetDuration(1.0f)
+                    .OnUpdate(OnTimerUpdate)
+                    .OnComplete(OnTimerComplete);
+    }
+
+    private void OnTimerUpdate(float value)
+    {
+        TEDDebug.LogFormat("OnTimerUpdate = {0}", value);
+    }
+
+    private void OnTimerComplete()
+    {
+        TEDDebug.Log("OnTimerComplete");
+    }
+}
+```
 
 ## Tools
 ### TEDDebug DLL
