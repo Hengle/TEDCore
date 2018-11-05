@@ -37,17 +37,17 @@ public class ExampleClass : MonoBehaviour
 }  
 ```
 
-### State Manager
-State and Task Manager are the most important parts in this library.
+### State
+State and Task modules are the most important parts in this library.
 The major concept is based on **State design pattern**.
 Each State is a single hierarchy and processing Task that is registered inside it.
-State Manager consists two parts, **State**, and **StateManager**.
+State module consists two parts, **State**, and **StateManager**.
 State just likes the scenes in Unity Engine and have the higher control level than Unity scene.
 
 #### Namespace
 TEDCore.StateManagement
 
-#### Public Methods
+#### Public Methods - StateManager
 | Name                         | Parameters                                                  | Description                                                                                                                        |
 |------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | ChangeState(State newState)  | newState: The new state you want to switch to               | ChangeState is called when you want to switch from current state to a new state                                                    |
@@ -100,8 +100,8 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Task Manager
-Task Manager need to cooperate with with **State Manager**.
+### Task
+Task module need to cooperate with with **State Manager**.
 In each State, you can register multiple Task inside it and each Task works as a single station of the game logic which means we need to follow **Single Responsibility Principle** in each specific Task.
 Then change the task state in TaskManager can process the specific Task.
 Task Manager consists two parts, **Task**, and **TaskManager**.
@@ -109,7 +109,7 @@ Task Manager consists two parts, **Task**, and **TaskManager**.
 #### Namespace
 TEDCore.StateManagement
 
-#### Public Methods
+#### Public Methods - TaskManager
 | Name                                           | Parameters                                                                                                | Description                                                                                                                        |
 |------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | AddTask(Task task, params Enum[] activeStates) | task: The task you want to register<br>activeStates: The activie states you want to register for the task | Register the task to the active states with enum type                                                                              |
@@ -174,8 +174,8 @@ public class NewState : State
 }
 ```
 
-### Event Manager
-Event Manager is designed to a central event receiver and transmitter.
+### Event
+Event is designed to a central event receiver and transmitter.
 The concept is based on **Observer design pattern**.
 The main purpose of Event Manager is to send events to other parts of the script without being dependant on their interface or having the explicit of it.
 It can help us to prevent involving in the dependency hell.
@@ -184,7 +184,7 @@ It consists parts, **EventResult**, **EventListener**, and **EventManager**.
 #### Namespace
 TEDCore.Event
 
-#### Public Methods
+#### Public Methods - EventManager
 | Name                                                                     | Parameters                                                                                                                           | Description                                               |
 |--------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | RegisterListener(int eventId, IEventListener listener, int priority = 0) | eventId: The event id you want to register<br>listener: The listener you want to register<br> priority: The priority of the listener | Register the listener on the event id                     |
@@ -243,14 +243,14 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### AssetBundle Manager
+### AssetBundle
 An AssetBundle is an archive file containing platform specific Assets(Model, Textures, Prefabs, Audio clips, and even entire Scenes) that can be loaded at runtime.
-AssetBundle Manager is designed to access AssetBundle and **you don’t need to use AssetBundle Manager because Resource Manager would handle everything for you directly**.
+The module is designed to access AssetBundle and **you don’t need to use AssetBundle Manager because Resource Manager would handle everything for you directly**.
 
 #### Namespace
 TEDCore.AssetBundle
 
-#### Public Methods
+#### Public Methods - AssetBundleManager
 | Name                                                                               | Parameters                                                                                          | Description                                                              |
 |------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
 | Initialize(AssetBundleInitializeData initializeData)                               | initializaData: The initialize data for AssetBundleManager                                          | Initialize AssetBundleManager with the data.                             |
@@ -264,14 +264,14 @@ TEDCore.AssetBundle
 | AssetBundleLoadType | LoadType           | The load type, Simulate, StreamingAssets, and Network |
 | Action&lt;bool&gt;        | onInitializeFinish | The initialize callback method                        |
 
-### Resource Manager
-Resource Manager is designed to get the asset from Resources folder or AssetBundle automatically.
+### Resource
+The module is designed to get the asset from Resources folder or AssetBundle automatically.
 You can simply load or load asynchronously the asset to memory through Resource Manager.
 
 #### Namespace
 TEDCore.Resource
 
-#### Public Methods
+#### Public Methods - ResourceManager
 | Name                                                                                                                 | Parameters                                                                                                                                                                                                                                                                       | Description                      |
 |----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 | LoadAsync&lt;T&gt;(string assetName, Action&lt;T&gt; callback, bool unloadAutomatically = true)                                  | T: The load type of the asset<br>assetName: The asset name or path you want to load<br>callback: The callback when the asynchronously loads is completed<br>unloadAutomatically: Unload the asset automatically or not                                                           | Asynchronously loads asset.      |
@@ -307,14 +307,14 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### ObjectPool Manager
-ObjectPool Manager is in charge of **Object Pools**.
+### ObjectPool
+ObjectPool module is in charge of **Object Pools**.
 It can help the developers create object pool easily.
 
 #### Namespace
 TEDCore.ObjectPool
 
-#### Public Methods
+#### Public Methods - ObjectPoolManager
 | Name                                                                 | Parameters                                                                                                        | Description                                          |
 |----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
 | RegisterPool(string key, GameObject referenceAsset, int initialSize) | key: The key for the pool<br>referenceAsset: The asset for the pool<br>initialSize: The initial size for the pool | Create a new object pool for the asset with the key. |
@@ -353,15 +353,15 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Timer Manager
-Timer Manager is design for scheduling.
+### Timer
+Timer module is design for scheduling the logic.
 It help the developer create a sequence schedule with easy steps.
 It consists of **BaseTimer** and **TimerManager**.
 
 #### Namespace
 TEDCore.Timer
 
-#### Public Methods
+#### Public Methods - TimerManager
 | Name                                                                | Parameters                                                                                                                              | Description       |
 |---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------|
 | Schedule(float duration, Action onTimerFinished)                    | duration: The duration of the timer<br>onTimerFinished: The callback method when the timer was finished                                 | Setup a new timer |
@@ -412,14 +412,14 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### BGM Manager
-BGM Manager is designed for playgin BGM.
+### BGM
+BGM module is designed for playgin BGM.
 The developer could play the BGM and adjust the volumn of it.
 
 #### Namespace
 TEDCore.Audio
 
-#### Public Methods
+#### Public Methods - BGMManager
 | Name                                      | Parameters                                                                                      | Description                                            |
 |-------------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------|
 | SetVolume(float volume)                   | volumn: The volumn value                                                                       | Set the BGM volumn direclty.                           |
@@ -465,15 +465,15 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### SFX Manager
-SFX Manager is designed for playgin SFX.
+### SFX
+SFX module is designed for playgin SFX.
 The developer could play the SFX and adjust the volumn of it.
 It handle the object pool for it, so would recycle the sfx object once the audio clip was finished.
 
 #### Namespace
 TEDCore.Audio
 
-#### Public Methods
+#### Public Methods - SFXManager
 | Name                                      | Parameters                                                                                      | Description                                            |
 |-------------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------|
 | SetVolume(float volume)                   | volumn: The volumn value                                                                        | Set the SFX volumn direclty.                           |
@@ -513,14 +513,14 @@ public class ExampleClass : MonoBehaviour
 
 ```
 
-### UI Manager
-UI Manager is designed to the UI prefab in Unity.
+### UI
+UI module is designed to the UI prefab in Unity.
 It could help the developers load, show, hide and destroy the UI prefabs.
 
 #### Namespace
 TEDCore.UI
 
-#### Public Methods
+#### Public Methods - UIManager
 | Name                                                                    | Parameters                                                                                                                                                            | Description                       |
 |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
 | LoadUIAsync&lt;T&gt;(string assetName, Action&lt;T&gt; callback)                    | assetName: The asset name you want to load with an UI<br>callback: The callback method when the asset was loaded                                                      | Asynchronously load the UI prefab |
@@ -582,13 +582,13 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### HttpRequest Manager
-HttpRequest Manager is designed to implement the RESTful API.
+### HttpRequest
+HttpRequest module is designed to implement the RESTful API.
 
 #### Namespace
 TEDCore.Http
 
-#### Public Methods
+#### Public Methods - HttpRequestManager
 | Name                                                                                                                      | Parameters                                                                                                                                                                                                                                                     | Description                                                                                                  |
 |---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | Init(string generalServerUrl, string gameServerUrl, string appId, string apiVersion, string gameVersion)                  | generalServerUrl: The url of the general backend server<br>gameServerUrl: The url of the game backend server<br>apiVersion: The API version<br>gameVersion: The game version                                                                                   | Need to use this method when the game start. It would set up the backend data, API version and game version. |
@@ -640,13 +640,13 @@ public class ExampleClass : MonoBehaviour
 }  
 ```
 
-### Notification Manager
-Notification Manager is designed to implement **Local Notifications on the iOS platform**.
+### Notification
+Notification module is designed to implement **Local Notifications on the iOS platform**.
 
 #### Namespace
 TEDCore.Notification
 
-#### Public Methods
+#### Public Methods - NotificationManager
 | Name                                      | Parameters                                                                                                     | Description                                                |
 |-------------------------------------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | Schedule(int seconds, string description) | seconds: After X seconds, the local notification will show.<br>description: The local notification description | Setup the local notification with seconds and descriptoin. |
@@ -667,8 +667,8 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### CoroutineChain Manager
-CoroutineChain Manager would help developers to handle Unity Coroutine with dependencies.
+### CoroutineChain
+CoroutineChain module would help developers to handle Unity Coroutine with dependencies.
 It utilize the method chain for allowing the coroutines to be chained together in a single statement without requiring variables to store the intermediate results.
 
 #### Namespace
