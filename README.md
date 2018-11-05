@@ -769,6 +769,55 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
+### Cipher
+Cipher module is in charge of encryption and decryption.
+It can help developers to encypt and decrypt the text.
+
+#### Namespace
+TEDCore.Cipher
+
+#### Public Methods
+| Name                       | Parameters                               | Description       |
+|----------------------------|------------------------------------------|-------------------|
+| Encrypt(string plainText)  | plainText: The text you want to encrypt  | Encrypt the text. |
+| Decrypt(string cipherText) | cipherText: The text you want to decrypt | Decrypt the text. |
+
+#### Examples
+```
+using UnityEngine;
+using TEDCore;
+using TEDCore.Cipher;
+
+public class ExampleClass : MonoBehaviour
+{
+    [SerializeField] private string m_plainText = "Example";
+    [SerializeField] private string m_cipherText;
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            m_cipherText = CipherManager.Instance.Encrypt(m_plainText);
+        }
+
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            TEDDebug.Log(CipherManager.Instance.Decrypt(m_cipherText));
+        }
+    }
+}
+```
+
+### PlayerData
+#### Namespace
+#### Public Methods
+#### Examples
+
+### Network
+#### Namespace
+#### Public Methods
+#### Examples
+
 ## Tools
 ### TEDDebug DLL
 TEDDebug.dll repackage UnityEngine.Debug so that the developer can turn on/off the log with a simply parameter EnableLog.
@@ -1055,3 +1104,8 @@ public class ExampleClass : MonoBehaviour
     }
 }
 ```
+
+### PerformanceHUD
+#### Namespace
+#### Public Methods
+#### Examples
