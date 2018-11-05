@@ -6,7 +6,7 @@ namespace TEDCore.UnitTesting
 {
     public class UnitTestingDragHelper : MonoBehaviour
     {
-        public const float FULL_SIZE_RATIO = 0.75f;
+        public const float FULL_SIZE_RATIO = 1.0f;
 
         [SerializeField] private float m_duration = 1f;
         [SerializeField] private GameObject m_dragImage;

@@ -6,9 +6,7 @@ namespace TEDCore.UnitTesting
 {
     public class UnitTestingGenerator : MonoBehaviour
     {
-        [SerializeField] private Button m_closeButton;
-        [SerializeField] private GameObject m_unitTestingObject;
-        [SerializeField] private Transform m_contentRoot;
+        [SerializeField] private UnitTestingPage m_unitTestingPage;
 
         [Header("Template References")]
         [SerializeField] private GameObject m_templateParent;
@@ -28,34 +26,26 @@ namespace TEDCore.UnitTesting
 
         private void Awake()
         {
-            if (null != m_closeButton)
-            {
-                if (null != GetComponentInParent<UnitTestingDragHelper>())
-                {
-                    m_closeButton.onClick.AddListener(GetComponentInParent<UnitTestingDragHelper>().OnFullScreenCloseButtonClicked);
-                }
-            }
-
             m_spaceWidth = m_templateParent.GetComponent<GridLayoutGroup>().spacing.x;
 
-            StartCoroutine(Generate(m_unitTestingObject, m_contentRoot));
+            StartCoroutine(Generate(m_unitTestingPage));
         }
 
-        private IEnumerator Generate(GameObject unitTestingObject, Transform contentRoot)
+        private IEnumerator Generate(UnitTestingPage unitTestingPage)
         {
-            Clear(contentRoot);
-
-            if (null == unitTestingObject)
+            if (null == unitTestingPage)
             {
                 TEDDebug.LogError("[UnitTestingGenerator] unitTestingObject is null.");
                 yield break;
             }
 
-            m_unitTestings = unitTestingObject.GetComponents<BaseUnitTesting>();
+            Clear(unitTestingPage);
+
+            m_unitTestings = unitTestingPage.GetComponents<BaseUnitTesting>();
             if (null == m_unitTestings ||
                 m_unitTestings.Length < 1)
             {
-                TEDDebug.LogError("[UnitTestingGenerator] No unit testing scripts in \"" + unitTestingObject.name + "\"");
+                TEDDebug.LogError("[UnitTestingGenerator] No unit testing scripts in \"" + unitTestingPage.name + "\"");
                 yield break;
             }
 
@@ -68,17 +58,17 @@ namespace TEDCore.UnitTesting
                     continue;
                 }
 
-                cacheInstance = GenerateTitle(m_unitTestings[i].GetType().Name, contentRoot);
+                cacheInstance = GenerateTitle(m_unitTestings[i].GetType().Name, unitTestingPage);
 
                 if (m_maxWidth == 0)
                 {
                     yield return new WaitForEndOfFrame();
 
                     m_maxWidth = cacheInstance.GetComponent<RectTransform>().sizeDelta.x;
-                    m_maxWidth -= contentRoot.GetComponent<VerticalLayoutGroup>().padding.left * 2;
+                    m_maxWidth -= unitTestingPage.ContentRoot.GetComponent<VerticalLayoutGroup>().padding.left * 2;
                 }
 
-                GameObject cacheParent = GenerateLayoutGroup(2, contentRoot);
+                GameObject cacheParent = GenerateLayoutGroup(2, unitTestingPage);
                 GenerateElements<TestButton>(m_unitTestings[i], m_templateTestButtonElement, cacheParent.transform);
                 GenerateElements<TestToggle>(m_unitTestings[i], m_templateTestToggleElement, cacheParent.transform);
 
@@ -87,7 +77,7 @@ namespace TEDCore.UnitTesting
                     Destroy(cacheParent);
                 }
 
-                cacheParent = GenerateLayoutGroup(1, contentRoot);
+                cacheParent = GenerateLayoutGroup(1, unitTestingPage);
                 GenerateElements<TestInputField>(m_unitTestings[i], m_templateTestInputFieldElement, cacheParent.transform);
                 GenerateElements<TestSlider>(m_unitTestings[i], m_templateTestSliderElement, cacheParent.transform);
                 GenerateElements<TestDropdown>(m_unitTestings[i], m_templateTestDropdownElement, cacheParent.transform);
@@ -97,30 +87,30 @@ namespace TEDCore.UnitTesting
                     Destroy(cacheParent);
                 }
 
-                GenerateEmptySpace(contentRoot);
+                GenerateEmptySpace(unitTestingPage);
             }
         }
 
-        private void Clear(Transform contentRoot)
+        private void Clear(UnitTestingPage unitTestingPage)
         {
-            foreach (Transform child in contentRoot)
+            foreach (Transform child in unitTestingPage.ContentRoot)
             {
                 Destroy(child.gameObject);
             }
         }
 
-        private GameObject GenerateTitle(string title, Transform contentRoot)
+        private GameObject GenerateTitle(string title, UnitTestingPage unitTestingPage)
         {
-            GameObject cacheInstance = Instantiate<GameObject>(m_templateTitle.gameObject, contentRoot);
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateTitle.gameObject, unitTestingPage.ContentRoot);
             cacheInstance.GetComponent<Text>().text = title;
             cacheInstance.SetActive(true);
 
             return cacheInstance;
         }
 
-        private GameObject GenerateLayoutGroup(int division, Transform contentRoot)
+        private GameObject GenerateLayoutGroup(int division, UnitTestingPage unitTestingPage)
         {
-            GameObject cacheInstance = Instantiate<GameObject>(m_templateParent.gameObject, contentRoot);
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateParent.gameObject, unitTestingPage.ContentRoot);
             cacheInstance.GetComponent<GridLayoutGroup>().cellSize = new Vector2(m_maxWidth / division - m_spaceWidth, 100);
             cacheInstance.SetActive(true);
 
@@ -146,9 +136,9 @@ namespace TEDCore.UnitTesting
             }
         }
 
-        private void GenerateEmptySpace(Transform contentRoot)
+        private void GenerateEmptySpace(UnitTestingPage unitTestingPage)
         {
-            GameObject cacheInstance = Instantiate<GameObject>(m_templateSpace.gameObject, contentRoot);
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateSpace.gameObject, unitTestingPage.ContentRoot);
             cacheInstance.SetActive(true);
         }
     }
