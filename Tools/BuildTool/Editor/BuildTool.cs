@@ -7,6 +7,54 @@ namespace TEDCore.Build
 {
     public class BuildTool
     {
+        [MenuItem("TEDCore/Build/Build StandaloneOSX Develop")]
+        private static void BuildStandaloneDevelop()
+        {
+            string[] scenes = GetSceneNames();
+            string buildPath = GetStandaloneOSXPath();
+
+            if (null == scenes || scenes.Length == 0 || null == buildPath)
+            {
+                if(null == scenes || scenes.Length == 0)
+                {
+                    TEDDebug.LogError("The scenes are null or empty.");
+                }
+                else
+                {
+                    TEDDebug.LogError("The build path is null.");
+                }
+
+                return;
+            }
+
+            AssetDatabase.Refresh();
+            BuildPipeline.BuildPlayer(scenes, buildPath, BuildTarget.StandaloneOSX, BuildOptions.Development | BuildOptions.AllowDebugging);
+        }
+
+        [MenuItem("TEDCore/Build/Build StandaloneOSX Release")]
+        private static void BuildStandaloneRelease()
+        {
+            string[] scenes = GetSceneNames();
+            string buildPath = GetStandaloneOSXPath();
+
+            if (null == scenes || scenes.Length == 0 || null == buildPath)
+            {
+                if (null == scenes || scenes.Length == 0)
+                {
+                    TEDDebug.LogError("The scenes are null or empty.");
+                }
+                else
+                {
+                    TEDDebug.LogError("The build path is null.");
+                }
+
+                return;
+            }
+
+            AssetDatabase.Refresh();
+            BuildPipeline.BuildPlayer(scenes, buildPath, BuildTarget.StandaloneOSX, BuildOptions.Development | BuildOptions.AllowDebugging);
+        }
+
         [MenuItem("TEDCore/Build/Build Android Develop")]
         private static void BuildAndroidDevelop()
         {
@@ -15,11 +63,20 @@ namespace TEDCore.Build
 
             if (null == scenes || scenes.Length == 0 || null == buildPath)
             {
+                if (null == scenes || scenes.Length == 0)
+                {
+                    TEDDebug.LogError("The scenes are null or empty.");
+                }
+                else
+                {
+                    TEDDebug.LogError("The build path is null.");
+                }
+
                 return;
             }
 
             AssetDatabase.Refresh();
-            BuildPipeline.BuildPlayer(scenes, buildPath, BuildTarget.Android, BuildOptions.Development | BuildOptions.AllowDebugging);
+            BuildPipeline.BuildPlayer(scenes, buildPath, BuildTarget.Android, BuildOptions.None);
         }
 
         [MenuItem("TEDCore/Build/Build Android Release")]
@@ -30,6 +87,15 @@ namespace TEDCore.Build
 
             if (scenes == null || scenes.Length == 0 || buildPath == null)
             {
+                if (null == scenes || scenes.Length == 0)
+                {
+                    TEDDebug.LogError("The scenes are null or empty.");
+                }
+                else
+                {
+                    TEDDebug.LogError("The build path is null.");
+                }
+
                 return;
             }
 
@@ -57,21 +123,21 @@ namespace TEDCore.Build
             return sceneNames.ToArray();
         }
 
+        private static string GetStandaloneOSXPath()
+        {
+            string version = PlayerSettings.bundleVersion + "." + PlayerSettings.macOS.buildNumber;
+            return GetLocationPathName(version);
+        }
+
         private static string GetAndroidBuildPath()
         {
-            string version = "";
+            string version = PlayerSettings.bundleVersion + "." + PlayerSettings.Android.bundleVersionCode;
+            return GetLocationPathName(version);
+        }
 
-            string[] split = new string[] { "." };
-            string[] bundleIdentifier = PlayerSettings.bundleVersion.Split(split, StringSplitOptions.RemoveEmptyEntries);
-
-            for (int cnt = 0; cnt < bundleIdentifier.Length; cnt++)
-            {
-                version += bundleIdentifier[cnt] + ".";
-            }
-
-            version += PlayerSettings.Android.bundleVersionCode;
-
-            return string.Format(Application.dataPath.Replace("Assets", "") + "{0}_v{1}_{2}.apk", PlayerSettings.productName, version, DateTime.Now.ToString("yyyyMMddHHmm"));
+        private static string GetLocationPathName(string version)
+        {
+            return Application.dataPath.Replace("Assets", "") + string.Format("{0}_v{1}_{2}.apk", PlayerSettings.productName, version, DateTime.Now.ToString("yyyyMMddHHmm"));
         }
     }
 }
