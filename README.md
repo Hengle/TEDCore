@@ -1109,8 +1109,10 @@ public class ExampleClass : MonoBehaviour
 ### AssetBundle Tool
 AssetBundle Tool would handle everything for you to build AssetBundle.
 
-#### MenuItem
-TEDCore/AssetBundles/AssetBundle Build Window
+#### Menu Items
+| Item                                          | Description                       |
+|-----------------------------------------------|-----------------------------------|
+| TEDCore/AssetBundles/AssetBundle Build Window | Open the AssetBundle build window |
 <br>
 <img src="https://github.com/ted10401/TEDCore/blob/master/Modules/AssetBundle/Editor/GithubResources/AssetBundleTool_Window.png" width="400" />
 
@@ -1118,11 +1120,13 @@ TEDCore/AssetBundles/AssetBundle Build Window
 Build Tool can help the developers to build the project with the file name automatically.
 Currently, it support to build StanlaloneOSX and Android version.
 
-#### MenuItem
-TEDCore/Build/Build StandaloneOSX Develop
-TEDCore/Build/Build StandaloneOSX Release
-TEDCore/Build/Build Android Develop
-TEDCore/Build/Build Android Release
+#### Menu Items
+| Item                                      | Description                               |
+|-------------------------------------------|-------------------------------------------|
+| TEDCore/Build/Build StandaloneOSX Develop | Build StandaloneOSX with development mode |
+| TEDCore/Build/Build StandaloneOSX Release | Build StandaloneOSX with release mode     |
+| TEDCore/Build/Build Android Develop       | Build Android with development mode       |
+| TEDCore/Build/Build Android Release       | Build Android with release mode           |
 
 ### DefineSymbol Tool
 The main purpose of DefineSymbol Tool is to make sure all developers are on the same page of the scripting define symbol in the project they are working on.
