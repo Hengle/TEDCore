@@ -188,7 +188,15 @@ namespace TEDCore.ClientDatabase
 
             for (int cnt = 0; cnt < keyCount; cnt++)
             {
+                TEDDebug.LogErrorFormat("[ClientDatabaseTool] - Parse '{0}'.", csvParameter[cnt]);
+
                 string[] attributes = csvParameter[cnt].Split(new char[] { '/' }, System.StringSplitOptions.RemoveEmptyEntries);
+                if(attributes == null || attributes.Length < 2)
+                {
+                    TEDDebug.LogErrorFormat("[ClientDatabaseTool] - Can't not parse '{0}' correctly.", csvParameter[cnt]);
+                    continue;
+                }
+
                 classParameters += string.Format("public {0} {1};", attributes[0], attributes[1]);
 
                 if (cnt != keyCount - 1)

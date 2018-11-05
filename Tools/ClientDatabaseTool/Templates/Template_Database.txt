@@ -39,13 +39,13 @@ namespace TEDCore.ClientDatabase
             ResourceManager.Instance.Unload<$DataScriptableName>(DATA_PATH);
         }
 
-        public $DataClassName GetData(int id)
+        public $DataClassName GetData(int key)
         {
             m_tempData = null;
 
             for (int i = 0; i < m_scriptableObject.data.Length; i++)
             {
-                if (m_scriptableObject.data[i].Key == id.ToString())
+                if (m_scriptableObject.data[i].Key == key)
                 {
                     m_tempData = m_scriptableObject.data[i];
                     break;
