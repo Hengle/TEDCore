@@ -13,7 +13,7 @@ namespace TEDCore.Performance
 
         public PerformanceManager()
         {
-            m_coroutineChain = CoroutineChainManager.Instance.Create()
+            m_coroutineChain = CoroutineManager.Instance.Create()
                                                     .Enqueue(CoroutineUtils.WaitForSeconds(UPDATE_DURATION))
                                                     .Enqueue(UpdateData)
                                                     .StartCoroutine();
@@ -39,7 +39,7 @@ namespace TEDCore.Performance
         private void UpdateData()
         {
             m_fpsData.Update();
-            m_coroutineChain = CoroutineChainManager.Instance.Create()
+            m_coroutineChain = CoroutineManager.Instance.Create()
                                                     .Enqueue(CoroutineUtils.WaitForSeconds(UPDATE_DURATION))
                                                     .Enqueue(UpdateData)
                                                     .StartCoroutine();

@@ -58,7 +58,7 @@ namespace TEDCore.Audio
             audioSource.volume = m_volume;
             audioSource.Play();
 
-            CoroutineChainManager.Instance.Create()
+            CoroutineManager.Instance.Create()
                                  .Enqueue(CoroutineUtils.WaitForSeconds(audioClip.length))
                                  .Enqueue(OnPlayFinished, audioSource)
                                  .StartCoroutine();

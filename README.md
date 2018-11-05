@@ -353,65 +353,6 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### Timer
-Timer module is design for scheduling the logic.
-It help the developer create a sequence schedule with easy steps.
-It consists of **BaseTimer** and **TimerManager**.
-
-#### Namespace
-TEDCore.Timer
-
-#### Public Methods - TimerManager
-| Name                                                                | Parameters                                                                                                                              | Description       |
-|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------|
-| Schedule(float duration, Action onTimerFinished)                    | duration: The duration of the timer<br>onTimerFinished: The callback method when the timer was finished                                 | Setup a new timer |
-| Schedule&lt;T&gt;(float duration, Action&lt;T&gt; onTimerFinished, T timerData) | duration: The duration of the timer<br>onTimerFinished: The callback method when the timer was finished<br>timerData: The callback data | Setup a new timer |
-| Add(BaseTimer timer)                                                | timer: The timer you want to add                                                                                                        | Add a new timer.  |
-| Remove(BaseTimer timer)                                             | timer: The timer you want to remove                                                                                                     | Remove the timer. |
-
-#### Examples
-```
-using UnityEngine;
-using TEDCore;
-using TEDCore.Timer;
-
-public class ExampleClass : MonoBehaviour
-{
-    private void Start()
-    {
-        TimerManager.Instance.Schedule(1.0f, OnOneSecondTimerFinished);
-
-        TimerManager.Instance.Schedule(2.0f, OnTwoSecondsTimerFinished, "Two Seconds");
-
-        NormalTimer normalTimer = new NormalTimer(3.0f, OnThreeSecondsTimerFinished);
-        TimerManager.Instance.Add(normalTimer);
-
-        NormalTimer<string> stringTimer = new NormalTimer<string>(4.0f, OnFourSecondsTimerFinished, "Four Seconds");
-        TimerManager.Instance.Add(stringTimer);
-    }
-
-    private void OnOneSecondTimerFinished()
-    {
-        TEDDebug.Log("OnOneSecondTimerFinished");
-    }
-
-    private void OnTwoSecondsTimerFinished(string timerData)
-    {
-        TEDDebug.Log("OnTwoSecondsTimerFinished = " + timerData);
-    }
-
-    private void OnThreeSecondsTimerFinished()
-    {
-        TEDDebug.Log("OnThreeSecondsTimerFinished");
-    }
-
-    private void OnFourSecondsTimerFinished(string timerData)
-    {
-        TEDDebug.Log("OnFourSecondsTimerFinished = " + timerData);
-    }
-}
-```
-
 ### BGM
 BGM module is designed for playgin BGM.
 The developer could play the BGM and adjust the volumn of it.
