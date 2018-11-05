@@ -6,7 +6,8 @@ namespace TEDCore.UnitTesting
 {
     public class UnitTestingGenerator : MonoBehaviour
     {
-        [SerializeField] private UnitTestingPage m_unitTestingPage;
+        [SerializeField] private UnitTestingTitle m_unitTestingTitle;
+        [SerializeField] private UnitTestingPage[] m_unitTestingPages;
 
         [Header("Template References")]
         [SerializeField] private GameObject m_templateParent;
@@ -28,7 +29,19 @@ namespace TEDCore.UnitTesting
         {
             m_spaceWidth = m_templateParent.GetComponent<GridLayoutGroup>().spacing.x;
 
-            StartCoroutine(Generate(m_unitTestingPage));
+            StartCoroutine(Generates());
+        }
+
+        private IEnumerator Generates()
+        {
+            for (int i = 0; i < m_unitTestingPages.Length; i++)
+            {
+                yield return StartCoroutine(Generate(m_unitTestingPages[i]));
+            }
+
+            yield return new WaitForEndOfFrame();
+
+            m_unitTestingTitle.SetData(m_unitTestingPages);
         }
 
         private IEnumerator Generate(UnitTestingPage unitTestingPage)

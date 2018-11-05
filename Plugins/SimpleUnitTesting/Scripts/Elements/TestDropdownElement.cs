@@ -22,6 +22,8 @@ namespace TEDCore.UnitTesting
             dropdown.onValueChanged.AddListener(OnValueChange);
             dropdown.ClearOptions();
             dropdown.AddOptions(m_optionData);
+
+            OnValueChange(0);
         }
 
         public void OnValueChange(int value)
