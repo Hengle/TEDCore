@@ -1,4 +1,4 @@
-﻿using TEDCore.Timer;
+﻿using TEDCore.Coroutine;
 
 namespace TEDCore.Performance
 {
@@ -9,20 +9,23 @@ namespace TEDCore.Performance
         public FpsPerformanceData FpsData { get { return m_fpsData; } }
         private FpsPerformanceData m_fpsData = new FpsPerformanceData();
 
-        private BaseTimer m_updateTimer;
+        private CoroutineChain m_coroutineChain;
 
         public PerformanceManager()
         {
-            m_updateTimer = TimerManager.Instance.Schedule(UPDATE_DURATION, UpdateData);
+            m_coroutineChain = CoroutineChainManager.Instance.Create()
+                                                    .Enqueue(CoroutineUtils.WaitForSeconds(UPDATE_DURATION))
+                                                    .Enqueue(UpdateData)
+                                                    .StartCoroutine();
         }
 
 
         private void OnDestroy()
         {
-            if (m_updateTimer != null)
+            if (m_coroutineChain != null)
             {
-                Singleton<TimerManager>.Instance.Remove(m_updateTimer);
-                m_updateTimer = null;
+                m_coroutineChain.StopCoroutine();
+                m_coroutineChain = null;
             }
         }
 
@@ -36,7 +39,10 @@ namespace TEDCore.Performance
         private void UpdateData()
         {
             m_fpsData.Update();
-            m_updateTimer = TimerManager.Instance.Schedule(UPDATE_DURATION, UpdateData);
+            m_coroutineChain = CoroutineChainManager.Instance.Create()
+                                                    .Enqueue(CoroutineUtils.WaitForSeconds(UPDATE_DURATION))
+                                                    .Enqueue(UpdateData)
+                                                    .StartCoroutine();
         }
     }
 }

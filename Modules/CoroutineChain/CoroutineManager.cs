@@ -2,7 +2,7 @@
 
 namespace TEDCore.Coroutine
 {
-    public class CoroutineChainManager : MonoSingleton<CoroutineChainManager>
+    public class CoroutineManager : MonoSingleton<CoroutineManager>
     {
         public CoroutineChain Create()
         {

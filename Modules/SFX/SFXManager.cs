@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TEDCore.ObjectPool;
 using TEDCore.Resource;
-using TEDCore.Timer;
+using TEDCore.Coroutine;
 
 namespace TEDCore.Audio
 {
@@ -58,7 +58,10 @@ namespace TEDCore.Audio
             audioSource.volume = m_volume;
             audioSource.Play();
 
-            TimerManager.Instance.Schedule(audioClip.length, OnPlayFinished, audioSource);
+            CoroutineChainManager.Instance.Create()
+                                 .Enqueue(CoroutineUtils.WaitForSeconds(audioClip.length))
+                                 .Enqueue(OnPlayFinished, audioSource)
+                                 .StartCoroutine();
         }
 
         private void OnPlayFinished(AudioSource audioSource)

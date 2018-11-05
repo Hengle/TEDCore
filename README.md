@@ -667,14 +667,14 @@ public class ExampleClass : MonoBehaviour
 }
 ```
 
-### CoroutineChain
-CoroutineChain module would help developers to handle Unity Coroutine with dependencies.
+### Coroutine
+Coroutine module would help developers to handle Unity Coroutine with dependencies.
 It utilize the method chain for allowing the coroutines to be chained together in a single statement without requiring variables to store the intermediate results.
 
 #### Namespace
 TEDCore.Coroutine
 
-#### Public Methods - CoroutineChainManager
+#### Public Methods - CoroutineManager
 | Name                                   | Parameters                                       | Description                                          |
 |----------------------------------------|--------------------------------------------------|------------------------------------------------------|
 | Create()                      |                                                  | Create a new empty coroutine chain.              |
