@@ -1142,8 +1142,15 @@ And the **DefineSymbolSettings.asset should be committed to Git**, then other de
 <img src="https://github.com/ted10401/TEDCore/blob/master/Tools/DefineSymbolTool/GithubResources/DefineSymbolTool_Profile.png" width="400" />
 
 ### TemplateScript Tool
-TemplateScript Tool could help the developers create the template script.
-It supports you to create State, Task, View and NetworkMessage template script in the current version.
+TemplateScript tool could help the developers create the template script.
+It helps developers to create State, Task, and View template script in the current version.
+
+#### Menu Items
+| Item                                          | Description                                                                               |
+|-----------------------------------------------|-------------------------------------------------------------------------------------------|
+| Assets/Create/C# Template Scripts/Empty State | Create an empty State template that you can no longer worry about miss something on it.   |
+| Assets/Create/C# Template Scripts/Empty Task  | Create an empty Task template that you can no longer worry about miss something on it.    |
+| Assets/Create/C# Template Scripts/Empty View  | Create an empty View template. Basically it is a empty class which inherit MonoBehaviour. |
 
 ### ClientDatabase Tool
 ClientDatabase Tool is designed to load the content from **Google Sheets** and generate the script automatically.

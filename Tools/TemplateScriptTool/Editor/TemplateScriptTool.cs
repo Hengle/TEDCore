@@ -4,23 +4,24 @@ using System.IO;
 
 namespace TEDCore.TemplateScript
 {
-    public class TemplateScriptTool
+    public static class TemplateScriptTool
     {
+        private const string MENUITEM_PATH = "Assets/Create/C# Template Scripts/";
         private const string TEMPLATE_PATH = "Tools/TemplateScriptTool/Templates/";
 
-        [MenuItem("Assets/Create/C# Template Scripts/Empty State", false, 80)]
+        [MenuItem(MENUITEM_PATH + "Empty State", false, 80)]
         private static void CreateEmptyState()
         {
             CreateTemplateScript(TEMPLATE_PATH + "TemplateState.txt", "NewState.cs");
         }
 
-        [MenuItem("Assets/Create/C# Template Scripts/Empty Task", false, 80)]
+        [MenuItem(MENUITEM_PATH + "Empty Task", false, 80)]
         private static void CreateEmptyTask()
         {
             CreateTemplateScript(TEMPLATE_PATH + "TemplateTask.txt", "NewTask.cs");
         }
 
-        [MenuItem("Assets/Create/C# Template Scripts/Empty View", false, 80)]
+        [MenuItem(MENUITEM_PATH + "Empty View", false, 80)]
         private static void CreateEmptyElement()
         {
             CreateTemplateScript(TEMPLATE_PATH + "TemplateView.txt", "NewView.cs");
