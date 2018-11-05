@@ -38,24 +38,24 @@ namespace TEDCore.UnitTesting
 
             m_spaceWidth = m_templateParent.GetComponent<GridLayoutGroup>().spacing.x;
 
-            StartCoroutine(Generate());
+            StartCoroutine(Generate(m_unitTestingObject, m_contentRoot));
         }
 
-        private IEnumerator Generate()
+        private IEnumerator Generate(GameObject unitTestingObject, Transform contentRoot)
         {
-            Clear();
+            Clear(contentRoot);
 
-            if (null == m_unitTestingObject)
+            if (null == unitTestingObject)
             {
-                TEDDebug.LogError("[UnitTestingGenerator] m_unitTestingObject is null.");
+                TEDDebug.LogError("[UnitTestingGenerator] unitTestingObject is null.");
                 yield break;
             }
 
-            m_unitTestings = m_unitTestingObject.GetComponents<BaseUnitTesting>();
+            m_unitTestings = unitTestingObject.GetComponents<BaseUnitTesting>();
             if (null == m_unitTestings ||
                 m_unitTestings.Length < 1)
             {
-                TEDDebug.LogError("[UnitTestingGenerator] No unit testing scripts in \"" + m_unitTestingObject.name + "\"");
+                TEDDebug.LogError("[UnitTestingGenerator] No unit testing scripts in \"" + unitTestingObject.name + "\"");
                 yield break;
             }
 
@@ -68,17 +68,17 @@ namespace TEDCore.UnitTesting
                     continue;
                 }
 
-                cacheInstance = GenerateTitle(m_unitTestings[i].GetType().Name);
+                cacheInstance = GenerateTitle(m_unitTestings[i].GetType().Name, contentRoot);
 
                 if (m_maxWidth == 0)
                 {
                     yield return new WaitForEndOfFrame();
 
                     m_maxWidth = cacheInstance.GetComponent<RectTransform>().sizeDelta.x;
-                    m_maxWidth -= m_contentRoot.GetComponent<VerticalLayoutGroup>().padding.left * 2;
+                    m_maxWidth -= contentRoot.GetComponent<VerticalLayoutGroup>().padding.left * 2;
                 }
 
-                GameObject cacheParent = GenerateLayoutGroup(2);
+                GameObject cacheParent = GenerateLayoutGroup(2, contentRoot);
                 GenerateElements<TestButton>(m_unitTestings[i], m_templateTestButtonElement, cacheParent.transform);
                 GenerateElements<TestToggle>(m_unitTestings[i], m_templateTestToggleElement, cacheParent.transform);
 
@@ -87,7 +87,7 @@ namespace TEDCore.UnitTesting
                     Destroy(cacheParent);
                 }
 
-                cacheParent = GenerateLayoutGroup(1);
+                cacheParent = GenerateLayoutGroup(1, contentRoot);
                 GenerateElements<TestInputField>(m_unitTestings[i], m_templateTestInputFieldElement, cacheParent.transform);
                 GenerateElements<TestSlider>(m_unitTestings[i], m_templateTestSliderElement, cacheParent.transform);
                 GenerateElements<TestDropdown>(m_unitTestings[i], m_templateTestDropdownElement, cacheParent.transform);
@@ -97,30 +97,30 @@ namespace TEDCore.UnitTesting
                     Destroy(cacheParent);
                 }
 
-                GenerateEmptySpace();
+                GenerateEmptySpace(contentRoot);
             }
         }
 
-        private void Clear()
+        private void Clear(Transform contentRoot)
         {
-            foreach (Transform child in m_contentRoot)
+            foreach (Transform child in contentRoot)
             {
                 Destroy(child.gameObject);
             }
         }
 
-        private GameObject GenerateTitle(string title)
+        private GameObject GenerateTitle(string title, Transform contentRoot)
         {
-            GameObject cacheInstance = Instantiate<GameObject>(m_templateTitle.gameObject, m_contentRoot);
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateTitle.gameObject, contentRoot);
             cacheInstance.GetComponent<Text>().text = title;
             cacheInstance.SetActive(true);
 
             return cacheInstance;
         }
 
-        private GameObject GenerateLayoutGroup(int division)
+        private GameObject GenerateLayoutGroup(int division, Transform contentRoot)
         {
-            GameObject cacheInstance = Instantiate<GameObject>(m_templateParent.gameObject, m_contentRoot);
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateParent.gameObject, contentRoot);
             cacheInstance.GetComponent<GridLayoutGroup>().cellSize = new Vector2(m_maxWidth / division - m_spaceWidth, 100);
             cacheInstance.SetActive(true);
 
@@ -146,9 +146,9 @@ namespace TEDCore.UnitTesting
             }
         }
 
-        private void GenerateEmptySpace()
+        private void GenerateEmptySpace(Transform contentRoot)
         {
-            GameObject cacheInstance = Instantiate<GameObject>(m_templateSpace.gameObject, m_contentRoot);
+            GameObject cacheInstance = Instantiate<GameObject>(m_templateSpace.gameObject, contentRoot);
             cacheInstance.SetActive(true);
         }
     }
