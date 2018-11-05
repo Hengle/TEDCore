@@ -1108,8 +1108,11 @@ public class ExampleClass : MonoBehaviour
 
 ### AssetBundle Tool
 AssetBundle Tool would handle everything for you to build AssetBundle.
-What you need to do is to drag the asset which would like to be an AssetBundle asset in AssetBundleResources folder and then click the Build AssetBundles menu item.
-The AssetBundle would be built to StreamingAssets folder in currernt version.
+
+#### Menu
+TEDCore/AssetBundles/AssetBundle Build Window
+<br>
+<img src="https://github.com/ted10401/TEDCore/blob/master/Modules/AssetBundle/Editor/GithubResources/AssetBundleTool_Window.png" width="400" />
 
 ### Build Tool
 Build Tool can help the developers to build the package file with the auto file name.
