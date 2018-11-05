@@ -1199,4 +1199,5 @@ public class ExampleClass : MonoBehaviour
 ### Performance Tool
 Performance Tool can help developers to handle the fps during the project.
 The only thing need to do is add component **PerformanceHUD** to the gameobject inside the scene, then, the HUD would display direclty.
+<br>
 <img src="https://github.com/ted10401/TEDCore/blob/master/Tools/PerformanceTool/GithubResources/PerformanceTool_HUD.png" width="200" />
