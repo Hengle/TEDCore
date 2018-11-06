@@ -8,6 +8,7 @@ namespace TEDCore.UnitTesting
     {
         public const float FULL_SIZE_RATIO = 1.0f;
 
+        [SerializeField] private bool m_moveToBorder = true;
         [SerializeField] private float m_duration = 1f;
         [SerializeField] private GameObject m_dragImage;
         [SerializeField] private GameObject m_fullScreen;
@@ -117,6 +118,12 @@ namespace TEDCore.UnitTesting
 
         public void OnDragEnd(BaseEventData eventData)
         {
+            if(!m_moveToBorder)
+            {
+                m_targetPosition = m_rectTransform.anchoredPosition;
+                return;
+            }
+
             if (IsMoving() || m_fullScreen.activeInHierarchy)
             {
                 return;
