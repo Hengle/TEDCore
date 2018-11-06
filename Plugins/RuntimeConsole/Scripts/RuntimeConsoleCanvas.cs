@@ -36,7 +36,6 @@ public class RuntimeConsoleCanvas : MonoBehaviour
         m_logToggle.SetToggleValueChanged(OnLogToggleValueChanged);
         m_warningToggle.SetToggleValueChanged(OnWarningToggleValueChanged);
         m_errorToggle.SetToggleValueChanged(OnErrorToggleValueChanged);
-        m_logScrollRect.onValueChanged.AddListener(OnScrollRectValueChanged);
 
         UpdateCount();
 
@@ -45,11 +44,12 @@ public class RuntimeConsoleCanvas : MonoBehaviour
 
     private void Update()
     {
+        m_forceScrollToBottom = m_logScrollRect.verticalNormalizedPosition < 0.1f;
         int index = (int)((1 - m_logScrollRect.verticalNormalizedPosition) * m_displayLogs.Count);
 
         for (int i = 0; i < m_displayLogs.Count; i++)
         {
-            m_displayLogs[i].SetBackgroundActive(i >= index - 10 && i <= index + 10);
+            m_displayLogs[i].SetBackgroundActive(i >= index - 15 && i <= index + 15);
         }
     }
 
@@ -92,11 +92,6 @@ public class RuntimeConsoleCanvas : MonoBehaviour
     {
         m_errorToggleValue = value;
         UpdateLogs();
-    }
-
-    private void OnScrollRectValueChanged(Vector2 value)
-    {
-        m_forceScrollToBottom = value.magnitude < 0.1f;
     }
 
     private void HandleLog(string logString, string stackTrace, LogType type)
