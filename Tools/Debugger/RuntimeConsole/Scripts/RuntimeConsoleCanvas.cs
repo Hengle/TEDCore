@@ -45,7 +45,7 @@ public class RuntimeConsoleCanvas : MonoBehaviour
     private void Update()
     {
         m_forceScrollToBottom = m_logScrollRect.verticalNormalizedPosition < 0.1f;
-        int index = (int)((1 - m_logScrollRect.verticalNormalizedPosition) * m_displayLogs.Count);
+        int index = (int)(Mathf.Clamp(1 - m_logScrollRect.verticalNormalizedPosition, 0, 1) * m_displayLogs.Count);
 
         for (int i = 0; i < m_displayLogs.Count; i++)
         {

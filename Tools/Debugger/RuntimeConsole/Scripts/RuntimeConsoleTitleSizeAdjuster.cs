@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class RuntimeConsoleSizeAdjuster : MonoBehaviour
+public class RuntimeConsoleTitleSizeAdjuster : MonoBehaviour
 {
     [SerializeField] private RectTransform m_titleRectTransform;
     [SerializeField] private RectTransform m_displayLogsRectTransform;
