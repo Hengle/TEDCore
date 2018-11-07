@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace TEDCore.Performance
+namespace TEDCore.Debugger
 {
-    public class FpsPerformanceData : PerformanceData
+    public class FpsProfilerData : ProfilerData
     {
         private float m_lastTime;
         private float m_lastFrameCount;

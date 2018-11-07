@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TEDCore.UnitTesting
+namespace TEDCore.Debugger
 {
     [ExecuteInEditMode]
-    public class UnitTestingCanvas : MonoBehaviour
+    public class DebuggerCanvas : MonoBehaviour
     {
         private void Awake()
         {

@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 114645062519491406}
   - component: {fileID: 114473925529455604}
   - component: {fileID: 114134152035340940}
+  - component: {fileID: 114493111564254414}
   m_Layer: 5
   m_Name: SystemInfoCanvas
   m_TagString: Untagged
@@ -2294,6 +2295,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+--- !u!114 &114493111564254414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077757633734828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd223a2282a5f4d119304139338d9dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114496349006741120
 MonoBehaviour:
   m_ObjectHideFlags: 1

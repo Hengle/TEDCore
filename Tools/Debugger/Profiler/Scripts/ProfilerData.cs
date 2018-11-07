@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace TEDCore.Performance
+namespace TEDCore.Debugger
 {
-    public abstract class PerformanceData
+    public abstract class ProfilerData
     {
         public float CurValue { get { return m_curValue; } }
         public float MinValue { get { return m_minValue; } }
@@ -16,7 +16,7 @@ namespace TEDCore.Performance
         private float m_totalValue;
         private int m_totalCount;
 
-        public PerformanceData()
+        public ProfilerData()
         {
             ResetValue();
         }

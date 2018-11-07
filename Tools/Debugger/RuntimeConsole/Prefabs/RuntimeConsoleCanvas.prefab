@@ -606,6 +606,7 @@ GameObject:
   - component: {fileID: 114108315078645984}
   - component: {fileID: 114813003227107650}
   - component: {fileID: 114011750808194180}
+  - component: {fileID: 114207461947019098}
   m_Layer: 5
   m_Name: RuntimeConsoleCanvas
   m_TagString: Untagged
@@ -1323,6 +1324,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114207461947019098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636854950204876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd223a2282a5f4d119304139338d9dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114207970413154342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3864,8 +3876,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.3}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -54.5595}
-  m_SizeDelta: {x: 0, y: -109.11897}
+  m_AnchoredPosition: {x: 0, y: -54.675236}
+  m_SizeDelta: {x: 0, y: -109.35044}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224609757271034852
 RectTransform:
@@ -4006,7 +4018,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 109.11899}
+  m_SizeDelta: {x: 0, y: 109.35046}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224691571272073580
 RectTransform:
