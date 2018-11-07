@@ -387,6 +387,21 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 224675116879120380, guid: a7066c00dffcc4428957e1cab31e183d,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 109.1035
+      objectReference: {fileID: 0}
+    - target: {fileID: 224582698481777696, guid: a7066c00dffcc4428957e1cab31e183d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -54.551758
+      objectReference: {fileID: 0}
+    - target: {fileID: 224582698481777696, guid: a7066c00dffcc4428957e1cab31e183d,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -109.103485
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114641925083698078, guid: a7066c00dffcc4428957e1cab31e183d, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: a7066c00dffcc4428957e1cab31e183d, type: 2}
@@ -588,228 +603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d71852075f4422484914a1f2191c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_startRect:
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  m_updateColor: 1
-  m_allowDrag: 1
-  m_dragWindowRect:
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  m_fpsRect:
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  m_fpsFormat: 'FPS: Cur {0}, Min {1}, Max {2}, Avg {3}'
-  m_resetButtonRect:
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  m_resetButtonText: Reset
-  m_textStyle:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Active:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 0
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
-  m_buttonStyle:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Active:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor:
-        r: 0
-        g: 0
-        b: 0
-        a: 1
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 0
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
 --- !u!1001 &1629232297
 Prefab:
   m_ObjectHideFlags: 0
