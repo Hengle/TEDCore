@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114335093139982276}
   - component: {fileID: 114031947970976442}
   - component: {fileID: 114195695451409278}
+  - component: {fileID: 225515294816484982}
   m_Layer: 5
   m_Name: DebuggerHelper
   m_TagString: Untagged
@@ -211,7 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveToBorder: 1
-  m_duration: 0.1
 --- !u!114 &114253356485056950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -559,3 +559,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &225515294816484982
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726778156123010}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -7,14 +7,15 @@ namespace TEDCore.Debugger
     [DisallowMultipleComponent]
     public class DebuggerSizeHelper : MonoBehaviour
     {
+        private const float ANIMATION_DURATION = 0.1f;
         private const float FULL_SIZE_RATIO = 1.0f;
 
-        [SerializeField] private float m_duration = 0.1f;
         [SerializeField] private GameObject m_dragImage;
         [SerializeField] private GameObject m_fullScreen;
 
         private RectTransform m_rectTransform;
         private Canvas m_canvas;
+        private CanvasGroup m_canvasGroup;
         private Vector2 m_startPosition;
         private Vector2 m_targetPosition;
 
@@ -31,6 +32,9 @@ namespace TEDCore.Debugger
         private void Awake()
         {
             m_rectTransform = GetComponent<RectTransform>();
+            m_canvas = GetComponentInParent<Canvas>();
+            m_canvas.sortingOrder = 99;
+            m_canvasGroup = GetComponent<CanvasGroup>();
 
             EventTrigger eventTrigger = GetComponent<EventTrigger>();
             EventTrigger.Entry entryPointerDown = new EventTrigger.Entry();
@@ -51,9 +55,6 @@ namespace TEDCore.Debugger
         {
             yield return new WaitForEndOfFrame();
 
-            m_canvas = GetComponentInParent<Canvas>();
-            m_canvas.sortingOrder = 99;
-
             Vector2 sizeDelta = m_canvas.GetComponent<RectTransform>().sizeDelta;
 
             m_initSizeDelta = m_rectTransform.sizeDelta;
@@ -65,10 +66,10 @@ namespace TEDCore.Debugger
             if (m_isSizing)
             {
                 m_sizeTimer += Time.deltaTime;
-                m_rectTransform.anchoredPosition = Vector2.Lerp(m_startPosition, m_targetPosition, m_sizeTimer / m_duration);
-                m_rectTransform.sizeDelta = Vector2.Lerp(m_startSizeDelta, m_targetSizeDelta, m_sizeTimer / m_duration);
+                m_rectTransform.anchoredPosition = Vector2.Lerp(m_startPosition, m_targetPosition, m_sizeTimer / ANIMATION_DURATION);
+                m_rectTransform.sizeDelta = Vector2.Lerp(m_startSizeDelta, m_targetSizeDelta, m_sizeTimer / ANIMATION_DURATION);
 
-                if (m_sizeTimer >= m_duration)
+                if (m_sizeTimer >= ANIMATION_DURATION)
                 {
                     m_isSizing = false;
                     m_rectTransform.anchoredPosition = m_targetPosition;
@@ -120,6 +121,7 @@ namespace TEDCore.Debugger
                 return;
             }
 
+            m_canvasGroup.alpha = 1;
             m_canvas.sortingOrder = 999;
 
             m_dragImage.SetActive(false);
@@ -140,6 +142,7 @@ namespace TEDCore.Debugger
                 return;
             }
 
+            m_canvasGroup.alpha = 0.5f;
             m_canvas.sortingOrder = 99;
 
             m_targetPosition = m_startPosition;

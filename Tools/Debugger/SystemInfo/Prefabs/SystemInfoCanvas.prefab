@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114088053121513222}
   - component: {fileID: 114728831988778614}
   - component: {fileID: 114473776550090426}
+  - component: {fileID: 225832212270641674}
   m_Layer: 5
   m_Name: DebuggerHelper
   m_TagString: Untagged
@@ -2178,7 +2179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveToBorder: 1
-  m_duration: 0.1
 --- !u!114 &114473925529455604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2976,7 +2976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5e1d9a8042b4f5fa0833c97c01f0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_duration: 0.1
   m_dragImage: {fileID: 1920518784524986}
   m_fullScreen: {fileID: 1294322067297426}
 --- !u!114 &114730969711981914
@@ -5782,3 +5781,14 @@ RectTransform:
   m_AnchoredPosition: {x: 1310.1199, y: -1090.5298}
   m_SizeDelta: {x: 2620.2397, y: 2181.0596}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225832212270641674
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001680243748980}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

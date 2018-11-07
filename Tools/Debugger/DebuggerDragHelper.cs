@@ -7,8 +7,12 @@ namespace TEDCore.Debugger
     [DisallowMultipleComponent]
     public class DebuggerDragHelper : MonoBehaviour
     {
+        private const float ANIMATION_DURATION = 0.1f;
+        private const float FADING_DURATION = 3.0f;
+        private const float ALPHA_FULL = 1.0f;
+        private const float ALPHA_HALF = 0.5f;
+
         [SerializeField] private bool m_moveToBorder = true;
-        [SerializeField] private float m_duration = 0.1f;
 
         private DebuggerSizeHelper m_debuggerSizeHelper;
         private RectTransform m_rectTransform;
@@ -19,6 +23,12 @@ namespace TEDCore.Debugger
         private Vector2 m_targetPosition;
         private float m_moveTimer;
         private bool m_isMoving;
+        #endregion
+
+        #region Fading
+        private CanvasGroup m_canvasGroup;
+        private float m_fadingTimer;
+        private bool m_isFading;
         #endregion
 
         private void Awake()
@@ -36,6 +46,9 @@ namespace TEDCore.Debugger
             entryEndDrag.eventID = EventTriggerType.EndDrag;
             entryEndDrag.callback.AddListener(OnEndDrag);
             eventTrigger.triggers.Add(entryEndDrag);
+
+            m_canvasGroup = GetComponent<CanvasGroup>();
+            m_canvasGroup.alpha = ALPHA_HALF;
 
             UpdateWindowSize();
         }
@@ -55,12 +68,30 @@ namespace TEDCore.Debugger
 
         private void Update()
         {
+            if(m_isFading)
+            {
+                m_fadingTimer -= Time.deltaTime;
+                if(m_fadingTimer <= 0)
+                {
+                    m_fadingTimer = 0;
+                    m_isFading = false;
+                }
+
+                m_canvasGroup.alpha = Mathf.Lerp(ALPHA_HALF, ALPHA_FULL, m_fadingTimer / 0.2f);
+
+                if (m_debuggerSizeHelper != null && m_debuggerSizeHelper.IsFullScreen())
+                {
+                    m_isFading = false;
+                    m_canvasGroup.alpha = 1;
+                }
+            }
+
             if (m_isMoving)
             {
                 m_moveTimer += Time.deltaTime;
-                m_rectTransform.anchoredPosition = Vector2.Lerp(m_startPosition, m_targetPosition, m_moveTimer / m_duration);
+                m_rectTransform.anchoredPosition = Vector2.Lerp(m_startPosition, m_targetPosition, m_moveTimer / ANIMATION_DURATION);
 
-                if (m_moveTimer >= m_duration)
+                if (m_moveTimer >= ANIMATION_DURATION)
                 {
                     m_isMoving = false;
                     m_rectTransform.anchoredPosition = m_targetPosition;
@@ -92,6 +123,9 @@ namespace TEDCore.Debugger
                 return;
             }
 
+            m_isFading = true;
+            m_fadingTimer = FADING_DURATION;
+
             transform.position = Input.mousePosition;
             m_isMoving = false;
         }
@@ -108,6 +142,9 @@ namespace TEDCore.Debugger
             {
                 return;
             }
+
+            m_isFading = true;
+            m_fadingTimer = FADING_DURATION;
 
             Vector2 position = m_rectTransform.anchoredPosition;
 
@@ -139,15 +176,19 @@ namespace TEDCore.Debugger
             {
                 case 0:
                     m_targetPosition.y = m_fullWindowSize.y - m_rectTransform.sizeDelta.y / 2;
+                    m_targetPosition.x = Mathf.Clamp(m_targetPosition.x, -m_fullWindowSize.x + m_rectTransform.sizeDelta.x / 2, m_fullWindowSize.x - m_rectTransform.sizeDelta.x / 2);
                     break;
                 case 1:
                     m_targetPosition.y = -m_fullWindowSize.y + m_rectTransform.sizeDelta.y / 2;
+                    m_targetPosition.x = Mathf.Clamp(m_targetPosition.x, -m_fullWindowSize.x + m_rectTransform.sizeDelta.x / 2, m_fullWindowSize.x - m_rectTransform.sizeDelta.x / 2);
                     break;
                 case 2:
                     m_targetPosition.x = -m_fullWindowSize.x + m_rectTransform.sizeDelta.x / 2;
+                    m_targetPosition.y = Mathf.Clamp(m_targetPosition.y, -m_fullWindowSize.y + m_rectTransform.sizeDelta.y / 2, m_fullWindowSize.y - m_rectTransform.sizeDelta.y / 2);
                     break;
                 case 3:
                     m_targetPosition.x = m_fullWindowSize.x - m_rectTransform.sizeDelta.x / 2;
+                    m_targetPosition.y = Mathf.Clamp(m_targetPosition.y, -m_fullWindowSize.y + m_rectTransform.sizeDelta.y / 2, m_fullWindowSize.y - m_rectTransform.sizeDelta.y / 2);
                     break;
             }
 
