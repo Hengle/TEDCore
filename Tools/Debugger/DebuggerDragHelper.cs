@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace TEDCore.Debugger
 {
+    [DisallowMultipleComponent]
     public class DebuggerDragHelper : MonoBehaviour
     {
         [SerializeField] private bool m_moveToBorder = true;

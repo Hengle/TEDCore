@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace TEDCore.Debugger
 {
-    public class SystemCanvas : MonoBehaviour
+    public class SystemInfoCanvas : MonoBehaviour
     {
         [Header("System")]
         [SerializeField] private Text m_operatingSystemText;

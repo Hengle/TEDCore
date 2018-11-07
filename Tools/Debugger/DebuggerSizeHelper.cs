@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace TEDCore.Debugger
 {
+    [DisallowMultipleComponent]
     public class DebuggerSizeHelper : MonoBehaviour
     {
         private const float FULL_SIZE_RATIO = 1.0f;
@@ -13,7 +14,7 @@ namespace TEDCore.Debugger
         [SerializeField] private GameObject m_fullScreen;
 
         private RectTransform m_rectTransform;
-
+        private Canvas m_canvas;
         private Vector2 m_startPosition;
         private Vector2 m_targetPosition;
 
@@ -50,8 +51,10 @@ namespace TEDCore.Debugger
         {
             yield return new WaitForEndOfFrame();
 
-            Canvas canvas = GetComponentInParent<Canvas>();
-            Vector2 sizeDelta = canvas.GetComponent<RectTransform>().sizeDelta;
+            m_canvas = GetComponentInParent<Canvas>();
+            m_canvas.sortingOrder = 99;
+
+            Vector2 sizeDelta = m_canvas.GetComponent<RectTransform>().sizeDelta;
 
             m_initSizeDelta = m_rectTransform.sizeDelta;
             m_fullSizeDelta = sizeDelta * FULL_SIZE_RATIO;
@@ -117,6 +120,8 @@ namespace TEDCore.Debugger
                 return;
             }
 
+            m_canvas.sortingOrder = 999;
+
             m_dragImage.SetActive(false);
 
             m_startPosition = m_rectTransform.anchoredPosition;
@@ -134,6 +139,8 @@ namespace TEDCore.Debugger
             {
                 return;
             }
+
+            m_canvas.sortingOrder = 99;
 
             m_targetPosition = m_startPosition;
             m_startPosition = Vector2.zero;
