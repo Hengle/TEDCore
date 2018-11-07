@@ -29,13 +29,11 @@ namespace TEDCore.Debugger
         [SerializeField] private Text m_maxTextureSizeText;
         [SerializeField] private Text m_maxCubemapSizeText;
         [SerializeField] private Text m_npotSupportText;
-        [SerializeField] private Text m_supportsRenderTexturesText;
+        [SerializeField] private Text m_supportedRenderTargetCountText;
         [SerializeField] private Text m_supportsComputeShadersText;
-        [SerializeField] private Text m_supportsVertexProgramsText;
         [SerializeField] private Text m_supportsImageEffectsText;
         [SerializeField] private Text m_supportsRenderToCubemapText;
         [SerializeField] private Text m_supportsShadowsText;
-        [SerializeField] private Text m_supportsStencilText;
 
         private void Awake()
         {
@@ -73,13 +71,11 @@ namespace TEDCore.Debugger
             m_maxTextureSizeText.text = SystemInfo.maxTextureSize.ToString();
             m_maxCubemapSizeText.text = SystemInfo.maxCubemapSize.ToString();
             m_npotSupportText.text = SystemInfo.npotSupport.ToString();
-            m_supportsRenderTexturesText.text = SystemInfo.supportsRenderTextures ? string.Format("Yes ({0})", SystemInfo.supportedRenderTargetCount) : "No";
+            m_supportedRenderTargetCountText.text = SystemInfo.supportedRenderTargetCount.ToString();
             m_supportsComputeShadersText.text = SystemInfo.supportsComputeShaders ? "Yes" : "No";
-            m_supportsVertexProgramsText.text = SystemInfo.supportsVertexPrograms ? "Yes" : "No";
             m_supportsImageEffectsText.text = SystemInfo.supportsImageEffects ? "Yes" : "No";
             m_supportsRenderToCubemapText.text = SystemInfo.supportsRenderToCubemap ? "Yes" : "No";
             m_supportsShadowsText.text = SystemInfo.supportsShadows ? "Yes" : "No";
-            m_supportsStencilText.text = SystemInfo.supportsStencil.ToString();
         }
     }
 }
