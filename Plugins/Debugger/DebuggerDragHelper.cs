@@ -146,7 +146,7 @@ namespace TEDCore.Debugger
                     m_targetPosition.x = -m_fullWindowSize.x + m_rectTransform.sizeDelta.x / 2;
                     break;
                 case 3:
-                    m_targetPosition.x = m_fullWindowSize.x - m_rectTransform.sizeDelta.y / 2;
+                    m_targetPosition.x = m_fullWindowSize.x - m_rectTransform.sizeDelta.x / 2;
                     break;
             }
 
