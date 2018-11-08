@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace TEDCore.Debugger
 {
@@ -7,14 +8,30 @@ namespace TEDCore.Debugger
     {
         [SerializeField] private RectTransform[] m_titleRectTransforms;
         [SerializeField] private RectTransform[] m_contentRectTransforms;
+        private Canvas m_parentCanvas;
         private RectTransform m_canvasRectTransform;
         private float m_width;
 
         private void Update()
         {
+            if(m_parentCanvas == null)
+            {
+                m_parentCanvas = GetComponentInParent<Canvas>();
+            }
+
+            if(m_parentCanvas == null)
+            {
+                return;
+            }
+
             if (m_canvasRectTransform == null)
             {
-                m_canvasRectTransform = GetComponent<RectTransform>();
+                m_canvasRectTransform = m_parentCanvas.GetComponent<RectTransform>();
+            }
+
+            if(m_canvasRectTransform == null)
+            {
+                return;
             }
 
             if (m_width == m_canvasRectTransform.sizeDelta.x)
