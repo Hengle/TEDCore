@@ -1,52 +1,52 @@
 ﻿using UnityEngine.UI;
 
-namespace TEDCore.UnitTesting
+namespace TEDCore.Debugger.CheatMenu
 {
     public partial class CheatMenuOptions
     {
-        [Category("Test Category"), TestButton]
+        [CheatCategory("Test Category"), CheatButton]
         public void TestCategoryButton()
         {
             TEDDebug.LogError("UnitTesting_Examples.TestCategoryButton");
         }
 
-        [TestButton]
+        [CheatButton]
         public void TestButton()
         {
             TEDDebug.LogError("UnitTesting_Examples.TestButton");
         }
 
-        [TestDropdown("A", "B", "C", "D")]
+        [CheatDropdown("A", "B", "C", "D")]
         public void TestDropDown(Dropdown.OptionData data)
         {
             TEDDebug.LogError("UnitTesting_Example.TestDropDown = " + data.text);
         }
 
-        [TestInputField]
+        [CheatInputField]
         public void TestInputField(string value)
         {
             TEDDebug.LogError("UnitTesting_Example.TestInputField = " + value);
         }
 
-        [TestSlider]
+        [CheatSlider]
         public void TestSlider(float value)
         {
             TEDDebug.LogError("UnitTesting_Example.TestSlider = " + value);
         }
 
-        [TestSlider(0, 10, 5)]
+        [CheatSlider(0, 10, 5)]
         public void TestSliderWithInitialValue(float value)
         {
             TEDDebug.LogError("UnitTesting_Example.TestSliderWithInitialValue = " + value);
         }
 
-        [TestToggle]
+        [CheatToggle]
         public void TestToggle(bool value)
         {
             TEDDebug.LogError("UnitTesting_Example.TestToggle = " + value);
         }
 
-        [TestToggle(true)]
+        [CheatToggle(true)]
         public void TestToggleWithInitialTrue(bool value)
         {
             TEDDebug.LogError("UnitTesting_Example.TestToggleWithInitialTrue = " + value);

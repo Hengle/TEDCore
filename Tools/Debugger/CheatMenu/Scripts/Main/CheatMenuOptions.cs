@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace TEDCore.UnitTesting
+namespace TEDCore.Debugger.CheatMenu
 {
     public partial class CheatMenuOptions
     {
@@ -17,7 +17,7 @@ namespace TEDCore.UnitTesting
             {
                 foreach (Attribute attribute in method.GetCustomAttributes(true))
                 {
-                    Category category = attribute as Category;
+                    CheatCategory category = attribute as CheatCategory;
 
                     if (null == category)
                     {
@@ -28,9 +28,9 @@ namespace TEDCore.UnitTesting
                         continue;
                     }
 
-                    if (!categories.Contains(category.Name))
+                    if (!categories.Contains(category.CategoryName))
                     {
-                        categories.Add(category.Name);
+                        categories.Add(category.CategoryName);
                     }
                 }
             }
@@ -46,23 +46,23 @@ namespace TEDCore.UnitTesting
             {
                 if(categoryName == EMPTY_CATEGORY_NAME)
                 {
-                    if (method.GetCustomAttributes(typeof(Category), true).Length == 0)
+                    if (method.GetCustomAttributes(typeof(CheatCategory), true).Length == 0)
                     {
                         methodInfos.Add(method);
                     }
                 }
                 else
                 {
-                    foreach (Attribute attribute in method.GetCustomAttributes(typeof(Category), true))
+                    foreach (Attribute attribute in method.GetCustomAttributes(typeof(CheatCategory), true))
                     {
-                        Category category = attribute as Category;
+                        CheatCategory category = attribute as CheatCategory;
 
                         if (null == category)
                         {
                             continue;
                         }
 
-                        if (category.Name != categoryName)
+                        if (category.CategoryName != categoryName)
                         {
                             continue;
                         }
@@ -76,9 +76,9 @@ namespace TEDCore.UnitTesting
             return methodInfos.ToArray();
         }
 
-        public UnitTestingData[] GetUnitTestingData<T>(string categoryName) where T : Attribute
+        public CheatMenuData[] GetUnitTestingData<T>(string categoryName) where T : Attribute
         {
-            List<UnitTestingData> unitTestingData = new List<UnitTestingData>();
+            List<CheatMenuData> unitTestingData = new List<CheatMenuData>();
 
             foreach (MethodInfo method in GetMethodInfoWithCategory(categoryName))
             {
@@ -91,7 +91,7 @@ namespace TEDCore.UnitTesting
                         continue;
                     }
 
-                    unitTestingData.Add(new UnitTestingData(method.Name, test));
+                    unitTestingData.Add(new CheatMenuData(method.Name, test));
                 }
 
             }
