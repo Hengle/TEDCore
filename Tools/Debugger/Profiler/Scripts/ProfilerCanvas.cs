@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Profiling;
 
-namespace TEDCore.Debugger
+namespace TEDCore.Debugger.Profiler
 {
     public class ProfilerCanvas : MonoBehaviour
     {
@@ -80,14 +79,14 @@ namespace TEDCore.Debugger
 
             m_fullScreenFpsText.text = m_fpsText.text;
 
-            m_cacheValue1 = Profiler.GetMonoHeapSizeLong();
-            m_cacheValue2 = Profiler.GetMonoUsedSizeLong();
+            m_cacheValue1 = UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong();
+            m_cacheValue2 = UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong();
             m_monoHeapSizeText.text = string.Format(MONO_TOTAL_TEXT, m_cacheValue1 / MEGA_BYTE);
             m_monoUsedSizeText.text = string.Format(MONO_USED_TEXT, m_cacheValue2 / MEGA_BYTE);
             m_monoSlider.value = m_cacheValue2 / m_cacheValue1;
 
-            m_cacheValue1 = Profiler.GetTotalReservedMemoryLong();
-            m_cacheValue2 = Profiler.GetTotalAllocatedMemoryLong();
+            m_cacheValue1 = UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong();
+            m_cacheValue2 = UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong();
             m_totalReservedMemoryText.text = string.Format(MEMORY_TOTAL_TEXT, m_cacheValue1 / MEGA_BYTE);
             m_totalAllocatedMemoryText.text = string.Format(MEMORY_USED_TEXT, m_cacheValue2 / MEGA_BYTE);
             m_memorySlider.value = m_cacheValue2 / m_cacheValue1;

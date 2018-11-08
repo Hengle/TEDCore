@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TEDCore.Debugger
+namespace TEDCore.Debugger.Profiler
 {
     public class FpsProfilerData : ProfilerData
     {

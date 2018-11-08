@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 114011750808194180}
   - component: {fileID: 114207461947019098}
   m_Layer: 5
-  m_Name: RuntimeConsoleCanvas
+  m_Name: ConsoleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,6 +1003,14 @@ MonoBehaviour:
   m_errorToggle: {fileID: 114437961258846526}
   m_runtimeConsolePool: {fileID: 114737388423191104}
   m_logScrollRect: {fileID: 114617386719655936}
+  m_logs: []
+  m_searchFilterLogs: []
+  m_displayLogs: []
+  m_searchFilterText: 
+  m_logToggleValue: 1
+  m_warningToggleValue: 1
+  m_errorToggleValue: 1
+  m_forceScrollToBottom: 1
 --- !u!114 &114019664467318776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1273,8 +1281,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_backgroundColors:
-  - {r: 0.8705883, g: 0.8705883, b: 0.8705883, a: 1}
-  - {r: 0.8470589, g: 0.8470589, b: 0.8470589, a: 1}
+  - r: 0.8705883
+    g: 0.8705883
+    b: 0.8705883
+    a: 1
+  - r: 0.8470589
+    g: 0.8470589
+    b: 0.8470589
+    a: 1
   m_logTypeSprites:
   - {fileID: 21300000, guid: 74a3219e91d0c425e88e87330221fe8f, type: 3}
   - {fileID: 21300000, guid: 738e6cc5bbb824e00abf6a2fd00bec78, type: 3}
@@ -1284,6 +1298,10 @@ MonoBehaviour:
   m_logTypeImage: {fileID: 114567003730870142}
   m_logStringText: {fileID: 114659883684481640}
   m_stackTraceText: {fileID: 114286943352177282}
+  m_index: 0
+  m_logType: 0
+  m_logString: 
+  m_stackTrace: 
 --- !u!114 &114181066607145796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2669,6 +2687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_titleRectTransform: {fileID: 224675116879120380}
   m_displayLogsRectTransform: {fileID: 224582698481777696}
+  m_canvasRectTransform: {fileID: 0}
+  m_width: 0
 --- !u!114 &114816110341041280
 MonoBehaviour:
   m_ObjectHideFlags: 1

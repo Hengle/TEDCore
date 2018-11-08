@@ -1,7 +1,7 @@
 ﻿using TEDCore.Coroutine;
 using System;
 
-namespace TEDCore.Debugger
+namespace TEDCore.Debugger.Profiler
 {
     public class ProfilerManager : Singleton<ProfilerManager>
     {
