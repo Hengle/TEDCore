@@ -22,10 +22,16 @@ public class RuntimeConsoleTitleSizeAdjuster : MonoBehaviour
 
         m_width = m_canvasRectTransform.sizeDelta.x;
 
-        Vector2 sizeDelta = m_titleRectTransform.sizeDelta;
-        sizeDelta.y = m_width * 0.08f * 0.5f;
-        m_titleRectTransform.sizeDelta = sizeDelta;
+        if(m_titleRectTransform != null)
+        {
+            Vector2 sizeDelta = m_titleRectTransform.sizeDelta;
+            sizeDelta.y = m_width * 0.08f * 0.5f;
+            m_titleRectTransform.sizeDelta = sizeDelta;
+        }
 
-        m_displayLogsRectTransform.offsetMax = new Vector2(0, -sizeDelta.y);
+        if(m_displayLogsRectTransform != null)
+        {
+            m_displayLogsRectTransform.offsetMax = new Vector2(0, -m_width * 0.08f * 0.5f);
+        }
     }
 }
