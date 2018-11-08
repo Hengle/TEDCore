@@ -7,7 +7,8 @@ namespace TEDCore.Debugger.CheatMenu
 {
     public class CheatMenuGenerator : MonoBehaviour
     {
-        [SerializeField] private CheatMenuTitle m_cheatMenuTitle;
+        [SerializeField] private CheatMenuCategory m_cheatMenuCategory;
+        [SerializeField] private Transform m_cheatMenuPageParent;
 
         [Header("Template References")]
         [SerializeField] private CheatMenuPage m_templateCheatMenuPage;
@@ -37,13 +38,13 @@ namespace TEDCore.Debugger.CheatMenu
             for (int i = 0; i < categories.Length; i++)
             {
                 CheatMenuPage unitTestingPage = Instantiate(m_templateCheatMenuPage);
-                unitTestingPage.transform.SetParent(transform, false);
+                unitTestingPage.transform.SetParent(m_cheatMenuPageParent, false);
                 unitTestingPage.Title = categories[i];
                 unitTestingPage.gameObject.SetActive(true);
                 m_cheatMenuPages.Add(unitTestingPage);
             }
 
-            m_cheatMenuTitle.SetData(m_cheatMenuPages);
+            m_cheatMenuCategory.SetData(m_cheatMenuPages);
 
             StartCoroutine(GeneratePages());
         }

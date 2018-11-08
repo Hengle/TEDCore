@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TEDCore.Debugger.CheatMenu
 {
-    public class CheatMenuTitle : MonoBehaviour
+    public class CheatMenuCategory : MonoBehaviour
     {
         [SerializeField] private Dropdown m_dropdown;
         private List<CheatMenuPage> m_cheatMenuPages;
