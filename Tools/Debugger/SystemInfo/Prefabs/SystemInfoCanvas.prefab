@@ -178,8 +178,9 @@ GameObject:
   - component: {fileID: 223254671890099228}
   - component: {fileID: 114645062519491406}
   - component: {fileID: 114473925529455604}
-  - component: {fileID: 114134152035340940}
   - component: {fileID: 114493111564254414}
+  - component: {fileID: 114134152035340940}
+  - component: {fileID: 114755803572224840}
   m_Layer: 5
   m_Name: SystemInfoCanvas
   m_TagString: Untagged
@@ -3089,6 +3090,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Device Unique Identifier:'
+--- !u!114 &114755803572224840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077757633734828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd12717c1c9c43b5819f349ce0e4bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_titleRectTransform: {fileID: 224812641593332790}
+  m_contentRectTransform: {fileID: 224255430154784484}
 --- !u!114 &114757586413552018
 MonoBehaviour:
   m_ObjectHideFlags: 1

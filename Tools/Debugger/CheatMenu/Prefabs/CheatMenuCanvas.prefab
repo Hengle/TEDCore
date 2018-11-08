@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 114416060528552340}
   - component: {fileID: 114009254039969230}
   m_Layer: 5
-  m_Name: TemplateTestToggleElement
+  m_Name: TemplateCheatToggleElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 222013981089326432}
   - component: {fileID: 114152497660345650}
   m_Layer: 5
-  m_Name: TemplateTestInputFieldElement
+  m_Name: TemplateCheatInputFieldElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,9 +328,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224674484760365086}
-  - component: {fileID: 114863067168635430}
   - component: {fileID: 222967481487862322}
   - component: {fileID: 114210951729436794}
+  - component: {fileID: 114863067168635430}
   m_Layer: 5
   m_Name: UnitTestingGenerator
   m_TagString: Untagged
@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 224530174487337288}
   - component: {fileID: 114201606337155928}
   m_Layer: 5
-  m_Name: TemplateUnitTestingPage
+  m_Name: TemplateCheatMenuPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 224240428167214084}
   - component: {fileID: 114118220159897402}
   m_Layer: 5
-  m_Name: TemplateTestDropdownElement
+  m_Name: TemplateCheatDropdownElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 224510662458798892}
   - component: {fileID: 114489724222867950}
   m_Layer: 5
-  m_Name: UnitTestingTitle
+  m_Name: CheatMenuTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 114641272478315600}
   - component: {fileID: 114440378516980634}
   m_Layer: 5
-  m_Name: TemplateTestButtonElement
+  m_Name: TemplateCheatButtonElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -907,7 +907,7 @@ GameObject:
   - component: {fileID: 224637799571413428}
   - component: {fileID: 114508280832683168}
   m_Layer: 5
-  m_Name: TemplateTestSliderElement
+  m_Name: TemplateCheatSliderElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1314,7 +1314,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1203702348953428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a7cf9a597df7483cb9bff0ebbe0f238, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e60c2672edf24ac3859f01450279ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114018825093169076
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1431303704593120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f8aa47153774749b063cdb3d97f1ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c76f9e7ba0e841ea9724fb5973c3dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114151341783242510
@@ -1690,7 +1690,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1209567330612184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f4a8f1336308457c8ab5364eb30ab62, type: 3}
+  m_Script: {fileID: 11500000, guid: 6530c830fa25a4c988674866d012f4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114154980263236034
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1386608761438322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21372d5e6a0304dd39277c3fa343f008, type: 3}
+  m_Script: {fileID: 11500000, guid: c78f0b6bab00a4abaa8ddd05cdfc27c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Title: 
@@ -2375,7 +2375,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1563819302814286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c68806d7926541fbae565a917725c7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6253f0bae994db8aa86fafb3529312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114449640929696176
@@ -2531,7 +2531,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1480800129254110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67dac3d0dd8e45508a503659c18a64e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e509c2b40357490c9ce83c803af2924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_dropdown: {fileID: 114338534821929102}
@@ -2570,7 +2570,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1751038448980248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98a16da0177ab486b87525c3c7e4da0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0387fab29daaa415389639cfb1a8f3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114545225515189406
@@ -3353,19 +3353,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1342168382227756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57c43af3c9d6f4a0aae1ab907145d193, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e639088ccec8443cb701b6cf41d250d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_unitTestingTitle: {fileID: 114489724222867950}
-  m_templateUnitTestingPage: {fileID: 114201606337155928}
+  m_cheatMenuTitle: {fileID: 114489724222867950}
+  m_templateCheatMenuPage: {fileID: 114201606337155928}
   m_templateParent: {fileID: 1908549521901602}
   m_templateTitle: {fileID: 114358746210740142}
   m_templateSpace: {fileID: 1362146489204824}
-  m_templateTestButtonElement: {fileID: 114440378516980634}
-  m_templateTestDropdownElement: {fileID: 114118220159897402}
-  m_templateTestInputFieldElement: {fileID: 114152497660345650}
-  m_templateTestSliderElement: {fileID: 114508280832683168}
-  m_templateTestToggleElement: {fileID: 114009254039969230}
+  m_templateCheatButtonElement: {fileID: 114440378516980634}
+  m_templateCheatDropdownElement: {fileID: 114118220159897402}
+  m_templateCheatInputFieldElement: {fileID: 114152497660345650}
+  m_templateCheatSliderElement: {fileID: 114508280832683168}
+  m_templateCheatToggleElement: {fileID: 114009254039969230}
 --- !u!114 &114865709500099154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5111,7 +5111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -150, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224777822762680866

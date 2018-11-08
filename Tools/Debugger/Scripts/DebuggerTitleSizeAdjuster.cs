@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace TEDCore.Debugger.Console
+namespace TEDCore.Debugger
 {
     [ExecuteInEditMode]
-    public class ConsoleTitleSizeAdjuster : MonoBehaviour
+    public class DebuggerTitleSizeAdjuster : MonoBehaviour
     {
         [SerializeField] private RectTransform m_titleRectTransform;
-        [SerializeField] private RectTransform m_displayLogsRectTransform;
+        [SerializeField] private RectTransform m_contentRectTransform;
         private RectTransform m_canvasRectTransform;
         private float m_width;
 
@@ -31,9 +31,9 @@ namespace TEDCore.Debugger.Console
                 m_titleRectTransform.sizeDelta = sizeDelta;
             }
 
-            if (m_displayLogsRectTransform != null)
+            if (m_contentRectTransform != null)
             {
-                m_displayLogsRectTransform.offsetMax = new Vector2(0, -m_width * 0.08f * 0.5f);
+                m_contentRectTransform.offsetMax = new Vector2(0, -m_width * 0.08f * 0.5f);
             }
         }
     }
