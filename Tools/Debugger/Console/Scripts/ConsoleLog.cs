@@ -18,10 +18,13 @@ namespace TEDCore.Debugger.Console
         [SerializeField] private Image m_logTypeImage;
         [SerializeField] private Text m_logStringText;
         [SerializeField] private Text m_stackTraceText;
+        [SerializeField] private RectTransform m_collapseParent;
+        [SerializeField] private Text m_collapseText;
         private int m_index;
         private LogType m_logType;
         private string m_logString;
         private string m_stackTrace;
+        private int m_collapseCount;
 
         private void Awake()
         {
@@ -77,10 +80,47 @@ namespace TEDCore.Debugger.Console
             m_logStringText.text = m_logString;
         }
 
+        public string GetStackTrace()
+        {
+            return m_stackTrace;
+        }
+
         public void SetStackTrace(string text)
         {
             m_stackTrace = text;
             m_stackTraceText.text = m_stackTrace.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries)[0];
+        }
+
+        public void SetCollapsed(bool value)
+        {
+            m_collapseParent.gameObject.SetActive(value);
+        }
+
+        public void AddCollapseCount()
+        {
+            m_collapseCount++;
+            m_collapseText.text = m_collapseCount.ToString();
+            UpdateCollapseWidth();
+        }
+
+        public void ResetCollapseCount()
+        {
+            m_collapseCount = 1;
+            m_collapseText.text = m_collapseCount.ToString();
+            UpdateCollapseWidth();
+        }
+
+        private void UpdateCollapseWidth()
+        {
+            int digit = m_collapseText.text.Length - 2;
+            if(digit < 0)
+            {
+                digit = 0;
+            }
+
+            Vector2 sizeDelta = m_collapseParent.sizeDelta;
+            sizeDelta.x = 70 + digit * 35;
+            m_collapseParent.sizeDelta = sizeDelta;
         }
 
         private void OnClick()

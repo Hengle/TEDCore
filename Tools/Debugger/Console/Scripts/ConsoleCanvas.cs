@@ -7,6 +7,7 @@ namespace TEDCore.Debugger.Console
     public class ConsoleCanvas : MonoBehaviour
     {
         [SerializeField] private Button m_clearButton;
+        [SerializeField] private Toggle m_collapseToggle;
         [SerializeField] private Button m_scrollToBottomButton;
         [SerializeField] private InputField m_searchFilter;
         [SerializeField] private ConsoleToggle m_consoleToggleLog;
@@ -19,27 +20,33 @@ namespace TEDCore.Debugger.Console
 
         private List<ConsoleLog> m_allLogs;
         private List<ConsoleLog> m_searchFilterLogs;
+        private List<ConsoleLog> m_collapseLogs;
         private List<ConsoleLog> m_displayLogs;
+        private bool m_collapseToggleValue;
         private string m_searchFilterText;
         private bool m_logToggleValue = true;
         private bool m_warningToggleValue = true;
         private bool m_errorToggleValue = true;
         private bool m_forceScrollToBottom = true;
+        private int m_currentDisplayIndex;
+        private int m_displayIndex;
 
         private void Awake()
         {
             m_allLogs = new List<ConsoleLog>();
             m_searchFilterLogs = new List<ConsoleLog>();
+            m_collapseLogs = new List<ConsoleLog>();
             m_displayLogs = new List<ConsoleLog>();
 
             m_clearButton.onClick.AddListener(OnClearButtonClick);
+            m_collapseToggle.onValueChanged.AddListener(OnCollapseToggleValueChanged);
             m_scrollToBottomButton.onClick.AddListener(OnScrollToBottomButtonClick);
             m_searchFilter.onValueChanged.AddListener(OnSearchFilterValueChanged);
             m_consoleToggleLog.SetToggleValueChanged(OnLogToggleValueChanged);
             m_consoleToggleWarning.SetToggleValueChanged(OnWarningToggleValueChanged);
             m_consoleToggleError.SetToggleValueChanged(OnErrorToggleValueChanged);
 
-            UpdateCount();
+            UpdateLogs();
 
             Application.logMessageReceived += HandleLog;
         }
@@ -47,11 +54,16 @@ namespace TEDCore.Debugger.Console
         private void Update()
         {
             m_forceScrollToBottom = m_logScrollRect.verticalNormalizedPosition < 0.1f;
-            int index = (int)(Mathf.Clamp(1 - m_logScrollRect.verticalNormalizedPosition, 0, 1) * m_displayLogs.Count);
 
-            for (int i = 0; i < m_displayLogs.Count; i++)
+            m_displayIndex = (int)(Mathf.Clamp(1 - m_logScrollRect.verticalNormalizedPosition, 0, 1) * m_displayLogs.Count);
+            if(m_currentDisplayIndex != m_displayIndex)
             {
-                m_displayLogs[i].SetBackgroundActive(i >= index - 15 && i <= index + 15);
+                m_currentDisplayIndex = m_displayIndex;
+
+                for (int i = 0; i < m_displayLogs.Count; i++)
+                {
+                    m_displayLogs[i].SetBackgroundActive(i >= m_currentDisplayIndex - 15 && i <= m_currentDisplayIndex + 15);
+                }
             }
         }
 
@@ -63,7 +75,13 @@ namespace TEDCore.Debugger.Console
             }
 
             m_allLogs.Clear();
-            UpdateCount();
+            UpdateLogs();
+        }
+
+        private void OnCollapseToggleValueChanged(bool value)
+        {
+            m_collapseToggleValue = value;
+            UpdateLogs();
         }
 
         private void OnScrollToBottomButtonClick()
@@ -106,13 +124,14 @@ namespace TEDCore.Debugger.Console
             m_allLogs.Add(templateLog);
 
             UpdateLogs();
-            UpdateCount();
         }
 
         private void UpdateLogs()
         {
             UpdateSearchFilterLogs();
+            UpdateCollapseLogs();
             UpdateDisplayLogs();
+            UpdateCount();
             UpdateBackgroundColors();
             OnScrollToBottom();
         }
@@ -136,24 +155,54 @@ namespace TEDCore.Debugger.Console
             }
         }
 
+        private void UpdateCollapseLogs()
+        {
+            m_collapseLogs.Clear();
+
+            ConsoleLog collapseLog = null;
+            for (int i = 0; i < m_searchFilterLogs.Count; i++)
+            {
+                m_searchFilterLogs[i].SetCollapsed(m_collapseToggleValue);
+
+                if(m_collapseToggleValue)
+                {
+                    collapseLog = m_collapseLogs.Find((ConsoleLog obj) => obj.GetLogType() == m_searchFilterLogs[i].GetLogType() && obj.GetLogString() == m_searchFilterLogs[i].GetLogString() && obj.GetStackTrace() == m_searchFilterLogs[i].GetStackTrace());
+                    if (collapseLog != null)
+                    {
+                        collapseLog.AddCollapseCount();
+                    }
+                    else
+                    {
+                        collapseLog = m_searchFilterLogs[i];
+                        collapseLog.ResetCollapseCount();
+                        m_collapseLogs.Add(collapseLog);
+                    }
+                }
+                else
+                {
+                    m_collapseLogs.Add(m_searchFilterLogs[i]);
+                }
+            }
+        }
+
         private void UpdateDisplayLogs()
         {
             m_displayLogs.Clear();
 
-            for (int i = 0; i < m_searchFilterLogs.Count; i++)
+            for (int i = 0; i < m_collapseLogs.Count; i++)
             {
-                switch (m_searchFilterLogs[i].GetLogType())
+                switch (m_collapseLogs[i].GetLogType())
                 {
                     case LogType.Log:
                         if (m_logToggleValue)
                         {
-                            m_displayLogs.Add(m_searchFilterLogs[i]);
+                            m_displayLogs.Add(m_collapseLogs[i]);
                         }
                         break;
                     case LogType.Warning:
                         if (m_warningToggleValue)
                         {
-                            m_displayLogs.Add(m_searchFilterLogs[i]);
+                            m_displayLogs.Add(m_collapseLogs[i]);
                         }
                         break;
                     case LogType.Error:
@@ -161,7 +210,7 @@ namespace TEDCore.Debugger.Console
                     case LogType.Assert:
                         if (m_errorToggleValue)
                         {
-                            m_displayLogs.Add(m_searchFilterLogs[i]);
+                            m_displayLogs.Add(m_collapseLogs[i]);
                         }
                         break;
                 }
@@ -173,26 +222,15 @@ namespace TEDCore.Debugger.Console
             }
         }
 
-        private void UpdateBackgroundColors()
-        {
-            int index = -1;
-
-            for (int i = 0; i < m_displayLogs.Count; i++)
-            {
-                index++;
-                m_displayLogs[i].SetBackgroundColor(index);
-            }
-        }
-
         private void UpdateCount()
         {
             int logCount = 0;
             int warningCount = 0;
             int errorCount = 0;
 
-            for (int i = 0; i < m_allLogs.Count; i++)
+            for (int i = 0; i < m_displayLogs.Count; i++)
             {
-                switch (m_allLogs[i].GetLogType())
+                switch (m_displayLogs[i].GetLogType())
                 {
                     case LogType.Log:
                         logCount++;
@@ -211,6 +249,17 @@ namespace TEDCore.Debugger.Console
             m_consoleToggleLog.SetCount(logCount);
             m_consoleToggleWarning.SetCount(warningCount);
             m_consoleToggleError.SetCount(errorCount);
+        }
+
+        private void UpdateBackgroundColors()
+        {
+            int index = -1;
+
+            for (int i = 0; i < m_displayLogs.Count; i++)
+            {
+                index++;
+                m_displayLogs[i].SetBackgroundColor(index);
+            }
         }
 
         private void OnScrollToBottom()
