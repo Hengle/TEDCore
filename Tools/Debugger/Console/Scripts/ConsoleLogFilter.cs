@@ -17,9 +17,13 @@ namespace TEDCore.Debugger.Console
         private bool m_logToggle = true;
         private bool m_warningToggle = true;
         private bool m_errorToggle = true;
-        private int m_logCount;
-        private int m_warningCount;
-        private int m_errorCount;
+
+        private int m_allLogCount;
+        private int m_allWarningCount;
+        private int m_allErrorCount;
+        private int m_collapsedLogCount;
+        private int m_collapsedWarningCount;
+        private int m_collapsedErrorCount;
 
         public ConsoleLogFilter()
         {
@@ -32,6 +36,14 @@ namespace TEDCore.Debugger.Console
         public void Clear()
         {
             m_allLogDatas.Clear();
+            m_collapseLogDatas.Clear();
+            m_allLogCount = 0;
+            m_allWarningCount = 0;
+            m_allErrorCount = 0;
+            m_collapsedLogCount = 0;
+            m_collapsedWarningCount = 0;
+            m_collapsedErrorCount = 0;
+
             UpdateLogDatas();
         }
 
@@ -67,56 +79,95 @@ namespace TEDCore.Debugger.Console
 
         public void OnLogMessageReceived(string logString, string stackTrace, LogType type)
         {
-            m_allLogDatas.Add(new ConsoleLogData(logString, stackTrace, type));
-            UpdateLogDatas();
+            UpdateLogDatas(new ConsoleLogData(logString, stackTrace, type));
         }
 
-        private void UpdateLogDatas()
+        private void UpdateLogDatas(ConsoleLogData consoleLogData = null)
         {
-            UpdateCollapseLogDatas();
+            UpdateAllLogDatas(consoleLogData);
+            UpdateCollapseLogDatas(consoleLogData);
             UpdateToggleLogDatas();
-            UpdateToggleCount();
             UpdateFilterLogDatas();
         }
 
-        private void UpdateCollapseLogDatas()
+        private void UpdateAllLogDatas(ConsoleLogData consoleLogData)
         {
-            m_collapseLogDatas.Clear();
-
-            ConsoleLogData cacheData = null;
-            for (int i = 0; i < m_allLogDatas.Count; i++)
+            if(consoleLogData == null)
             {
-                if (m_collapseToggle)
+                return;
+            }
+
+            m_allLogDatas.Add(consoleLogData);
+
+            switch(consoleLogData.LogType)
+            {
+                case LogType.Log:
+                    m_allLogCount++;
+                    break;
+                case LogType.Warning:
+                    m_allWarningCount++;
+                    break;
+                case LogType.Error:
+                case LogType.Exception:
+                case LogType.Assert:
+                    m_allErrorCount++;
+                    break;
+            }
+        }
+
+        private void UpdateCollapseLogDatas(ConsoleLogData consoleLogData)
+        {
+            if (consoleLogData == null)
+            {
+                return;
+            }
+
+            ConsoleLogData cacheData = m_collapseLogDatas.Find((ConsoleLogData obj) => obj.LogString == consoleLogData.LogString && obj.StackTrace == consoleLogData.StackTrace && obj.LogType == consoleLogData.LogType);
+            if (cacheData != null)
+            {
+                cacheData.CollapseCount++;
+            }
+            else
+            {
+                cacheData = consoleLogData;
+                cacheData.CollapseCount = 1;
+                m_collapseLogDatas.Add(cacheData);
+
+                switch (consoleLogData.LogType)
                 {
-                    cacheData = m_collapseLogDatas.Find((ConsoleLogData obj) => obj.LogString == m_allLogDatas[i].LogString && obj.StackTrace == m_allLogDatas[i].StackTrace && obj.LogType == m_allLogDatas[i].LogType);
-                    if (cacheData != null)
-                    {
-                        cacheData.CollapseCount++;
-                    }
-                    else
-                    {
-                        cacheData = m_allLogDatas[i];
-                        cacheData.CollapseCount = 1;
-                        m_collapseLogDatas.Add(cacheData);
-                    }
-                }
-                else
-                {
-                    cacheData = m_allLogDatas[i];
-                    cacheData.CollapseCount = 0;
-                    m_collapseLogDatas.Add(cacheData);
+                    case LogType.Log:
+                        m_collapsedLogCount++;
+                        break;
+                    case LogType.Warning:
+                        m_collapsedWarningCount++;
+                        break;
+                    case LogType.Error:
+                    case LogType.Exception:
+                    case LogType.Assert:
+                        m_collapsedErrorCount++;
+                        break;
                 }
             }
         }
 
         private void UpdateToggleLogDatas()
         {
+            List<ConsoleLogData> consoleLogDatas = new List<ConsoleLogData>();
+            if(m_collapseToggle)
+            {
+                consoleLogDatas.AddRange(m_collapseLogDatas);
+            }
+            else
+            {
+                consoleLogDatas.AddRange(m_allLogDatas);
+            }
+
             m_toggleLogDatas.Clear();
 
             ConsoleLogData cacheData = null;
-            for (int i = 0; i < m_collapseLogDatas.Count; i++)
+            for (int i = 0; i < consoleLogDatas.Count; i++)
             {
-                cacheData = m_collapseLogDatas[i];
+                cacheData = consoleLogDatas[i];
                 switch (cacheData.LogType)
                 {
                     case LogType.Log:
@@ -143,31 +194,6 @@ namespace TEDCore.Debugger.Console
             }
         }
 
-        private void UpdateToggleCount()
-        {
-            m_logCount = 0;
-            m_warningCount = 0;
-            m_errorCount = 0;
-
-            for (int i = 0; i < m_collapseLogDatas.Count; i++)
-            {
-                switch (m_collapseLogDatas[i].LogType)
-                {
-                    case LogType.Log:
-                        m_logCount++;
-                        break;
-                    case LogType.Warning:
-                        m_warningCount++;
-                        break;
-                    case LogType.Error:
-                    case LogType.Exception:
-                    case LogType.Assert:
-                        m_errorCount++;
-                        break;
-                }
-            }
-        }
-
         private void UpdateFilterLogDatas()
         {
             m_filterLogDatas.Clear();
@@ -183,7 +209,14 @@ namespace TEDCore.Debugger.Console
 
             if(OnUpdateFinished != null)
             {
-                OnUpdateFinished(m_filterLogDatas, m_logCount, m_warningCount, m_errorCount);
+                if(m_collapseToggle)
+                {
+                    OnUpdateFinished(m_filterLogDatas, m_collapsedLogCount, m_collapsedWarningCount, m_collapsedErrorCount);
+                }
+                else
+                {
+                    OnUpdateFinished(m_filterLogDatas, m_allLogCount, m_allWarningCount, m_allErrorCount);
+                }
             }
         }
     }
