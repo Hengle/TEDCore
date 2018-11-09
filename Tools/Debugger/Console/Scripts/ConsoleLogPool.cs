@@ -33,6 +33,8 @@ namespace TEDCore.Debugger.Console
         public void Recovery(ConsoleLog templateLog)
         {
             templateLog.transform.SetParent(transform, false);
+            templateLog.transform.localScale = Vector3.one;
+            templateLog.transform.localPosition = Vector3.zero;
             m_consoleLogPool.Enqueue(templateLog);
         }
 
