@@ -6,6 +6,23 @@ namespace TEDCore.Debugger.Console
 {
     public class ConsoleCanvas : MonoBehaviour
     {
+        [System.Serializable]
+        private class LogData
+        {
+            public string LogString;
+            public string StackTrace;
+            public LogType LogType;
+            public int CollapseCount;
+
+            public LogData(string logString, string stackTrace, LogType logType)
+            {
+                LogString = logString;
+                StackTrace = stackTrace;
+                LogType = logType;
+                CollapseCount = 0;
+            }
+        }
+
         [SerializeField] private Button m_clearButton;
         [SerializeField] private Toggle m_collapseToggle;
         [SerializeField] private Button m_scrollToBottomButton;
@@ -18,10 +35,12 @@ namespace TEDCore.Debugger.Console
 
         [SerializeField] private ScrollRect m_logScrollRect;
 
-        private List<ConsoleLog> m_allLogs;
-        private List<ConsoleLog> m_searchFilterLogs;
-        private List<ConsoleLog> m_collapseLogs;
-        private List<ConsoleLog> m_displayLogs;
+        private List<LogData> m_allLogDatas;
+        private List<LogData> m_collapseLogDatas;
+        private List<LogData> m_toggleLogDatas;
+        private List<LogData> m_filterLogDatas;
+        private List<ConsoleLog> m_displayElements = new List<ConsoleLog>();
+
         private bool m_collapseToggleValue;
         private string m_searchFilterText;
         private bool m_logToggleValue = true;
@@ -33,10 +52,10 @@ namespace TEDCore.Debugger.Console
 
         private void Awake()
         {
-            m_allLogs = new List<ConsoleLog>();
-            m_searchFilterLogs = new List<ConsoleLog>();
-            m_collapseLogs = new List<ConsoleLog>();
-            m_displayLogs = new List<ConsoleLog>();
+            m_allLogDatas = new List<LogData>();
+            m_collapseLogDatas = new List<LogData>();
+            m_toggleLogDatas = new List<LogData>();
+            m_filterLogDatas = new List<LogData>();
 
             m_clearButton.onClick.AddListener(OnClearButtonClick);
             m_collapseToggle.onValueChanged.AddListener(OnCollapseToggleValueChanged);
@@ -46,7 +65,7 @@ namespace TEDCore.Debugger.Console
             m_consoleToggleWarning.SetToggleValueChanged(OnWarningToggleValueChanged);
             m_consoleToggleError.SetToggleValueChanged(OnErrorToggleValueChanged);
 
-            UpdateLogs();
+            UpdateLogDatas();
 
             Application.logMessageReceived += HandleLog;
         }
@@ -54,34 +73,26 @@ namespace TEDCore.Debugger.Console
         private void Update()
         {
             m_forceScrollToBottom = m_logScrollRect.verticalNormalizedPosition < 0.1f;
-
-            m_displayIndex = (int)(Mathf.Clamp(1 - m_logScrollRect.verticalNormalizedPosition, 0, 1) * m_displayLogs.Count);
-            if(m_currentDisplayIndex != m_displayIndex)
-            {
-                m_currentDisplayIndex = m_displayIndex;
-
-                for (int i = 0; i < m_displayLogs.Count; i++)
-                {
-                    m_displayLogs[i].SetBackgroundActive(i >= m_currentDisplayIndex - 15 && i <= m_currentDisplayIndex + 15);
-                }
-            }
+            UpdateUIElements();
         }
 
         private void OnClearButtonClick()
         {
-            foreach (ConsoleLog log in m_allLogs)
+            foreach (ConsoleLog log in m_displayElements)
             {
                 m_consoleLogPool.Recovery(log);
             }
 
-            m_allLogs.Clear();
-            UpdateLogs();
+            m_displayElements.Clear();
+            m_allLogDatas.Clear();
+
+            UpdateLogDatas();
         }
 
         private void OnCollapseToggleValueChanged(bool value)
         {
             m_collapseToggleValue = value;
-            UpdateLogs();
+            UpdateLogDatas();
         }
 
         private void OnScrollToBottomButtonClick()
@@ -93,144 +104,82 @@ namespace TEDCore.Debugger.Console
         private void OnSearchFilterValueChanged(string value)
         {
             m_searchFilterText = value;
-            UpdateLogs();
+            UpdateLogDatas();
         }
 
         private void OnLogToggleValueChanged(bool value)
         {
             m_logToggleValue = value;
-            UpdateLogs();
+            UpdateLogDatas();
         }
 
         private void OnWarningToggleValueChanged(bool value)
         {
             m_warningToggleValue = value;
-            UpdateLogs();
+            UpdateLogDatas();
         }
 
         private void OnErrorToggleValueChanged(bool value)
         {
             m_errorToggleValue = value;
-            UpdateLogs();
+            UpdateLogDatas();
         }
 
         private void HandleLog(string logString, string stackTrace, LogType type)
         {
-            ConsoleLog templateLog = m_consoleLogPool.Get();
-            templateLog.SetLogType(type);
-            templateLog.SetLogString(logString);
-            templateLog.SetStackTrace(stackTrace);
-
-            m_allLogs.Add(templateLog);
-
-            UpdateLogs();
+            m_allLogDatas.Add(new LogData(logString, stackTrace, type));
+            UpdateLogDatas();
         }
 
-        private void UpdateLogs()
+        private void UpdateLogDatas()
         {
-            UpdateSearchFilterLogs();
-            UpdateCollapseLogs();
-            UpdateDisplayLogs();
-            UpdateCount();
-            UpdateBackgroundColors();
+            UpdateCollapseLogDatas();
+            UpdateToggleLogDatas();
+            UpdateToggleCount();
+            UpdateFilterLogDatas();
+            UpdateUIElements();
             OnScrollToBottom();
         }
 
-        private void UpdateSearchFilterLogs()
+        private void UpdateCollapseLogDatas()
         {
-            for (int i = 0; i < m_allLogs.Count; i++)
+            m_collapseLogDatas.Clear();
+
+            LogData cacheData = null;
+            for (int i = 0; i < m_allLogDatas.Count; i++)
             {
-                m_allLogs[i].gameObject.SetActive(false);
-            }
-
-            m_searchFilterLogs.Clear();
-
-            if (string.IsNullOrEmpty(m_searchFilterText))
-            {
-                m_searchFilterLogs.AddRange(m_allLogs);
-            }
-            else
-            {
-                m_searchFilterLogs = m_allLogs.FindAll(templateLog => templateLog.GetLogString().Contains(m_searchFilterText));
-            }
-        }
-
-        private void UpdateCollapseLogs()
-        {
-            m_collapseLogs.Clear();
-
-            ConsoleLog collapseLog = null;
-            for (int i = 0; i < m_searchFilterLogs.Count; i++)
-            {
-                m_searchFilterLogs[i].SetCollapsed(m_collapseToggleValue);
-
                 if(m_collapseToggleValue)
                 {
-                    collapseLog = m_collapseLogs.Find((ConsoleLog obj) => obj.GetLogType() == m_searchFilterLogs[i].GetLogType() && obj.GetLogString() == m_searchFilterLogs[i].GetLogString() && obj.GetStackTrace() == m_searchFilterLogs[i].GetStackTrace());
-                    if (collapseLog != null)
+                    cacheData = m_collapseLogDatas.Find((LogData obj) => obj.LogString == m_allLogDatas[i].LogString && obj.StackTrace == m_allLogDatas[i].StackTrace && obj.LogType == m_allLogDatas[i].LogType);
+                    if (cacheData != null)
                     {
-                        collapseLog.AddCollapseCount();
+                        cacheData.CollapseCount++;
                     }
                     else
                     {
-                        collapseLog = m_searchFilterLogs[i];
-                        collapseLog.ResetCollapseCount();
-                        m_collapseLogs.Add(collapseLog);
+                        cacheData = m_allLogDatas[i];
+                        cacheData.CollapseCount = 1;
+                        m_collapseLogDatas.Add(cacheData);
                     }
                 }
                 else
                 {
-                    m_collapseLogs.Add(m_searchFilterLogs[i]);
+                    cacheData = m_allLogDatas[i];
+                    cacheData.CollapseCount = 0;
+                    m_collapseLogDatas.Add(cacheData);
                 }
             }
         }
 
-        private void UpdateDisplayLogs()
-        {
-            m_displayLogs.Clear();
-
-            for (int i = 0; i < m_collapseLogs.Count; i++)
-            {
-                switch (m_collapseLogs[i].GetLogType())
-                {
-                    case LogType.Log:
-                        if (m_logToggleValue)
-                        {
-                            m_displayLogs.Add(m_collapseLogs[i]);
-                        }
-                        break;
-                    case LogType.Warning:
-                        if (m_warningToggleValue)
-                        {
-                            m_displayLogs.Add(m_collapseLogs[i]);
-                        }
-                        break;
-                    case LogType.Error:
-                    case LogType.Exception:
-                    case LogType.Assert:
-                        if (m_errorToggleValue)
-                        {
-                            m_displayLogs.Add(m_collapseLogs[i]);
-                        }
-                        break;
-                }
-            }
-
-            for (int i = 0; i < m_displayLogs.Count; i++)
-            {
-                m_displayLogs[i].gameObject.SetActive(true);
-            }
-        }
-
-        private void UpdateCount()
+        private void UpdateToggleCount()
         {
             int logCount = 0;
             int warningCount = 0;
             int errorCount = 0;
 
-            for (int i = 0; i < m_displayLogs.Count; i++)
+            for (int i = 0; i < m_collapseLogDatas.Count; i++)
             {
-                switch (m_displayLogs[i].GetLogType())
+                switch (m_collapseLogDatas[i].LogType)
                 {
                     case LogType.Log:
                         logCount++;
@@ -251,14 +200,113 @@ namespace TEDCore.Debugger.Console
             m_consoleToggleError.SetCount(errorCount);
         }
 
-        private void UpdateBackgroundColors()
+        private void UpdateToggleLogDatas()
         {
-            int index = -1;
+            m_toggleLogDatas.Clear();
 
-            for (int i = 0; i < m_displayLogs.Count; i++)
+            LogData cacheData = null;
+            for (int i = 0; i < m_collapseLogDatas.Count; i++)
             {
-                index++;
-                m_displayLogs[i].SetBackgroundColor(index);
+                cacheData = m_collapseLogDatas[i];
+                switch (cacheData.LogType)
+                {
+                    case LogType.Log:
+                        if (m_logToggleValue)
+                        {
+                            m_toggleLogDatas.Add(cacheData);
+                        }
+                        break;
+                    case LogType.Warning:
+                        if (m_warningToggleValue)
+                        {
+                            m_toggleLogDatas.Add(cacheData);
+                        }
+                        break;
+                    case LogType.Error:
+                    case LogType.Exception:
+                    case LogType.Assert:
+                        if (m_errorToggleValue)
+                        {
+                            m_toggleLogDatas.Add(cacheData);
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void UpdateFilterLogDatas()
+        {
+            m_filterLogDatas.Clear();
+
+            if (string.IsNullOrEmpty(m_searchFilterText))
+            {
+                m_filterLogDatas.AddRange(m_toggleLogDatas);
+            }
+            else
+            {
+                m_filterLogDatas = m_toggleLogDatas.FindAll(templateLog => templateLog.LogString.Contains(m_searchFilterText));
+            }
+        }
+
+        private void UpdateUIElements()
+        {
+            int filterLogDataCount = m_filterLogDatas.Count;
+            int displayElementCount = m_displayElements.Count;
+
+            if (filterLogDataCount != displayElementCount)
+            {
+                if(displayElementCount > filterLogDataCount)
+                {
+                    for (int i = 0; i < displayElementCount - filterLogDataCount; i++)
+                    {
+                        ConsoleLog consoleLog = m_displayElements[0];
+                        m_consoleLogPool.Recovery(consoleLog);
+                        m_displayElements.Remove(consoleLog);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < filterLogDataCount - displayElementCount; i++)
+                    {
+                        m_displayElements.Add(m_consoleLogPool.Get());
+                    }
+                }
+
+                for (int i = 0; i < m_filterLogDatas.Count; i++)
+                {
+                    m_displayElements[i].SetLogType(m_filterLogDatas[i].LogType);
+                    m_displayElements[i].SetLogString(m_filterLogDatas[i].LogString);
+                    m_displayElements[i].SetStackTrace(m_filterLogDatas[i].StackTrace);
+                    m_displayElements[i].SetBackgroundColor(i);
+                    m_displayElements[i].SetCollapsed(m_collapseToggleValue);
+                    m_displayElements[i].SetCollapsedCount(m_filterLogDatas[i].CollapseCount);
+                }
+
+                m_currentDisplayIndex = -1;
+            }
+            else
+            {
+                for (int i = 0; i < m_filterLogDatas.Count; i++)
+                {
+                    m_displayElements[i].SetCollapsedCount(m_filterLogDatas[i].CollapseCount);
+                }
+            }
+
+            m_displayIndex = (int)(Mathf.Clamp(1 - m_logScrollRect.verticalNormalizedPosition, 0, 1) * m_filterLogDatas.Count);
+            if (m_currentDisplayIndex != m_displayIndex)
+            {
+                m_currentDisplayIndex = m_displayIndex;
+                for (int i = 0; i < m_displayElements.Count; i++)
+                {
+                    if (i < m_currentDisplayIndex - 15 || i > m_currentDisplayIndex + 15)
+                    {
+                        m_displayElements[i].SetBackgroundActive(false);
+                    }
+                    else
+                    {
+                        m_displayElements[i].SetBackgroundActive(true);
+                    }
+                }
             }
         }
 

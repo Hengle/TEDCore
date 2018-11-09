@@ -29,7 +29,10 @@ namespace TEDCore.Debugger.Console
         private void Awake()
         {
             Button button = GetComponent<Button>();
-            button.onClick.AddListener(OnClick);
+            if(button != null)
+            {
+                button.onClick.AddListener(OnClick);
+            }
         }
 
         public void SetBackgroundColor(int index)
@@ -96,16 +99,9 @@ namespace TEDCore.Debugger.Console
             m_collapseParent.gameObject.SetActive(value);
         }
 
-        public void AddCollapseCount()
+        public void SetCollapsedCount(int value)
         {
-            m_collapseCount++;
-            m_collapseText.text = m_collapseCount.ToString();
-            UpdateCollapseWidth();
-        }
-
-        public void ResetCollapseCount()
-        {
-            m_collapseCount = 1;
+            m_collapseCount = value;
             m_collapseText.text = m_collapseCount.ToString();
             UpdateCollapseWidth();
         }

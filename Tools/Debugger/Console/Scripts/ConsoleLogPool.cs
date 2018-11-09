@@ -7,14 +7,14 @@ namespace TEDCore.Debugger.Console
     {
         [SerializeField] private ConsoleLog m_templateConsoleLog;
         [SerializeField] private Transform m_scrollContent;
-        private Queue<ConsoleLog> m_pools;
+        private Queue<ConsoleLog> m_consoleLogPool;
 
         private void Awake()
         {
-            m_pools = new Queue<ConsoleLog>();
+            m_consoleLogPool = new Queue<ConsoleLog>();
         }
 
-        private void CreateLog()
+        private void CreateConsoleLog()
         {
             Recovery(Instantiate(m_templateConsoleLog));
         }
@@ -22,22 +22,20 @@ namespace TEDCore.Debugger.Console
         public void Recovery(ConsoleLog templateLog)
         {
             templateLog.transform.SetParent(transform, false);
-            templateLog.gameObject.SetActive(false);
-            m_pools.Enqueue(templateLog);
+            m_consoleLogPool.Enqueue(templateLog);
         }
 
         public ConsoleLog Get()
         {
-            if (m_pools.Count == 0)
+            if (m_consoleLogPool.Count == 0)
             {
-                CreateLog();
+                CreateConsoleLog();
             }
 
-            ConsoleLog templateLog = m_pools.Dequeue();
+            ConsoleLog templateLog = m_consoleLogPool.Dequeue();
             templateLog.transform.SetParent(m_scrollContent, false);
             templateLog.transform.localScale = Vector3.one;
             templateLog.transform.localEulerAngles = Vector3.zero;
-            templateLog.gameObject.SetActive(true);
 
             return templateLog;
         }
