@@ -13,7 +13,7 @@ namespace TEDCore.Debugger.CheatMenu
         [Header("Template References")]
         [SerializeField] private CheatMenuPage m_templateCheatMenuPage;
         [SerializeField] private GameObject m_templateParent;
-        [SerializeField] private Text m_templateTitle;
+        [SerializeField] private GameObject m_templateTitle;
         [SerializeField] private GameObject m_templateSpace;
 
         [Header("Template Cheat Elements")]
@@ -110,7 +110,6 @@ namespace TEDCore.Debugger.CheatMenu
         private GameObject GenerateTitle(CheatMenuPage cheatMenuPage)
         {
             GameObject cacheInstance = Instantiate(m_templateTitle.gameObject, cheatMenuPage.ContentRoot);
-            cacheInstance.GetComponent<Text>().text = cheatMenuPage.Title;
             cacheInstance.SetActive(true);
 
             return cacheInstance;
