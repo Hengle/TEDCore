@@ -454,7 +454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1360936271945806
 GameObject:
   m_ObjectHideFlags: 1
@@ -590,6 +590,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1540338481939036
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224554086314232880}
+  m_Layer: 5
+  m_Name: DisableParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1544793996186466
 GameObject:
   m_ObjectHideFlags: 1
@@ -725,7 +740,7 @@ GameObject:
   - component: {fileID: 114491103975934532}
   - component: {fileID: 114108315078645984}
   - component: {fileID: 114207461947019098}
-  - component: {fileID: 114011750808194180}
+  - component: {fileID: 114771116774877308}
   m_Layer: 5
   m_Name: ConsoleCanvas
   m_TagString: Untagged
@@ -1213,26 +1228,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114011750808194180
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1636854950204876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 591ba427538e247e8b75fed762958ef5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_clearButton: {fileID: 114953925453122438}
-  m_collapseToggle: {fileID: 114466091576069186}
-  m_scrollToBottomButton: {fileID: 114176714962998394}
-  m_searchFilter: {fileID: 114247348121325918}
-  m_consoleToggleLog: {fileID: 114032125610302126}
-  m_consoleToggleWarning: {fileID: 114671617141882770}
-  m_consoleToggleError: {fileID: 114437961258846526}
-  m_consoleLogPool: {fileID: 114737388423191104}
-  m_logScrollRect: {fileID: 114617386719655936}
 --- !u!114 &114019664467318776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1621,6 +1616,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 738e6cc5bbb824e00abf6a2fd00bec78, type: 3}
   - {fileID: 21300000, guid: 9e281985ba81449ba98a1f54c943331a, type: 3}
   m_consoleSelectedLog: {fileID: 114974168660893682}
+  m_disableParent: {fileID: 224554086314232880}
   m_backgroundImage: {fileID: 114609504583660154}
   m_logTypeImage: {fileID: 114567003730870142}
   m_logStringText: {fileID: 114659883684481640}
@@ -3119,6 +3115,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_toggle: {fileID: 114466091576069186}
   m_countText: {fileID: 114578772239598302}
+--- !u!114 &114771116774877308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636854950204876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591ba427538e247e8b75fed762958ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_screen: {fileID: 1023542805787712}
+  m_clearButton: {fileID: 114953925453122438}
+  m_collapseToggle: {fileID: 114466091576069186}
+  m_scrollToBottomButton: {fileID: 114176714962998394}
+  m_searchFilter: {fileID: 114247348121325918}
+  m_consoleToggleLog: {fileID: 114032125610302126}
+  m_consoleToggleWarning: {fileID: 114671617141882770}
+  m_consoleToggleError: {fileID: 114437961258846526}
+  m_consoleLogPool: {fileID: 114737388423191104}
+  m_logScrollRect: {fileID: 114617386719655936}
 --- !u!114 &114780638073780418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4345,7 +4362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10000}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224348580488335932
@@ -4575,6 +4592,24 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: -4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224554086314232880
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1540338481939036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224860872829313568}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224566247827081664
 RectTransform:
@@ -5071,6 +5106,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224056168586649978}
+  - {fileID: 224554086314232880}
   m_Father: {fileID: 224344638514980488}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -13,7 +13,7 @@ namespace TEDCore.Debugger.Console
         };
         [SerializeField] private Sprite[] m_logTypeSprites;
         [SerializeField] private ConsoleSelectedLog m_consoleSelectedLog;
-
+        [SerializeField] private Transform m_disableParent;
         [SerializeField] private Image m_backgroundImage;
         [SerializeField] private Image m_logTypeImage;
         [SerializeField] private Text m_logStringText;
@@ -40,9 +40,9 @@ namespace TEDCore.Debugger.Console
             m_backgroundImage.color = m_backgroundColors[index % m_backgroundColors.Length];
         }
 
-        public void SetBackgroundActive(bool value)
+        public void SetEnable(bool value)
         {
-            m_backgroundImage.gameObject.SetActive(value);
+            m_backgroundImage.transform.SetParent(value ? transform : m_disableParent, false);
         }
 
         public LogType GetLogType()
