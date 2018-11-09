@@ -40,6 +40,13 @@ namespace TEDCore.Debugger.Console
             m_consoleToggleError.SetToggleValueChanged(OnErrorToggleValueChanged);
 
             Application.logMessageReceived += m_consoleLogFilter.OnLogMessageReceived;
+            Application.logMessageReceivedThreaded += m_consoleLogFilter.LogMessageReceivedThreaded;
+        }
+
+        private void OnDestroy()
+        {
+            Application.logMessageReceived -= m_consoleLogFilter.OnLogMessageReceived;
+            Application.logMessageReceivedThreaded += m_consoleLogFilter.LogMessageReceivedThreaded;
         }
 
         private void Update()

@@ -1,65 +1,54 @@
 ﻿using UnityEngine;
-using System.IO;
-using TEDCore.PlayerData;
+using System.Threading;
 
 namespace TEDCore.Log
 {
     public class LogManager : MonoSingleton<LogManager>
     {
-        private const string DEFAULT_LINE_SEPARATOR = "------------------------------------------------------------------------------------------";
-        private StreamWriter m_streamWriter;
+        private int m_threadId;
+        private ClientLogFile m_clientLogFile;
+
+        private void Awake()
+        {
+            m_threadId = Thread.CurrentThread.ManagedThreadId;
+        }
 
         public void StartRecording()
         {
-            CreateFile();
-            Application.logMessageReceived += HandleLog;
-        }
-
-        private void CreateFile()
-        {
-            string logPath = GetFilePath();
-
-            if (File.Exists(logPath))
+            if (m_clientLogFile == null)
             {
-                File.Delete(logPath);
+                m_clientLogFile = new ClientLogFile();
+                Application.logMessageReceived += OnLogMessageReceived;
+                Application.logMessageReceivedThreaded += OnLogMessageReceivedThreaded;
             }
-
-            string logDir = Path.GetDirectoryName(logPath);
-            if (!Directory.Exists(logDir))
-            {
-                Directory.CreateDirectory(logDir);
-            }
-
-            m_streamWriter = new StreamWriter(logPath);
-            m_streamWriter.AutoFlush = true;
         }
 
-        private string GetFilePath()
+        private void OnLogMessageReceived(string logString, string stackTrace, LogType type)
         {
-            return string.Format("{0}Log_{1}.txt", GetLogPath(), System.DateTime.Now.ToString("yyyyMMddHHmmss"));
-        }
-
-        private string GetLogPath()
-        {
-            return PlayerDataUtils.GetPersistentDataPath() + "/LogData/";
-        }
-
-        private void HandleLog(string logString, string stackTrace, LogType type)
-        {
-            if (type == LogType.Log || type == LogType.Warning)
+            if(m_threadId != Thread.CurrentThread.ManagedThreadId)
             {
                 return;
             }
 
-            m_streamWriter.WriteLine(DEFAULT_LINE_SEPARATOR);
-            m_streamWriter.WriteLine(System.DateTime.Now.ToString() + "\t" + logString);
-            m_streamWriter.WriteLine(stackTrace);
+            m_clientLogFile.AddLog(logString, stackTrace, type);
+        }
+
+        private void OnLogMessageReceivedThreaded(string logString, string stackTrace, LogType type)
+        {
+            if (m_threadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                return;
+            }
+
+            m_clientLogFile.AddLog(logString, stackTrace, type);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            Application.logMessageReceived -= HandleLog;
+            m_clientLogFile = null;
+            Application.logMessageReceived -= OnLogMessageReceived;
+            Application.logMessageReceived -= OnLogMessageReceived;
         }
     }
 }

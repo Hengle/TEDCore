@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Threading;
 
 namespace TEDCore.Debugger.Console
 {
@@ -8,6 +9,7 @@ namespace TEDCore.Debugger.Console
     {
         public Action<List<ConsoleLogData>, int, int, int> OnUpdateFinished;
 
+        private int m_mainThreadId;
         private List<ConsoleLogData> m_allLogDatas;
         private List<ConsoleLogData> m_collapseLogDatas;
         private List<ConsoleLogData> m_toggleLogDatas;
@@ -27,6 +29,8 @@ namespace TEDCore.Debugger.Console
 
         public ConsoleLogFilter()
         {
+            m_mainThreadId = Thread.CurrentThread.ManagedThreadId;
+
             m_allLogDatas = new List<ConsoleLogData>();
             m_collapseLogDatas = new List<ConsoleLogData>();
             m_toggleLogDatas = new List<ConsoleLogData>();
@@ -79,6 +83,21 @@ namespace TEDCore.Debugger.Console
 
         public void OnLogMessageReceived(string logString, string stackTrace, LogType type)
         {
+            if(m_mainThreadId != Thread.CurrentThread.ManagedThreadId)
+            {
+                return;
+            }
+
+            UpdateLogDatas(new ConsoleLogData(logString, stackTrace, type));
+        }
+
+        public void LogMessageReceivedThreaded(string logString, string stackTrace, LogType type)
+        {
+            if (m_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                return;
+            }
+
             UpdateLogDatas(new ConsoleLogData(logString, stackTrace, type));
         }
 
